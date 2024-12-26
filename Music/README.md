@@ -1,5 +1,4 @@
 # Music
-## play.json
-Slower and worse searching functionality but is not limit to 100 search requests a day.
-## play-improved.json
-Requires a Google API key which can be obtained [here](https://console.cloud.google.com/apis/credentials), limited to 100 webAPI requests a day.
+## play-file.json (recommended)
+By far the most stable out of all 3 music playing related commands. Allows user to attach a music file and will add it to a queue.
+This is also the only offical recommended music playing command.
