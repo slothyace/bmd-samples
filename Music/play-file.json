@@ -13,7 +13,7 @@
           "value": ""
         },
         "replyToInteraction": true,
-        "ephemeral": true
+        "ephemeral": false
       },
       "id": 1735143314460
     },
@@ -153,7 +153,20 @@
           {
             "type": "options"
           }
-        ]
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
       },
       "id": 1735215541240
     },
@@ -255,7 +268,7 @@
       "data": {
         "name": "Play URL",
         "url": "${tempVars('file-url')}",
-        "queuing": "At End Of Queue",
+        "queuing": "Don't Queue, Just Play",
         "queuePosition": ""
       },
       "id": 1735143286064
@@ -300,7 +313,20 @@
           {
             "type": "options"
           }
-        ]
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
       },
       "id": 1735143306205
     },
@@ -361,7 +387,20 @@
           {
             "type": "options"
           }
-        ]
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
       },
       "id": 1735215140072
     }
