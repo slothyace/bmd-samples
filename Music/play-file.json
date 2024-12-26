@@ -279,7 +279,7 @@
               "thumbnailURL": "",
               "authorName": "",
               "authorIcon": "",
-              "description": "***:musical_note: Now playing:***\n[${tempVars('file-name')}](${tempVars('file-url')}) [${tempVars('file-size').toFixed(2)}mb]",
+              "description": "***:musical_note: Added to queue:***\n[${tempVars('file-name')}](${tempVars('file-url')}) [${tempVars('file-size').toFixed(2)}mb]",
               "fields": [],
               "url": "",
               "timestamp": "Current",
