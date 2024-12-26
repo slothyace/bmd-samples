@@ -1,0 +1,388 @@
+    {
+  "name": "play-file",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Defer Interaction",
+      "file": "deferInteraction.js",
+      "data": {
+        "name": "Defer Interaction",
+        "interaction": {
+          "type": "commandInteraction",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "ephemeral": true
+      },
+      "id": 1735143314460
+    },
+    {
+      "name": "Get Member Info",
+      "file": "getMemberInfo.js",
+      "data": {
+        "name": "Get Member Info",
+        "member": {
+          "type": "author",
+          "value": ""
+        },
+        "get": {
+          "type": "voiceChannel",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "vc"
+        }
+      },
+      "id": 1735143337395
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "vc"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "not-in-vc"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1735215057978
+    },
+    {
+      "name": "Join Voice Channel",
+      "file": "joinVoiceChannel.js",
+      "data": {
+        "name": "Join Voice Channel",
+        "channel": {
+          "type": "tempVar",
+          "value": "vc"
+        }
+      },
+      "id": 1735143360342
+    },
+    {
+      "name": "Get Attachment Info",
+      "file": "getAttachmentInfo.js",
+      "data": {
+        "name": "Get Attachment Info",
+        "attachment": {
+          "type": "tempVar",
+          "value": "file"
+        },
+        "get": {
+          "type": "contentType",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "file-type"
+        }
+      },
+      "id": 1735215282842
+    },
+    {
+      "name": "Check If Text Starts With",
+      "file": "checkIfTextStartsWith.js",
+      "data": {
+        "name": "Check If Text Starts With",
+        "string": "${tempVars('file-type')}",
+        "startsWith": "audio/",
+        "true": {
+          "type": "anchorJump",
+          "value": "play-file-ok"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1735215296837
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play-file",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "You've provided a non-audio file!",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ]
+      },
+      "id": 1735215541240
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1735215347348
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "play-file-ok"
+      },
+      "id": 1735215353378
+    },
+    {
+      "name": "Get Attachment Info",
+      "file": "getAttachmentInfo.js",
+      "data": {
+        "name": "Get Attachment Info",
+        "attachment": {
+          "type": "tempVar",
+          "value": "file"
+        },
+        "get": {
+          "type": "url",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "file-url"
+        }
+      },
+      "id": 1735143222763
+    },
+    {
+      "name": "Get Attachment Info",
+      "file": "getAttachmentInfo.js",
+      "data": {
+        "name": "Get Attachment Info",
+        "attachment": {
+          "type": "tempVar",
+          "value": "file"
+        },
+        "get": {
+          "type": "filename",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "file-name"
+        }
+      },
+      "id": 1735146361824
+    },
+    {
+      "name": "Get Attachment Info",
+      "file": "getAttachmentInfo.js",
+      "data": {
+        "name": "Get Attachment Info",
+        "attachment": {
+          "type": "tempVar",
+          "value": "file"
+        },
+        "get": {
+          "type": "size",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "file-size"
+        }
+      },
+      "id": 1735146371361
+    },
+    {
+      "name": "Calculate",
+      "file": "calculate.js",
+      "data": {
+        "name": "Calculate",
+        "firstNumber": "${tempVars('file-size')}",
+        "operation": "Division",
+        "secondNumber": "1000000",
+        "store": {
+          "type": "temporary",
+          "value": "file-size"
+        }
+      },
+      "id": 1735146682593
+    },
+    {
+      "name": "Play URL",
+      "file": "playURL.js",
+      "data": {
+        "name": "Play URL",
+        "url": "${tempVars('file-url')}",
+        "queuing": "At End Of Queue",
+        "queuePosition": ""
+      },
+      "id": 1735143286064
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play-file",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "***:musical_note: Now playing:***\n[${tempVars('file-name')}](${tempVars('file-url')}) [${tempVars('file-size').toFixed(2)}mb]",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ]
+      },
+      "id": 1735143306205
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1735215083760
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "not-in-vc"
+      },
+      "id": 1735215090363
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play-file",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "You're not in a voice channel!",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ]
+      },
+      "id": 1735215140072
+    }
+  ],
+  "customId": 1735143157586,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [
+    {
+      "name": "file",
+      "type": "attachment",
+      "description": "File to play",
+      "required": true,
+      "choices": [],
+      "storeAs": "file",
+      "completion": false
+    }
+  ],
+  "description": "Plays music file",
+  "folder": []
+}
+    
