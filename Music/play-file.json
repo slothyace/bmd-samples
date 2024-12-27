@@ -188,6 +188,63 @@
       "id": 1735215353378
     },
     {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play-file",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "***Loading music file...***",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "play-file-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1735294206316
+    },
+    {
       "name": "Get Attachment Info",
       "file": "getAttachmentInfo.js",
       "data": {
@@ -292,7 +349,7 @@
               "thumbnailURL": "",
               "authorName": "",
               "authorIcon": "",
-              "description": "***:musical_note: Added to queue:***\n[${tempVars('file-name')}](${tempVars('file-url')}) [${tempVars('file-size').toFixed(2)}mb]",
+              "description": "***:musical_note: Now playing:***\n[${tempVars('file-name')}](${tempVars('file-url')}) [${tempVars('file-size').toFixed(2)}mb]",
               "fields": [],
               "url": "",
               "timestamp": "Current",
@@ -306,7 +363,7 @@
         },
         "replyToInteraction": true,
         "storeAs": {
-          "value": "",
+          "value": "play-file-msg",
           "type": "temporary"
         },
         "options": [
