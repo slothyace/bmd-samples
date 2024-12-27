@@ -18,6 +18,63 @@
       "id": 1735143314460
     },
     {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play-file",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "***Running checks...***",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "play-file-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "none",
+          "value": "play-file-msg"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1735294432257
+    },
+    {
       "name": "Get Member Info",
       "file": "getMemberInfo.js",
       "data": {
@@ -144,9 +201,9 @@
           "type": "command",
           "value": ""
         },
-        "replyToInteraction": true,
+        "replyToInteraction": false,
         "storeAs": {
-          "value": "",
+          "value": "play-file-msg",
           "type": "temporary"
         },
         "options": [
@@ -158,10 +215,10 @@
         "poll": [],
         "mentions": false,
         "dontSend": false,
-        "ephemeral": true,
+        "ephemeral": false,
         "updateMessage": {
-          "type": "none",
-          "value": ""
+          "type": "tempVar",
+          "value": "play-file-msg"
         },
         "updateContent": false,
         "updateComponents": false,
@@ -218,7 +275,7 @@
           "type": "command",
           "value": ""
         },
-        "replyToInteraction": true,
+        "replyToInteraction": false,
         "storeAs": {
           "value": "play-file-msg",
           "type": "temporary"
@@ -234,8 +291,8 @@
         "dontSend": false,
         "ephemeral": false,
         "updateMessage": {
-          "type": "none",
-          "value": ""
+          "type": "tempVar",
+          "value": "play-file-msg"
         },
         "updateContent": false,
         "updateComponents": false,
@@ -361,7 +418,7 @@
           "type": "command",
           "value": ""
         },
-        "replyToInteraction": true,
+        "replyToInteraction": false,
         "storeAs": {
           "value": "play-file-msg",
           "type": "temporary"
@@ -377,8 +434,8 @@
         "dontSend": false,
         "ephemeral": false,
         "updateMessage": {
-          "type": "none",
-          "value": ""
+          "type": "tempVar",
+          "value": "play-file-msg"
         },
         "updateContent": false,
         "updateComponents": false,
@@ -435,9 +492,9 @@
           "type": "command",
           "value": ""
         },
-        "replyToInteraction": true,
+        "replyToInteraction": false,
         "storeAs": {
-          "value": "",
+          "value": "play-file-msg",
           "type": "temporary"
         },
         "options": [
@@ -449,10 +506,10 @@
         "poll": [],
         "mentions": false,
         "dontSend": false,
-        "ephemeral": true,
+        "ephemeral": false,
         "updateMessage": {
-          "type": "none",
-          "value": ""
+          "type": "tempVar",
+          "value": "play-file-msg"
         },
         "updateContent": false,
         "updateComponents": false,
