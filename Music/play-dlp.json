@@ -1,0 +1,429 @@
+    {
+  "name": "play-dlp",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play-dlp",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "***Running Checks...***",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "play-dlp-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ]
+      },
+      "id": 1735482040276
+    },
+    {
+      "name": "Get Member Info",
+      "file": "getMemberInfo.js",
+      "data": {
+        "name": "Get Member Info",
+        "member": {
+          "type": "author",
+          "value": ""
+        },
+        "get": {
+          "type": "voiceChannel",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "play-dlp-vc"
+        }
+      },
+      "id": 1735482075318
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "play-dlp-vc"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "play-dlp-fetch"
+        },
+        "falseActions": []
+      },
+      "id": 1735482106245
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play-dlp",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "***You're Not In A Voice Channel...***",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "play-dlp-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "play-dlp-msg"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1735482617446
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1735482255987
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "play-dlp-fetch"
+      },
+      "id": 1735482262933
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play-dlp",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "***Fetching Audio Files...***",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "play-dlp-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "play-dlp-msg"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1735482158753
+    },
+    {
+      "name": "Download Music File",
+      "file": "downloadMusic_MOD.js",
+      "data": {
+        "name": "Download Music File",
+        "sourceLink": "${tempVars('play-dlp-link')}",
+        "format": {
+          "type": "mp3",
+          "value": ""
+        },
+        "outputFolder": "Music",
+        "finalName": {
+          "type": "temporary",
+          "value": "fileName"
+        },
+        "finalSource": {
+          "type": "temporary",
+          "value": "filePath"
+        },
+        "finalFile": {
+          "type": "temporary",
+          "value": "file"
+        },
+        "delete": false,
+        "logging": false,
+        "advancedMode": "No",
+        "useBrowserCookies": "No",
+        "browserCookiesInfo": "",
+        "useCustomName": "No",
+        "customName": "",
+        "useArguments": "No",
+        "arguments": ""
+      },
+      "id": 1735482282953
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play-dlp",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "***Audio Files Fetched...***",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "play-dlp-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "play-dlp-msg"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1735482321534
+    },
+    {
+      "name": "Join Voice Channel",
+      "file": "joinVoiceChannel.js",
+      "data": {
+        "name": "Join Voice Channel",
+        "channel": {
+          "type": "tempVar",
+          "value": "play-dlp-vc"
+        }
+      },
+      "id": 1735482432448
+    },
+    {
+      "name": "Play Binary Variable",
+      "file": "playBinaryVar_MOD.js",
+      "data": {
+        "name": "Play Binary Variable",
+        "bufferVar": {
+          "type": "tempVar",
+          "value": "file"
+        },
+        "queuing": "Don't Queue, Just Play",
+        "queuePosition": "",
+        "logging": true
+      },
+      "id": 1735482333980
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play-dlp",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "***:musical_note: Now Playing:***\n[${tempVars('fileName')}](${tempVars('play-dlp-link')})",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "play-dlp-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "play-dlp-msg"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1735482379542
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1735482443259
+    }
+  ],
+  "customId": 1735481960742,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [
+    {
+      "name": "link",
+      "type": "string",
+      "description": "Link to the music content",
+      "required": true,
+      "choices": [],
+      "storeAs": "play-dlp-link",
+      "completion": false
+    }
+  ],
+  "description": "Play music using the yt-dlp process",
+  "folder": []
+}
+    
