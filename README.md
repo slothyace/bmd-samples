@@ -5,5 +5,3 @@ Commands are grouped by their functionality class.
 ## Mods
 The mods folder has been moved to its own [repository](https://github.com/slothyace/bmods-acedia).<br>
 To install all bmd mods, visit the [main bmods repositories](https://github.com/RatWasHere/bmods).
-
-idk, test
