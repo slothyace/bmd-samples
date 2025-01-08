@@ -4,7 +4,7 @@ Just a collection of commands I've built for [Bot Maker for Discord](https://sto
 Commands are grouped by their functionality class.
 
 ## Importing Commands
-![](https://github.com/slothyace/bcs-samples/blob/main/.documentation/importCmd.gif)
+![](https://github.com/slothyace/bcs-samples/blob/main/.documentation/importCm-d.gif)
 
 ## Mods
 The mods folder has been moved to its own [repository](https://github.com/slothyace/bmods-acedia).<br>
