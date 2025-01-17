@@ -1618,64 +1618,6 @@
       "id": 1736628284663
     },
     {
-      "name": "Check Variable",
-      "file": "checkVariable.js",
-      "data": {
-        "name": "Check Variable",
-        "variable": {
-          "type": "serverVar",
-          "value": "musicBinding-vc"
-        },
-        "comparator": "Exists",
-        "compareValue": "",
-        "true": {
-          "type": "continue",
-          "value": ""
-        },
-        "trueActions": [],
-        "false": {
-          "type": "runActions",
-          "value": ""
-        },
-        "falseActions": [
-          {
-            "name": "Get Voice Channel Info",
-            "file": "getVoiceChannelInfo.js",
-            "data": {
-              "name": "Get Voice Channel Info",
-              "channel": {
-                "type": "tempVar",
-                "value": "playYt-memberVc"
-              },
-              "get": {
-                "type": "id",
-                "value": ""
-              },
-              "store": {
-                "type": "temporary",
-                "value": "playYt-memberVc-id"
-              }
-            },
-            "id": 1737129563618
-          },
-          {
-            "name": "Create Variable",
-            "file": "createVariable.js",
-            "data": {
-              "name": "Create Variable",
-              "variable": {
-                "type": "server",
-                "value": "musicBinding-vc"
-              },
-              "value": "${tempVars('playYt-memberVc-id')}"
-            },
-            "id": 1737129563619
-          }
-        ]
-      },
-      "id": 1736689809807
-    },
-    {
       "name": "Check If Bot In Voice Channel",
       "file": "checkIfBotInVoiceChannel.js",
       "data": {
