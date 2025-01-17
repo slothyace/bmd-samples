@@ -1,0 +1,622 @@
+    {
+  "name": "skip",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "skip",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":mag_right: Running checks...",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "skip-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1736679986073
+    },
+    {
+      "name": "Get Member Info",
+      "file": "getMemberInfo.js",
+      "data": {
+        "name": "Get Member Info",
+        "member": {
+          "type": "author",
+          "value": ""
+        },
+        "get": {
+          "type": "voiceChannel",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "skip-memberVc"
+        }
+      },
+      "id": 1736679986074
+    },
+    {
+      "name": "Get Now Playing Track",
+      "file": "getNowPlayingTrack.js",
+      "data": {
+        "name": "Get Now Playing Track",
+        "store": {
+          "type": "temporary",
+          "value": "currentTrack"
+        }
+      },
+      "id": 1736679986075
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "skip-memberVc"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "skip-noVc"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1736679986076
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        },
+        "comparator": "Equals",
+        "compareValue": "${command.channel.id}",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "skip-binding"
+        },
+        "falseActions": []
+      },
+      "id": 1736679986077
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "currentTrack"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "skip-notPlaying"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": "skip-notPlaying"
+        },
+        "falseActions": []
+      },
+      "id": 1736679986078
+    },
+    {
+      "name": "Skip In Queue",
+      "file": "skipInQueue.js",
+      "data": {
+        "name": "Skip In Queue",
+        "skip": "1"
+      },
+      "id": 1736680002220
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "skip",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":track_next: Skipped:\n${tempVars('currentTrack').author} - [${tempVars('currentTrack').name}](${tempVars('currentTrack').url})",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "skip-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "skip-msg"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1736679986080
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1736679986081
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "skip-noVc"
+      },
+      "id": 1736679986082
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "skip",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nYou're not in a voice channel!",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "skip-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "skip-msg"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1736679986083
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1736679986084
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "skip-msg"
+        }
+      },
+      "id": 1736679986085
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1736679986086
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "skip-binding"
+      },
+      "id": 1736679986087
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "skip",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThere is no binded channel!",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "replyToInteraction": false,
+              "storeAs": {
+                "value": "skip-msg",
+                "type": "temporary"
+              },
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "attachments": [],
+              "poll": [],
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "skip-msg"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1736682672391
+          }
+        ],
+        "false": {
+          "type": "runActions",
+          "value": "skip-binding"
+        },
+        "falseActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "skip",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThe command channel is binded to: <#${serverVars('musicBinding-channel')}>",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "replyToInteraction": false,
+              "storeAs": {
+                "value": "skip-msg",
+                "type": "temporary"
+              },
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "attachments": [],
+              "poll": [],
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "skip-msg"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1736682672392
+          }
+        ]
+      },
+      "id": 1736679986088
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1736679986091
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "skip-msg"
+        }
+      },
+      "id": 1736679986092
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1736679986093
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "skip-notPlaying"
+      },
+      "id": 1736679986094
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "skip",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nThere isn't a track playing!",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "skip-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "skip-msg"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1736679986095
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1736679986096
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "skip-msg"
+        }
+      },
+      "id": 1736679986097
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1736679986098
+    }
+  ],
+  "customId": 1736679986086,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [],
+  "description": "Skips the current track",
+  "folder": []
+}
+    

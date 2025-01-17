@@ -1,0 +1,847 @@
+{
+  "name": "rebind-owner",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "rebind-owner",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":mag_right: Running checks...",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "rebindOwner-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1736686809118
+    },
+    {
+      "name": "Get Member Info",
+      "file": "getMemberInfo.js",
+      "data": {
+        "name": "Get Member Info",
+        "member": {
+          "type": "author",
+          "value": ""
+        },
+        "get": {
+          "type": "voiceChannel",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "rebindOwner-memberVc"
+        }
+      },
+      "id": 1736686809119
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "rebindOwner-memberVc"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "rebindOwner-noVc"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1736686809120
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        },
+        "comparator": "Equals",
+        "compareValue": "${command.channel.id}",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "rebindOwner-bindingChannel"
+        },
+        "falseActions": []
+      },
+      "id": 1736686809121
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-owner"
+        },
+        "comparator": "Equals",
+        "compareValue": "${command.author.id}",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "rebindOwner-bindingOwner"
+        },
+        "falseActions": []
+      },
+      "id": 1736686809122
+    },
+    {
+      "name": "Check If Member",
+      "file": "checkIfMember.js",
+      "data": {
+        "name": "Check If Member",
+        "member": {
+          "type": "tempVar",
+          "value": "rebind-user"
+        },
+        "check": "Is Bot?",
+        "true": {
+          "type": "anchorJump",
+          "value": "rebindOwner-botUser"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1736686809123
+    },
+    {
+      "name": "Get User Info",
+      "file": "getUserInfo.js",
+      "data": {
+        "name": "Get User Info",
+        "user": {
+          "type": "tempVar",
+          "value": "rebind-user"
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "rebind-user-id"
+        }
+      },
+      "id": 1736686809124
+    },
+    {
+      "name": "Control Variable",
+      "file": "controlVariable.js",
+      "data": {
+        "name": "Control Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-owner"
+        },
+        "control": "Set Value",
+        "value": "${tempVars('rebind-user-id')}"
+      },
+      "id": 1736686809125
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "rebind-owner",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":link: Rebinded:\nThe command owner has been rebinded to: ${tempVars('rebind-user')}(${tempVars('rebind-user-id')})",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "rebindOwner-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "rebindOwner-msg"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1736686809126
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1736686809128
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "rebindOwner-bindingChannel"
+      },
+      "id": 1736686809129
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "rebind-owner",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThere is no binded owner!",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "replyToInteraction": false,
+              "storeAs": {
+                "value": "rebindOwner-msg",
+                "type": "temporary"
+              },
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "attachments": [],
+              "poll": [],
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "rebindOwner-msg"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1736687099752
+          }
+        ],
+        "false": {
+          "type": "runActions",
+          "value": "skip-binding"
+        },
+        "falseActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "rebind-owner",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThe command channel is binded to: <#${serverVars('musicBinding-channel')}>",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "replyToInteraction": false,
+              "storeAs": {
+                "value": "rebindOwner-msg",
+                "type": "temporary"
+              },
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "attachments": [],
+              "poll": [],
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "rebindOwner-msg"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1736687099753
+          }
+        ]
+      },
+      "id": 1736686809130
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1736686809131
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "rebindOwner-msg"
+        }
+      },
+      "id": 1736686809132
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1736686809133
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "rebindOwner-bindingOwner"
+      },
+      "id": 1736686809134
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-owner"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "rebind-owner",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThere is no binded owner!",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "replyToInteraction": false,
+              "storeAs": {
+                "value": "rebindOwner-msg",
+                "type": "temporary"
+              },
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "attachments": [],
+              "poll": [],
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "rebindOwner-msg"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1736687099754
+          }
+        ],
+        "false": {
+          "type": "runActions",
+          "value": "skip-binding"
+        },
+        "falseActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "rebind-owner",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThe command owner is binded to: <@${serverVars('musicBinding-owner')}>",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "replyToInteraction": false,
+              "storeAs": {
+                "value": "rebindOwner-msg",
+                "type": "temporary"
+              },
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "attachments": [],
+              "poll": [],
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "rebindOwner-msg"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1736687099755
+          }
+        ]
+      },
+      "id": 1736686809135
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1736686809136
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "rebindOwner-msg"
+        }
+      },
+      "id": 1736686809137
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1736686809138
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "rebindOwner-noVc"
+      },
+      "id": 1736686809139
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "rebind-owner",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nYou're not in a voice channel!",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "rebindOwner-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "rebindOwner-msg"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1736686809140
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1736686809141
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "rebindOwner-msg"
+        }
+      },
+      "id": 1736686809142
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1736686809143
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "rebindOwner-botUser"
+      },
+      "id": 1736686809144
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "rebind-owner",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\n${tempVars('rebind-user')} is a bot member!",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "rebindOwner-msg",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "rebindOwner-msg"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1736686809145
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1736686809146
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "rebindOwner-msg"
+        }
+      },
+      "id": 1736686809147
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1736686809148
+    }
+  ],
+  "customId": 1736686190731,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [
+    {
+      "name": "member",
+      "type": "user",
+      "description": "member",
+      "required": true,
+      "choices": [],
+      "storeAs": "rebind-user",
+      "completion": false
+    }
+  ],
+  "description": "Rebinds the owner",
+  "folder": []
+}
+    

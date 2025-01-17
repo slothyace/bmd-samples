@@ -1,0 +1,47 @@
+{
+  "name": "queueEnd",
+  "type": "event",
+  "trigger": "event",
+  "actions": [
+    {
+      "name": "Leave Voice Channel",
+      "file": "leaveVoiceChannel.js",
+      "data": {
+        "name": "Leave Voice Channel"
+      },
+      "id": 1736685325420
+    },
+    {
+      "name": "Delete Variable",
+      "file": "deleteVariable.js",
+      "data": {
+        "name": "Delete Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-owner"
+        }
+      },
+      "id": 1736685318155
+    },
+    {
+      "name": "Delete Variable",
+      "file": "deleteVariable.js",
+      "data": {
+        "name": "Delete Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        }
+      },
+      "id": 1736685237627
+    }
+  ],
+  "customId": 1736685158696,
+  "eventFile": "queue_end.js",
+  "eventData": [
+    "queueEnd-vc",
+    ""
+  ],
+  "folder": []
+}
+    
