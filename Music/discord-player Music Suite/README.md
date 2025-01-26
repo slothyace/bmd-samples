@@ -5,6 +5,7 @@ This folder is the music suite developed in 2025, with the capability to search 
 The suite has, but is not limited to these functions:
 - YouTube / Spotify / SoundCloud search
 - YouTube / Spotify / SoundCloud audio playback
+- Playlist Support
 - Track Pause & Resume
 - Volume Setting
 - Repeat Previous & Current Track
