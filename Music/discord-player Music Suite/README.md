@@ -10,10 +10,9 @@ The suite has, but is not limited to these functions:
 - Volume Setting
 - Repeat Previous & Current Track
 - Loop Current / Queue
-- Channl & User Binding
+- Channel & User Binding
 - Track Start Announcement
-- Queue Start Announcement
-- Auto-leave
+- Auto-leave On Queue End
 - Paged Queue View
 - Shuffle
 - And more! (I just can't be arsed to list them all out)
