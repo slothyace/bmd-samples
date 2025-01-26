@@ -1,0 +1,321 @@
+{
+  "name": "force-disconnect",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "force disconnect",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":mag_right: Running checks...",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "msg-forceDisconnect",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false,
+        "files": [],
+        "silent": true
+      },
+      "id": 1737822386022
+    },
+    {
+      "name": "Check Member Permission",
+      "file": "checkMemberPermissions.js",
+      "data": {
+        "name": "Check Member Permission",
+        "member": {
+          "type": "author",
+          "value": ""
+        },
+        "permission": "Moderate Members",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "insuffPerms-forceDisconnect"
+        },
+        "falseActions": []
+      },
+      "id": 1737822293262
+    },
+    {
+      "name": "Control Music",
+      "file": "controlMusic_MOD.js",
+      "data": {
+        "name": "Control Music",
+        "musicAction": {
+          "type": "stopPlaying",
+          "value": "${tempVars('setVolume-volume')}"
+        }
+      },
+      "id": 1737822386023
+    },
+    {
+      "name": "Leave Voice Channel",
+      "file": "leaveVoiceChannel.js",
+      "data": {
+        "name": "Leave Voice Channel"
+      },
+      "id": 1737822386024
+    },
+    {
+      "name": "Delete Variable",
+      "file": "deleteVariable.js",
+      "data": {
+        "name": "Delete Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        }
+      },
+      "id": 1737822386025
+    },
+    {
+      "name": "Delete Variable",
+      "file": "deleteVariable.js",
+      "data": {
+        "name": "Delete Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-user"
+        }
+      },
+      "id": 1737822386026
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "force disconnect",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":stop_button: Disconnect:\nBot has been forcefully disconnected and queue has been cleared.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "msg-forceDisconnect",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-forceDisconnect"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737822386027
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737822386028
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "insuffPerms-forceDisconnect"
+      },
+      "id": 1737822442590
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "force disconnect",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nYou do not have sufficient permissions to run this command.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-forceDisconnect"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-forceDisconnect"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737822466907
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737822550934
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-forceDisconnect"
+        }
+      },
+      "id": 1737822550935
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737822550936
+    }
+  ],
+  "customId": 1737822550425,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [],
+  "description": "Force clears the queue and disconnects the bot",
+  "folder": [],
+  "goodies": {
+    "actionType": "slash",
+    "variables": {
+      "temporary": [],
+      "global": [],
+      "server": [],
+      "commandVars": [
+        "msg-forceDisconnect",
+        "msg-forceDisconnect",
+        "msg-forceDisconnect",
+        "msg-forceDisconnect",
+        "msg-forceDisconnect",
+        "msg-forceDisconnect"
+      ],
+      "thisServer": [],
+      "thisGlobal": []
+    }
+  }
+}
+    

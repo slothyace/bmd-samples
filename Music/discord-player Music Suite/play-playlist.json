@@ -1,0 +1,1353 @@
+{
+  "name": "play-playlist",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play playlist",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":mag_right: Running checks...",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "msg-playPlaylist",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false,
+        "files": [],
+        "silent": true
+      },
+      "id": 1737837719920
+    },
+    {
+      "name": "Get Member Info",
+      "file": "getMemberInfo.js",
+      "data": {
+        "name": "Get Member Info",
+        "member": {
+          "type": "author",
+          "value": ""
+        },
+        "get": {
+          "type": "voiceChannel",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "play-memberVc"
+        }
+      },
+      "id": 1737837719921
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "play-memberVc"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "notInVc-playPlaylist"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": "notInVc-playPlaylist"
+        },
+        "falseActions": []
+      },
+      "id": 1737837719922
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        },
+        "comparator": "Equals",
+        "compareValue": "${command.channel.id}",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "musicBinding-channel-playPlaylist"
+        },
+        "falseActions": []
+      },
+      "id": 1737837719923
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "newBinding-playPlaylist"
+      },
+      "id": 1737837719924
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play playlist",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":mag_right: Searching for: ***${tempVars('dscplayer-playSearch')}***",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-playPlaylist"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-playPlaylist"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false,
+        "files": [],
+        "silent": true
+      },
+      "id": 1737837719925
+    },
+    {
+      "name": "Search Music",
+      "file": "searchMusic_MOD.js",
+      "data": {
+        "name": "Search Music",
+        "query": "${tempVars('dscplayer-playSearch')}",
+        "store": {
+          "type": "temporary",
+          "value": "trackListRaw-playPlaylist"
+        }
+      },
+      "id": 1737837719926
+    },
+    {
+      "name": "Create List",
+      "file": "createList.js",
+      "data": {
+        "name": "Create List",
+        "list": {
+          "type": "temporary",
+          "value": "searchResults-authors"
+        }
+      },
+      "id": 1737837719927
+    },
+    {
+      "name": "Create List",
+      "file": "createList.js",
+      "data": {
+        "name": "Create List",
+        "list": {
+          "type": "temporary",
+          "value": "searchResults-titles"
+        }
+      },
+      "id": 1737837719928
+    },
+    {
+      "name": "Create List",
+      "file": "createList.js",
+      "data": {
+        "name": "Create List",
+        "list": {
+          "type": "temporary",
+          "value": "searchResults-urls"
+        }
+      },
+      "id": 1737837719929
+    },
+    {
+      "name": "Create List",
+      "file": "createList.js",
+      "data": {
+        "name": "Create List",
+        "list": {
+          "type": "temporary",
+          "value": "searchResults-thumbs"
+        }
+      },
+      "id": 1737837719930
+    },
+    {
+      "name": "Create List",
+      "file": "createList.js",
+      "data": {
+        "name": "Create List",
+        "list": {
+          "type": "temporary",
+          "value": "searchResults-dispText"
+        }
+      },
+      "id": 1737837719931
+    },
+    {
+      "name": "Loop Through List",
+      "file": "loopThroughList.js",
+      "data": {
+        "name": "Loop Through List",
+        "await": true,
+        "list": {
+          "type": "tempVar",
+          "value": "trackListRaw-playPlaylist"
+        },
+        "storeIterationAs": {
+          "type": "temporary",
+          "value": "selectorIndex"
+        },
+        "storeValueAs": {
+          "type": "temporary",
+          "value": "selectorTrack"
+        },
+        "actions": [
+          {
+            "name": "Calculate",
+            "file": "calculate.js",
+            "data": {
+              "name": "Calculate",
+              "firstNumber": "${tempVars('selectorIndex')}",
+              "operation": "Addition",
+              "secondNumber": "1",
+              "store": {
+                "type": "temporary",
+                "value": "selectorIndex-plus1"
+              }
+            },
+            "id": 1737842326015
+          },
+          {
+            "name": "Create List Element",
+            "file": "createListElement.js",
+            "data": {
+              "name": "Create List Element",
+              "list": {
+                "type": "tempVar",
+                "value": "searchResults-authors"
+              },
+              "value": {
+                "type": "string",
+                "value": "${tempVars('selectorTrack').author}"
+              }
+            },
+            "id": 1737842326016
+          },
+          {
+            "name": "Create List Element",
+            "file": "createListElement.js",
+            "data": {
+              "name": "Create List Element",
+              "list": {
+                "type": "tempVar",
+                "value": "searchResults-titles"
+              },
+              "value": {
+                "type": "string",
+                "value": "${tempVars('selectorTrack').title}"
+              }
+            },
+            "id": 1737842326017
+          },
+          {
+            "name": "Create List Element",
+            "file": "createListElement.js",
+            "data": {
+              "name": "Create List Element",
+              "list": {
+                "type": "tempVar",
+                "value": "searchResults-urls"
+              },
+              "value": {
+                "type": "string",
+                "value": "${tempVars('selectorTrack').url}"
+              }
+            },
+            "id": 1737842326018
+          },
+          {
+            "name": "Create List Element",
+            "file": "createListElement.js",
+            "data": {
+              "name": "Create List Element",
+              "list": {
+                "type": "tempVar",
+                "value": "searchResults-thumbs"
+              },
+              "value": {
+                "type": "string",
+                "value": "${tempVars('selectorTrack').thumbnail}"
+              }
+            },
+            "id": 1737842326019
+          },
+          {
+            "name": "Create List Element",
+            "file": "createListElement.js",
+            "data": {
+              "name": "Create List Element",
+              "list": {
+                "type": "tempVar",
+                "value": "searchResults-dispText"
+              },
+              "value": {
+                "type": "string",
+                "value": "${tempVars('selectorIndex-plus1')}) ${tempVars('selectorTrack').author} - [${tempVars('selectorTrack').title}](${tempVars('selectorTrack').url})"
+              }
+            },
+            "id": 1737842326020
+          }
+        ]
+      },
+      "id": 1737837719932
+    },
+    {
+      "name": "Evaluate",
+      "file": "eval.js",
+      "data": {
+        "name": "Evaluate",
+        "transfer": true,
+        "code": "bridge.variables['searchResults-dispText'].slice(0,10)",
+        "result": {
+          "type": "temporary",
+          "value": "searchResults-dispText-top10"
+        },
+        "type": {
+          "type": "temporary",
+          "value": ""
+        }
+      },
+      "id": 1737837719940
+    },
+    {
+      "name": "Convert List To Text",
+      "file": "convertListToText.js",
+      "data": {
+        "name": "Convert List To Text",
+        "list": {
+          "type": "tempVar",
+          "value": "searchResults-dispText-top10"
+        },
+        "separator": "\\n\\n",
+        "store": {
+          "type": "temporary",
+          "value": "searchResults-dispText-texted"
+        }
+      },
+      "id": 1737837719941
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "Add All",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Get User Info",
+                        "file": "getUserInfo.js",
+                        "data": {
+                          "name": "Get User Info",
+                          "user": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-playPlaylist"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClicker-Id-player"
+                          }
+                        },
+                        "id": 1737842326021
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-Id-player"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1737842326022
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "addToQueue-playPlaylist"
+                        },
+                        "id": 1737842326023
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "90"
+                    },
+                    "customID": "Auto Generated",
+                    "id": ""
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": ""
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "buttonClicker-playPlaylist"
+              }
+            }
+          }
+        ],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play playlist",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":mag_right: Results for: ***${tempVars('dscplayer-playSearch')}***\n${tempVars('searchResults-dispText-texted')}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-playPlaylist"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-playPlaylist"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false,
+        "files": [],
+        "silent": true
+      },
+      "id": 1737837719942
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737837719983
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "addToQueue-playPlaylist"
+      },
+      "id": 1737837719984
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        },
+        "comparator": "Exists",
+        "compareValue": "",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Create Variable",
+            "file": "createVariable.js",
+            "data": {
+              "name": "Create Variable",
+              "variable": {
+                "type": "server",
+                "value": "musicBinding-channel"
+              },
+              "value": "${command.channel.id}"
+            },
+            "id": 1737721776981
+          }
+        ],
+        "false": {
+          "type": "runActions",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Create Variable",
+            "file": "createVariable.js",
+            "data": {
+              "name": "Create Variable",
+              "variable": {
+                "type": "server",
+                "value": "musicBinding-channel"
+              },
+              "value": "${command.channel.id}"
+            },
+            "id": 1737842326024
+          },
+          {
+            "name": "Control Server Data",
+            "file": "controlGuildData.js",
+            "data": {
+              "name": "Control Server Data",
+              "source": {
+                "type": "string",
+                "value": ""
+              },
+              "guild": {
+                "type": "current",
+                "value": ""
+              },
+              "dataName": "musicBinding-channel",
+              "control": "Overwrite",
+              "controlValue": "${command.channel.id}"
+            },
+            "id": 1737842326025
+          }
+        ]
+      },
+      "id": 1737837719986
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-user"
+        },
+        "comparator": "Exists",
+        "compareValue": "",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "runActions",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Create Variable",
+            "file": "createVariable.js",
+            "data": {
+              "name": "Create Variable",
+              "variable": {
+                "type": "server",
+                "value": "musicBinding-user"
+              },
+              "value": "${command.author.id}"
+            },
+            "id": 1737842326026
+          }
+        ]
+      },
+      "id": 1737837719989
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play playlist",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":musical_note: Fetching:\nFetching all songs.",
+              "fields": [
+                {
+                  "type": "field",
+                  "data": {
+                    "title": "Song count",
+                    "value": "${tempVars('trackListRaw-playPlaylist').length}",
+                    "inline": true
+                  }
+                }
+              ],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-playPlaylist"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-playPlaylist"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737837903768
+    },
+    {
+      "name": "Loop Through List",
+      "file": "loopThroughList.js",
+      "data": {
+        "name": "Loop Through List",
+        "await": true,
+        "list": {
+          "type": "tempVar",
+          "value": "trackListRaw-playPlaylist"
+        },
+        "storeIterationAs": {
+          "type": "temporary",
+          "value": ""
+        },
+        "storeValueAs": {
+          "type": "temporary",
+          "value": "track"
+        },
+        "actions": [
+          {
+            "name": "Play Music",
+            "file": "playMusic_MOD.js",
+            "data": {
+              "name": "Play Music",
+              "channel": {
+                "type": "tempVar",
+                "value": "play-memberVc"
+              },
+              "query": "${tempVars('track').url}",
+              "leaveOnEnd": false,
+              "leaveOnEmpty": false,
+              "leaveOnStop": false,
+              "selfDeaf": true,
+              "store": {
+                "type": "temporary",
+                "value": "addedTrack-track"
+              },
+              "ifError": {
+                "type": "anchorJump",
+                "value": "playMusicError-playPlaylist"
+              },
+              "ifErrorActions": []
+            },
+            "id": 1737842326027
+          }
+        ]
+      },
+      "id": 1737837959438
+    },
+    {
+      "name": "Store Queue Info",
+      "file": "storeQueueInfo_MOD.js",
+      "data": {
+        "name": "Store Queue Info",
+        "queueInfo": {
+          "type": "queueSize",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "queueSize"
+        }
+      },
+      "id": 1737842318192
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play playlist",
+              "embedColor": "#FFFFFF",
+              "footerContent": "${tempVars('queueSize')} songs in queue",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":musical_note: Added to queue:\nAdded all tracks to the queue.",
+              "fields": [
+                {
+                  "type": "field",
+                  "data": {
+                    "title": "Song count",
+                    "value": "${tempVars('trackListRaw-playPlaylist').length}",
+                    "inline": true
+                  }
+                }
+              ],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-playPlaylist"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-playPlaylist"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737837719998
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737837719999
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "notInVc-playPlaylist"
+      },
+      "id": 1737837720000
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play playlist",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nYou're not in a voice channel, join one to use this command.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-playPlaylist"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-playPlaylist"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737837720001
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737837720002
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-playPlaylist"
+        }
+      },
+      "id": 1737837720003
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737837720004
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "playMusicError-playPlaylist"
+      },
+      "id": 1737837720005
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play playlist",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nThere was an error trying to fetch the music, try again.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-playPlaylist"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-playPlaylist"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737837720006
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737837720007
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-playPlaylist"
+        }
+      },
+      "id": 1737837720008
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737837720009
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "musicBinding-channel-playPlaylist"
+      },
+      "id": 1737837720010
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "newBinding-playPlaylist"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1737837720011
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "play playlist",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nThe command channel is binded to: <#${serverVars('musicBinding-channel')}>",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-playPlaylist"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-playPlaylist"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737837720012
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737837720013
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-playPlaylist"
+        }
+      },
+      "id": 1737837720014
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737837720015
+    }
+  ],
+  "customId": 1737837724105,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [
+    {
+      "name": "link",
+      "type": "string",
+      "description": "link",
+      "required": true,
+      "choices": [],
+      "storeAs": "dscplayer-playSearch",
+      "completion": false,
+      "autocompletion": false,
+      "bound": {
+        "name": "Autocompletion",
+        "storeInputAs": {
+          "type": "temporary",
+          "value": "dscplayer-searchTerm"
+        },
+        "storeInteractionAs": {
+          "type": "temporary",
+          "value": ""
+        },
+        "actions": [
+          {
+            "name": "Search Music",
+            "file": "searchMusic_MOD.js",
+            "data": {
+              "name": "Search Music",
+              "query": "${tempVars('dscplayer-searchTerm')}",
+              "store": {
+                "type": "temporary",
+                "value": "dscplayer-autoComp-tracks"
+              }
+            },
+            "id": 1737712798480
+          },
+          {
+            "name": "Create List",
+            "file": "createList.js",
+            "data": {
+              "name": "Create List",
+              "list": {
+                "type": "temporary",
+                "value": "dscplayer-autoCompSearch-returnList"
+              }
+            },
+            "id": 1737713888626
+          },
+          {
+            "name": "Loop Through List",
+            "file": "loopThroughList.js",
+            "data": {
+              "name": "Loop Through List",
+              "await": true,
+              "list": {
+                "type": "tempVar",
+                "value": "dscplayer-autoComp-tracks"
+              },
+              "storeIterationAs": {
+                "type": "temporary",
+                "value": "index"
+              },
+              "storeValueAs": {
+                "type": "temporary",
+                "value": "autoComp-track"
+              },
+              "actions": [
+                {
+                  "name": "String Limiter",
+                  "file": "stringLimiter_MOD.js",
+                  "data": {
+                    "name": "String Limiter",
+                    "srcTxt": "${tempVars('autoComp-track').title}",
+                    "maxLength": "95",
+                    "append": "...",
+                    "countAppend": false,
+                    "result": {
+                      "type": "temporary",
+                      "value": "autoComp-track-100str"
+                    }
+                  },
+                  "id": 1737743681300
+                },
+                {
+                  "name": "Create List Element",
+                  "file": "createListElement.js",
+                  "data": {
+                    "name": "Create List Element",
+                    "list": {
+                      "type": "tempVar",
+                      "value": "dscplayer-autoCompSearch-returnList"
+                    },
+                    "value": {
+                      "type": "string",
+                      "value": "${tempVars('autoComp-track-100str')}"
+                    }
+                  },
+                  "id": 1737714025974
+                }
+              ]
+            },
+            "id": 1737713879167
+          },
+          {
+            "name": "Evaluate",
+            "file": "eval.js",
+            "data": {
+              "name": "Evaluate",
+              "transfer": true,
+              "code": "let list = bridge.variables[\"dscplayer-autoCompSearch-returnList\"]\ntop20 = list.slice(0,19)",
+              "result": {
+                "type": "temporary",
+                "value": "dscplayer-autoCompSearch-returnList"
+              },
+              "type": {
+                "type": "temporary",
+                "value": ""
+              }
+            },
+            "id": 1737714232985
+          }
+        ],
+        "result": {
+          "type": "tempVar",
+          "value": "dscplayer-autoCompSearch-returnList"
+        }
+      }
+    }
+  ],
+  "description": "Play some tunes",
+  "folder": []
+}
+    

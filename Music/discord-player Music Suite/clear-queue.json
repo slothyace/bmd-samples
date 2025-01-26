@@ -1,0 +1,698 @@
+{
+  "name": "clear-queue",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "clear queue",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":mag_right: Running checks...",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "msg-clearQueue",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false,
+        "files": [],
+        "silent": true
+      },
+      "id": 1737739705095
+    },
+    {
+      "name": "Get Member Info",
+      "file": "getMemberInfo.js",
+      "data": {
+        "name": "Get Member Info",
+        "member": {
+          "type": "author",
+          "value": ""
+        },
+        "get": {
+          "type": "voiceChannel",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "memberVc-clearQueue"
+        }
+      },
+      "id": 1737739759119
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "memberVc-clearQueue"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "notInVc-clearQueue"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1737747524114
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        },
+        "comparator": "Equals",
+        "compareValue": "${command.channel.id}",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "musicBinding-channel-clearQueue"
+        },
+        "falseActions": []
+      },
+      "id": 1737739705096
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-user"
+        },
+        "comparator": "Equals",
+        "compareValue": "${command.author.id}",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "musicBinding-user-clearQueue"
+        },
+        "falseActions": []
+      },
+      "id": 1737739705097
+    },
+    {
+      "name": "Control Music",
+      "file": "controlMusic_MOD.js",
+      "data": {
+        "name": "Control Music",
+        "musicAction": {
+          "type": "stopPlaying",
+          "value": "${tempVars('setVolume-volume')}"
+        }
+      },
+      "id": 1737739705098
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "clear queue",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":stop_button: Clear queue:\nBot has been disconnected and queue has been cleared.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "msg-clearQueue",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-clearQueue"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737739705099
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737739705100
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "musicBinding-channel-clearQueue"
+      },
+      "id": 1737739705101
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "clear queue",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThere isn't a channel binding, start playing some music to create said binding.",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "storeAs": {
+                "type": "temporary",
+                "value": "msg-clearQueue"
+              },
+              "attachments": [],
+              "poll": [],
+              "replyToInteraction": false,
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "msg-clearQueue"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1737740898744
+          }
+        ],
+        "false": {
+          "type": "runActions",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "clear queue",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThe command channel is binded to: <#${serverVars('musicBinding-channel')}>",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "storeAs": {
+                "type": "temporary",
+                "value": "msg-clearQueue"
+              },
+              "attachments": [],
+              "poll": [],
+              "replyToInteraction": false,
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "msg-clearQueue"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1737740898745
+          }
+        ]
+      },
+      "id": 1737739705102
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737739705105
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-clearQueue"
+        }
+      },
+      "id": 1737739705106
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737739705107
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "musicBinding-user-clearQueue"
+      },
+      "id": 1737739705108
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-user"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "clear queue",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThere isn't a user binding, start playing some music to create said binding.",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "storeAs": {
+                "type": "temporary",
+                "value": "msg-clearQueue"
+              },
+              "attachments": [],
+              "poll": [],
+              "replyToInteraction": false,
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "msg-clearQueue"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1737740898746
+          }
+        ],
+        "false": {
+          "type": "runActions",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "clear queue",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThe priviledged command user is binded to: <@${serverVars('musicBinding-user')}>",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "storeAs": {
+                "type": "temporary",
+                "value": "msg-clearQueue"
+              },
+              "attachments": [],
+              "poll": [],
+              "replyToInteraction": false,
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "msg-clearQueue"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1737740898747
+          }
+        ]
+      },
+      "id": 1737739705109
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737739705112
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-clearQueue"
+        }
+      },
+      "id": 1737739705113
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737739705114
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "notInVc-clearQueue"
+      },
+      "id": 1737739794845
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "clear queue",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nYou're not in a voice channel, join one to use this command.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-clearQueue"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-clearQueue"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737747524115
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737747524116
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-clearQueue"
+        }
+      },
+      "id": 1737747524117
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737747524118
+    }
+  ],
+  "customId": 1737739616122,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [],
+  "description": "Clears the queue",
+  "folder": []
+}
+    

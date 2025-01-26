@@ -1,0 +1,1023 @@
+{
+  "name": "resume",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "resume",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":mag_right: Running checks...",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "msg-resume",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false,
+        "files": [],
+        "silent": true
+      },
+      "id": 1737730228669
+    },
+    {
+      "name": "Get Member Info",
+      "file": "getMemberInfo.js",
+      "data": {
+        "name": "Get Member Info",
+        "member": {
+          "type": "author",
+          "value": ""
+        },
+        "get": {
+          "type": "voiceChannel",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "memberVc-resume"
+        }
+      },
+      "id": 1737730549058
+    },
+    {
+      "name": "Store Queue Info",
+      "file": "storeQueueInfo_MOD.js",
+      "data": {
+        "name": "Store Queue Info",
+        "queueInfo": {
+          "type": "currentTrack",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "currentTrack"
+        }
+      },
+      "id": 1737730549059
+    },
+    {
+      "name": "Store Queue Info",
+      "file": "storeQueueInfo_MOD.js",
+      "data": {
+        "name": "Store Queue Info",
+        "queueInfo": {
+          "type": "isPlaying",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "currentStatus"
+        }
+      },
+      "id": 1737740442156
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "memberVc-resume"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "notInVc-resume"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1737730549060
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        },
+        "comparator": "Equals",
+        "compareValue": "${command.channel.id}",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "musicBinding-channel-resume"
+        },
+        "falseActions": []
+      },
+      "id": 1737730549062
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "currentTrack"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "noQueue-resume"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1737730549061
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "currentStatus"
+        },
+        "comparator": "Equals",
+        "compareValue": "true",
+        "true": {
+          "type": "anchorJump",
+          "value": "notPaused-resume"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1737740501961
+    },
+    {
+      "name": "Control Music",
+      "file": "controlMusic_MOD.js",
+      "data": {
+        "name": "Control Music",
+        "musicAction": {
+          "type": "resumeMusic",
+          "value": ""
+        }
+      },
+      "id": 1737730549063
+    },
+    {
+      "name": "Store Queue Info",
+      "file": "storeQueueInfo_MOD.js",
+      "data": {
+        "name": "Store Queue Info",
+        "queueInfo": {
+          "type": "progressBar",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "progBar"
+        }
+      },
+      "id": 1737743202570
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "resume",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "${tempVars('currentTrack').thumbnail}",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":arrow_forward: Track resumed:\n${tempVars('currentTrack').author} - [${tempVars('currentTrack').title}](${tempVars('currentTrack').url})",
+              "fields": [
+                {
+                  "type": "field",
+                  "data": {
+                    "title": "Duration",
+                    "value": "${tempVars('currentTrack').duration}",
+                    "inline": true
+                  }
+                },
+                {
+                  "type": "field",
+                  "data": {
+                    "title": "Requested by",
+                    "value": "<@${tempVars('currentTrack').requestedBy.id}>",
+                    "inline": true
+                  }
+                },
+                {
+                  "type": "field",
+                  "data": {
+                    "title": "Time remaining",
+                    "value": "${tempVars('progBar')}",
+                    "inline": false
+                  }
+                }
+              ],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "msg-resume",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-resume"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737730549064
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737730549065
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "notInVc-resume"
+      },
+      "id": 1737730549066
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "resume",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nYou're not in a voice channel, join one to use this command.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-resume"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-resume"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737730549067
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737730549068
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-resume"
+        }
+      },
+      "id": 1737730549069
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737730549070
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "noQueue-resume"
+      },
+      "id": 1737730549071
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "resume",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nThere is nothing to resume.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-resume"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-resume"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737730549072
+    },
+    {
+      "name": "Delete Variable",
+      "file": "deleteVariable.js",
+      "data": {
+        "name": "Delete Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        }
+      },
+      "id": 1737730549073
+    },
+    {
+      "name": "Delete Variable",
+      "file": "deleteVariable.js",
+      "data": {
+        "name": "Delete Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-user"
+        }
+      },
+      "id": 1737730549074
+    },
+    {
+      "name": "Control Music",
+      "file": "controlMusic_MOD.js",
+      "data": {
+        "name": "Control Music",
+        "musicAction": {
+          "type": "stopPlaying",
+          "value": ""
+        }
+      },
+      "id": 1737747289339
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737730549075
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-resume"
+        }
+      },
+      "id": 1737730549076
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737730549077
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "musicBinding-channel-resume"
+      },
+      "id": 1737730549078
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "resume",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThere isn't a channel binding, start playing some music to create said binding.",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "storeAs": {
+                "type": "temporary",
+                "value": "msg-resume"
+              },
+              "attachments": [],
+              "poll": [],
+              "replyToInteraction": false,
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "msg-resume"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1737743238273
+          }
+        ],
+        "false": {
+          "type": "runActions",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "resume",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThe command channel is binded to: <#${serverVars('musicBinding-channel')}>",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "storeAs": {
+                "type": "temporary",
+                "value": "msg-resume"
+              },
+              "attachments": [],
+              "poll": [],
+              "replyToInteraction": false,
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "msg-resume"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1737743238274
+          }
+        ]
+      },
+      "id": 1737730549079
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737730549080
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-resume"
+        }
+      },
+      "id": 1737730549081
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737730549082
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "musicBinding-user-resume"
+      },
+      "id": 1737730549083
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-user"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "resume",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThere isn't a user binding, start playing some music to create said binding.",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "storeAs": {
+                "type": "temporary",
+                "value": "msg-resume"
+              },
+              "attachments": [],
+              "poll": [],
+              "replyToInteraction": false,
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "msg-resume"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1737743238275
+          }
+        ],
+        "false": {
+          "type": "runActions",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "resume",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThe priviledged command user is binded to: <@${serverVars('musicBinding-user')}>",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "storeAs": {
+                "type": "temporary",
+                "value": "msg-resume"
+              },
+              "attachments": [],
+              "poll": [],
+              "replyToInteraction": false,
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "msg-resume"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1737743238276
+          }
+        ]
+      },
+      "id": 1737730549084
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737730549086
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-resume"
+        }
+      },
+      "id": 1737730549087
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737730549088
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "notPaused-resume"
+      },
+      "id": 1737740713951
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "resume",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nThe player is already playing.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-resume"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-resume"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737747524108
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737747524109
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-resume"
+        }
+      },
+      "id": 1737747524110
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737747524111
+    }
+  ],
+  "customId": 1737722907488,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [],
+  "description": "Resumes the current track",
+  "folder": []
+}
+    

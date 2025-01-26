@@ -1,0 +1,556 @@
+{
+  "name": "now-playing",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "now playing",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":mag_right: Running checks...",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "msg-nowPlaying",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false,
+        "files": [],
+        "silent": true
+      },
+      "id": 1737743021487
+    },
+    {
+      "name": "Store Queue Info",
+      "file": "storeQueueInfo_MOD.js",
+      "data": {
+        "name": "Store Queue Info",
+        "queueInfo": {
+          "type": "currentTrack",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "currentTrack"
+        }
+      },
+      "id": 1737747524120
+    },
+    {
+      "name": "Store Queue Info",
+      "file": "storeQueueInfo_MOD.js",
+      "data": {
+        "name": "Store Queue Info",
+        "queueInfo": {
+          "type": "progressBar",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "progBar"
+        }
+      },
+      "id": 1737743276299
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        },
+        "comparator": "Equals",
+        "compareValue": "${command.channel.id}",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "musicBinding-channel-nowPlaying"
+        },
+        "falseActions": []
+      },
+      "id": 1737747524121
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "currentTrack"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "noQueue-nowPlaying"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1737747524122
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "now playing",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "${tempVars('currentTrack').thumbnail}",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":musical_note: Now playing:\n${tempVars('currentTrack').author} - [${tempVars('currentTrack').title}](${tempVars('currentTrack').url})",
+              "fields": [
+                {
+                  "type": "field",
+                  "data": {
+                    "title": "Duration",
+                    "value": "${tempVars('currentTrack').duration}",
+                    "inline": true
+                  }
+                },
+                {
+                  "type": "field",
+                  "data": {
+                    "title": "Requested by",
+                    "value": "<@${tempVars('currentTrack').requestedBy.id}>",
+                    "inline": true
+                  }
+                },
+                {
+                  "type": "field",
+                  "data": {
+                    "title": "Time remaining",
+                    "value": "${tempVars('progBar')}",
+                    "inline": false
+                  }
+                }
+              ],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "msg-nowPlaying",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-nowPlaying"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737747524123
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737743314031
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "noQueue-nowPlaying"
+      },
+      "id": 1737743428213
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "now playing",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nThere is nothing playing right now.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-nowPlaying"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-nowPlaying"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737747524125
+    },
+    {
+      "name": "Delete Variable",
+      "file": "deleteVariable.js",
+      "data": {
+        "name": "Delete Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        }
+      },
+      "id": 1737747524126
+    },
+    {
+      "name": "Delete Variable",
+      "file": "deleteVariable.js",
+      "data": {
+        "name": "Delete Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-user"
+        }
+      },
+      "id": 1737747524127
+    },
+    {
+      "name": "Control Music",
+      "file": "controlMusic_MOD.js",
+      "data": {
+        "name": "Control Music",
+        "musicAction": {
+          "type": "stopPlaying",
+          "value": ""
+        }
+      },
+      "id": 1737747342913
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737747524128
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-nowPlaying"
+        }
+      },
+      "id": 1737747524129
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737747524130
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "musicBinding-channel-nowPlaying"
+      },
+      "id": 1737747524131
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "now playing",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThere isn't a channel binding, start playing some music to create said binding.",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "storeAs": {
+                "type": "temporary",
+                "value": "msg-nowPlaying"
+              },
+              "attachments": [],
+              "poll": [],
+              "replyToInteraction": false,
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "msg-nowPlaying"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1737815244131
+          }
+        ],
+        "false": {
+          "type": "runActions",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "channel": {
+                "type": "command",
+                "value": ""
+              },
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "now playing",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": ":x: Error:\nThe command channel is binded to: <#${serverVars('musicBinding-channel')}>",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "storeAs": {
+                "type": "temporary",
+                "value": "msg-nowPlaying"
+              },
+              "attachments": [],
+              "poll": [],
+              "replyToInteraction": false,
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "tempVar",
+                "value": "msg-nowPlaying"
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1737815244132
+          }
+        ]
+      },
+      "id": 1737747524132
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737747524133
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-nowPlaying"
+        }
+      },
+      "id": 1737747524134
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737747524135
+    }
+  ],
+  "customId": 1737741149614,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [],
+  "description": "Shows the current track",
+  "folder": []
+}
+    

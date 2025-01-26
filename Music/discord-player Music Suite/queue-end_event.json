@@ -1,0 +1,71 @@
+{
+  "name": "queueEnd",
+  "type": "event",
+  "trigger": "event",
+  "actions": [
+    {
+      "name": "Change Server",
+      "file": "changeServer.js",
+      "data": {
+        "name": "Change Server",
+        "guild": {
+          "type": "id",
+          "value": "${tempVars('queueEnd-queue').guild.id}"
+        }
+      },
+      "id": 1737887635684
+    },
+    {
+      "name": "Delete Variable",
+      "file": "deleteVariable.js",
+      "data": {
+        "name": "Delete Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-channel"
+        }
+      },
+      "id": 1737723554950
+    },
+    {
+      "name": "Delete Variable",
+      "file": "deleteVariable.js",
+      "data": {
+        "name": "Delete Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "musicBinding-user"
+        }
+      },
+      "id": 1737723571575
+    },
+    {
+      "name": "Leave Voice Channel",
+      "file": "leaveVoiceChannel.js",
+      "data": {
+        "name": "Leave Voice Channel"
+      },
+      "id": 1737733774145
+    },
+    {
+      "name": "Control Music",
+      "file": "controlMusic_MOD.js",
+      "data": {
+        "name": "Control Music",
+        "musicAction": {
+          "type": "stopPlaying",
+          "value": ""
+        }
+      },
+      "id": 1737747244866
+    }
+  ],
+  "customId": 1737723529854,
+  "eventFile": "music_queue_end.js",
+  "eventData": [
+    "queueEnd-queue",
+    ""
+  ],
+  "folder": []
+}
+    

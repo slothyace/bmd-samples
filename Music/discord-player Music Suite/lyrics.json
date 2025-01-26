@@ -1,0 +1,674 @@
+{
+  "name": "lyrics",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "lyrics",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":mag_right: Running checks...",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "msg-lyrics",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false,
+        "files": [],
+        "silent": true
+      },
+      "id": 1737789415195
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "getLyrics-song"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "getLyrics-fetchCurrent"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1737789549227
+    },
+    {
+      "name": "Get Lyrics",
+      "file": "getLyrics_MOD.js",
+      "data": {
+        "name": "Get Lyrics",
+        "query": "${tempVars('getLyrics-song')}",
+        "store": {
+          "type": "temporary",
+          "value": "lyrics"
+        },
+        "lyricChoice": "1",
+        "allResults": {
+          "type": "temporary",
+          "value": ""
+        },
+        "noLyrics": {
+          "type": "anchorJump",
+          "value": "noLyrics-lyrics"
+        },
+        "noLyricsAction": []
+      },
+      "id": 1737789633727
+    },
+    {
+      "name": "String Limiter",
+      "file": "stringLimiter_MOD.js",
+      "data": {
+        "name": "String Limiter",
+        "srcTxt": ":bookmark_tabs: Lyrics for: ***${tempVars('lyrics').name}***\\n${tempVars('lyrics').plainLyrics}",
+        "maxLength": "4096",
+        "append": "...",
+        "countAppend": true,
+        "result": {
+          "type": "temporary",
+          "value": "lyricsDisp"
+        }
+      },
+      "id": 1737792905876
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "lyrics",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "${tempVars('lyricsDisp')}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "msg-lyrics",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-lyrics"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737789675120
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737789861462
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "getLyrics-fetchCurrent"
+      },
+      "id": 1737789901576
+    },
+    {
+      "name": "Store Queue Info",
+      "file": "storeQueueInfo_MOD.js",
+      "data": {
+        "name": "Store Queue Info",
+        "queueInfo": {
+          "type": "currentTrack",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "currentTrack"
+        }
+      },
+      "id": 1737789927718
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "currentTrack"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "noCurrentTrack-lyrics"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1737789964571
+    },
+    {
+      "name": "Get Lyrics",
+      "file": "getLyrics_MOD.js",
+      "data": {
+        "name": "Get Lyrics",
+        "query": "${tempVars('currentTrack').url}",
+        "store": {
+          "type": "temporary",
+          "value": "lyrics"
+        },
+        "lyricChoice": "1",
+        "allResults": {
+          "type": "temporary",
+          "value": ""
+        },
+        "noLyrics": {
+          "type": "anchorJump",
+          "value": "noLyrics-lyrics"
+        },
+        "noLyricsAction": []
+      },
+      "id": 1737789959285
+    },
+    {
+      "name": "String Limiter",
+      "file": "stringLimiter_MOD.js",
+      "data": {
+        "name": "String Limiter",
+        "srcTxt": ":bookmark_tabs: Lyrics for: ***${tempVars('lyrics').name}***\\n${tempVars('lyrics').plainLyrics}",
+        "maxLength": "4096",
+        "append": "...",
+        "countAppend": true,
+        "result": {
+          "type": "temporary",
+          "value": "lyricsDisp"
+        }
+      },
+      "id": 1737793093496
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "lyrics",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "${tempVars('lyricsDisp')}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "msg-lyrics",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-lyrics"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737790029095
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737791788749
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "noCurrentTrack-lyrics"
+      },
+      "id": 1737790044448
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "lyrics",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nThere is nothing playing right now, fill out the song instead to find the lyrics.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-lyrics"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-lyrics"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737791788750
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737791788751
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-lyrics"
+        }
+      },
+      "id": 1737791788752
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737791788753
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "noLyrics-lyrics"
+      },
+      "id": 1737790916893
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "lyrics",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\nUnable to find the lyrics for given song.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-lyrics"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-lyrics"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1737791788754
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1737791788755
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-lyrics"
+        }
+      },
+      "id": 1737791788756
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1737791788757
+    }
+  ],
+  "customId": 1737789280500,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [
+    {
+      "name": "song",
+      "type": "string",
+      "description": "song",
+      "required": false,
+      "choices": [],
+      "storeAs": "getLyrics-song",
+      "completion": false,
+      "bound": {
+        "name": "Autocompletion",
+        "storeInputAs": {
+          "type": "temporary",
+          "value": "dscplayer-searchTerm"
+        },
+        "storeInteractionAs": {
+          "type": "temporary",
+          "value": ""
+        },
+        "actions": [
+          {
+            "name": "Search Music",
+            "file": "searchMusic_MOD.js",
+            "data": {
+              "name": "Search Music",
+              "query": "${tempVars('dscplayer-searchTerm')}",
+              "store": {
+                "type": "temporary",
+                "value": "dscplayer-autoComp-tracks"
+              }
+            },
+            "id": 1737789373234
+          },
+          {
+            "name": "Create List",
+            "file": "createList.js",
+            "data": {
+              "name": "Create List",
+              "list": {
+                "type": "temporary",
+                "value": "dscplayer-autoCompSearch-returnList"
+              }
+            },
+            "id": 1737789373234
+          },
+          {
+            "name": "Loop Through List",
+            "file": "loopThroughList.js",
+            "data": {
+              "name": "Loop Through List",
+              "await": true,
+              "list": {
+                "type": "tempVar",
+                "value": "dscplayer-autoComp-tracks"
+              },
+              "storeIterationAs": {
+                "type": "temporary",
+                "value": "index"
+              },
+              "storeValueAs": {
+                "type": "temporary",
+                "value": "autoComp-track"
+              },
+              "actions": [
+                {
+                  "name": "String Limiter",
+                  "file": "stringLimiter_MOD.js",
+                  "data": {
+                    "name": "String Limiter",
+                    "srcTxt": "${tempVars('autoComp-track').title}",
+                    "maxLength": "95",
+                    "append": "...",
+                    "countAppend": false,
+                    "result": {
+                      "type": "temporary",
+                      "value": "autoComp-track-100str"
+                    }
+                  },
+                  "id": 1737743681300
+                },
+                {
+                  "name": "Create List Element",
+                  "file": "createListElement.js",
+                  "data": {
+                    "name": "Create List Element",
+                    "list": {
+                      "type": "tempVar",
+                      "value": "dscplayer-autoCompSearch-returnList"
+                    },
+                    "value": {
+                      "type": "string",
+                      "value": "${tempVars('autoComp-track-100str')}"
+                    }
+                  },
+                  "id": 1737714025974
+                }
+              ]
+            },
+            "id": 1737789373234
+          },
+          {
+            "name": "Evaluate",
+            "file": "eval.js",
+            "data": {
+              "name": "Evaluate",
+              "transfer": true,
+              "code": "let list = bridge.variables[\"dscplayer-autoCompSearch-returnList\"]\ntop20 = list.slice(0,19)",
+              "result": {
+                "type": "temporary",
+                "value": "dscplayer-autoCompSearch-returnList"
+              },
+              "type": {
+                "type": "temporary",
+                "value": ""
+              }
+            },
+            "id": 1737789373234
+          }
+        ],
+        "result": {
+          "type": "tempVar",
+          "value": "dscplayer-autoCompSearch-returnList"
+        }
+      },
+      "autocompletion": true
+    }
+  ],
+  "description": "Shows the lyrics",
+  "folder": []
+}
+    
