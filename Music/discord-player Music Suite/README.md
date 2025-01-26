@@ -27,5 +27,7 @@ The suite has, but is not limited to these functions:
 <a href="https://ko-fi.com/slothyacedia"><img src="https://github.com/slothyace/slothyace/blob/main/icons/kofi.png" width=240 height=48></a>
 
 ## License
+[MIT License](https://github.com/slothyace/bcs-samples/blob/main/LICENSE)
 Whilst I am not a di*k about licensing my work & mods, do not delete the "discord-player Music suite by: SlothyAcedia" footer if you have some basic courtesy.  
+  
 Other than that, Im not that much of a stickler about it.
