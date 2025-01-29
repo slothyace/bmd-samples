@@ -1329,7 +1329,7 @@
             "data": {
               "name": "Evaluate",
               "transfer": true,
-              "code": "let list = bridge.variables[\"dscplayer-autoCompSearch-returnList\"]\ntop20 = list.slice(0,19)",
+              "code": "let list = bridge.variables[\"dscplayer-autoCompSearch-returnList\"]\ntop20 = list.slice(0,20)",
               "result": {
                 "type": "temporary",
                 "value": "dscplayer-autoCompSearch-returnList"
