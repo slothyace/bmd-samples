@@ -1,4 +1,4 @@
-{
+    {
   "name": "queueEnd",
   "type": "event",
   "trigger": "event",
@@ -14,6 +14,52 @@
         }
       },
       "id": 1737887635684
+    },
+    {
+      "name": "Leave Voice Channel",
+      "file": "leaveVoiceChannel.js",
+      "data": {
+        "name": "Leave Voice Channel"
+      },
+      "id": 1737733774145
+    },
+    {
+      "name": "Get Bot Info",
+      "file": "getBotInfo.js",
+      "data": {
+        "name": "Get Bot Info",
+        "get": "Client ID",
+        "store": {
+          "type": "temporary",
+          "value": "clientId"
+        }
+      },
+      "id": 1738169403569
+    },
+    {
+      "name": "Bulk Delete",
+      "file": "bulkDeleteMessages.js",
+      "data": {
+        "name": "Bulk Delete",
+        "user": {
+          "type": "id",
+          "value": "${tempVars('clientId')}"
+        },
+        "channel": {
+          "type": "id",
+          "value": "${serverVars('musicBinding-channel')}"
+        },
+        "amount": "Maximum (300)",
+        "delete": "",
+        "include": "Nothing",
+        "keyword": "",
+        "reason": "Music Queue End, Clearing Message Spam",
+        "deletedCountStorage": {
+          "type": "temporary",
+          "value": "delCount"
+        }
+      },
+      "id": 1738169380517
     },
     {
       "name": "Delete Variable",
@@ -38,14 +84,6 @@
         }
       },
       "id": 1737723571575
-    },
-    {
-      "name": "Leave Voice Channel",
-      "file": "leaveVoiceChannel.js",
-      "data": {
-        "name": "Leave Voice Channel"
-      },
-      "id": 1737733774145
     },
     {
       "name": "Control Music",
