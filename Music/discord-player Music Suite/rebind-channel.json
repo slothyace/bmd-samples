@@ -292,13 +292,15 @@
         "dontSend": false,
         "ephemeral": false,
         "updateMessage": {
-          "type": "tempVar",
+          "type": "none",
           "value": "msg-rebindChannel"
         },
         "updateContent": false,
         "updateComponents": false,
         "updateEmbeds": false,
-        "updateAttachments": false
+        "updateAttachments": false,
+        "files": [],
+        "silent": false
       },
       "id": 1737841256460
     },
@@ -765,7 +767,7 @@
       "id": 1737842562193
     }
   ],
-  "customId": 1737839538327,
+  "customId": 1738170163197,
   "boundary": {
     "worksIn": "guild",
     "limits": []
