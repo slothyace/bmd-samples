@@ -1,4 +1,4 @@
-    {
+{
   "name": "lyrics",
   "type": "action",
   "trigger": "slashCommand",
@@ -641,7 +641,7 @@
           "value": "lyrics"
         }
       },
-      "id": 1738168731823
+      "id": 1738169189584
     },
     {
       "name": "String Limiter",
@@ -657,7 +657,7 @@
           "value": "lyricsDisp"
         }
       },
-      "id": 1738168731823
+      "id": 1738169189585
     },
     {
       "name": "Calculate",
@@ -672,7 +672,7 @@
           "value": "currentLyric-disp"
         }
       },
-      "id": 1738168731823
+      "id": 1738169189586
     },
     {
       "name": "Send Message",
@@ -704,7 +704,7 @@
                           "ephemeral": false,
                           "silent": true
                         },
-                        "id": 1738167719562
+                        "id": 1738169189588
                       },
                       {
                         "name": "Get Member Info",
@@ -724,7 +724,7 @@
                             "value": "buttonClicker-id"
                           }
                         },
-                        "id": 1738167577913
+                        "id": 1738169189589
                       },
                       {
                         "name": "Check Variable",
@@ -748,7 +748,7 @@
                           },
                           "falseActions": []
                         },
-                        "id": 1738167606602
+                        "id": 1738169189590
                       },
                       {
                         "name": "Check Variable",
@@ -772,7 +772,7 @@
                           },
                           "falseActions": []
                         },
-                        "id": 1738167623667
+                        "id": 1738169189591
                       },
                       {
                         "name": "Control Variable",
@@ -786,7 +786,7 @@
                           "control": "Add To Value",
                           "value": "-1"
                         },
-                        "id": 1738167643893
+                        "id": 1738169189592
                       },
                       {
                         "name": "Jump To Anchor",
@@ -795,7 +795,7 @@
                           "name": "Jump To Anchor",
                           "id": "currentSongSearch-lyricAnchor"
                         },
-                        "id": 1738167665335
+                        "id": 1738169189593
                       }
                     ],
                     "disabled": false,
@@ -839,7 +839,7 @@
                           "ephemeral": false,
                           "silent": true
                         },
-                        "id": 1738167835369
+                        "id": 1738169189594
                       },
                       {
                         "name": "Get Member Info",
@@ -859,7 +859,7 @@
                             "value": "buttonClicker-id"
                           }
                         },
-                        "id": 1738167835370
+                        "id": 1738169189595
                       },
                       {
                         "name": "Check Variable",
@@ -883,7 +883,7 @@
                           },
                           "falseActions": []
                         },
-                        "id": 1738167835371
+                        "id": 1738169189596
                       },
                       {
                         "name": "Check Variable",
@@ -907,7 +907,7 @@
                           },
                           "falseActions": []
                         },
-                        "id": 1738167835372
+                        "id": 1738169189597
                       },
                       {
                         "name": "Control Variable",
@@ -921,7 +921,7 @@
                           "control": "Add To Value",
                           "value": "1"
                         },
-                        "id": 1738167835373
+                        "id": 1738169189598
                       },
                       {
                         "name": "Jump To Anchor",
@@ -930,7 +930,7 @@
                           "name": "Jump To Anchor",
                           "id": "currentSongSearch-lyricAnchor"
                         },
-                        "id": 1738167835374
+                        "id": 1738169189599
                       }
                     ],
                     "disabled": false,
@@ -1015,7 +1015,7 @@
         "updateEmbeds": false,
         "updateAttachments": false
       },
-      "id": 1738168731823
+      "id": 1738169189587
     },
     {
       "name": "Stop Actions",
@@ -1218,7 +1218,7 @@
       "id": 1737791788757
     }
   ],
-  "customId": 1737789280500,
+  "customId": 1738169188509,
   "boundary": {
     "worksIn": "guild",
     "limits": []

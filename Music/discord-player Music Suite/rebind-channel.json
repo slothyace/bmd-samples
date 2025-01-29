@@ -1,4 +1,4 @@
-    {
+{
   "name": "rebind-channel",
   "type": "action",
   "trigger": "slashCommand",
@@ -131,6 +131,26 @@
       "id": 1737840935556
     },
     {
+      "name": "Get Channel Info",
+      "file": "getChannelInfo.js",
+      "data": {
+        "name": "Get Channel Info",
+        "channel": {
+          "type": "tempVar",
+          "value": "rebindChannel-channel"
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "rebindChannel-channel-id"
+        }
+      },
+      "id": 1738170095066
+    },
+    {
       "name": "Check Variable",
       "file": "checkVariable.js",
       "data": {
@@ -155,24 +175,28 @@
       "id": 1737841082971
     },
     {
-      "name": "Get Channel Info",
-      "file": "getChannelInfo.js",
+      "name": "Check Variable",
+      "file": "checkVariable.js",
       "data": {
-        "name": "Get Channel Info",
-        "channel": {
+        "name": "Check Variable",
+        "variable": {
           "type": "tempVar",
-          "value": "rebindChannel-channel"
-        },
-        "get": {
-          "type": "id",
-          "value": ""
-        },
-        "store": {
-          "type": "temporary",
           "value": "rebindChannel-channel-id"
-        }
+        },
+        "comparator": "Equals",
+        "compareValue": "${serverVars('musicBinding-channel')}",
+        "true": {
+          "type": "anchorJump",
+          "value": "cannotBeSame-rebindChannel"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": "notTextChannel-rebindChannel"
+        },
+        "falseActions": []
       },
-      "id": 1738170095066
+      "id": 1738170374047
     },
     {
       "name": "Control Variable",
@@ -765,6 +789,102 @@
         "name": "Stop Actions"
       },
       "id": 1737842562193
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "cannotBeSame-rebindChannel"
+      },
+      "id": 1738170445148
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "rebind channel",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\n${tempVars('rebindChannel-channel')} is already the command channel binding.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-rebindChannel"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-rebindChannel"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1738170445148
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1738170445148
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-rebindChannel"
+        }
+      },
+      "id": 1738170445148
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1738170445148
     }
   ],
   "customId": 1738170163197,

@@ -1,4 +1,4 @@
-    {
+{
   "name": "queueEnd",
   "type": "event",
   "trigger": "event",
@@ -98,7 +98,7 @@
       "id": 1737747244866
     }
   ],
-  "customId": 1737723529854,
+  "customId": 1738169953221,
   "eventFile": "music_queue_end.js",
   "eventData": [
     "queueEnd-queue",

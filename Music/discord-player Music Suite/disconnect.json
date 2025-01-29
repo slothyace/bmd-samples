@@ -131,30 +131,6 @@
       "id": 1737739258382
     },
     {
-      "name": "Delete Variable",
-      "file": "deleteVariable.js",
-      "data": {
-        "name": "Delete Variable",
-        "variable": {
-          "type": "serverVar",
-          "value": "musicBinding-channel"
-        }
-      },
-      "id": 1737741106754
-    },
-    {
-      "name": "Delete Variable",
-      "file": "deleteVariable.js",
-      "data": {
-        "name": "Delete Variable",
-        "variable": {
-          "type": "serverVar",
-          "value": "musicBinding-user"
-        }
-      },
-      "id": 1737747524119
-    },
-    {
       "name": "Send Message",
       "file": "sendmessage.js",
       "data": {

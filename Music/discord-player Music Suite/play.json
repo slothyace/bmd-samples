@@ -1,4 +1,4 @@
-    {
+{
   "name": "play",
   "type": "action",
   "trigger": "slashCommand",

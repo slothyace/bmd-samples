@@ -1,5 +1,5 @@
 {
-  "name": "loop",
+  "name": "queue",
   "type": "action",
   "trigger": "slashCommand",
   "actions": [
@@ -14,7 +14,7 @@
           {
             "type": "embed",
             "data": {
-              "title": "loop",
+              "title": "queue",
               "embedColor": "#FFFFFF",
               "footerContent": "",
               "imageURL": "",
@@ -36,7 +36,7 @@
         },
         "replyToInteraction": true,
         "storeAs": {
-          "value": "msg-loop",
+          "value": "msg-queue",
           "type": "temporary"
         },
         "options": [
@@ -60,51 +60,7 @@
         "files": [],
         "silent": true
       },
-      "id": 1737804448291
-    },
-    {
-      "name": "Get Member Info",
-      "file": "getMemberInfo.js",
-      "data": {
-        "name": "Get Member Info",
-        "member": {
-          "type": "author",
-          "value": ""
-        },
-        "get": {
-          "type": "voiceChannel",
-          "value": ""
-        },
-        "store": {
-          "type": "temporary",
-          "value": "memberVc-loop"
-        }
-      },
-      "id": 1737804487797
-    },
-    {
-      "name": "Check Variable",
-      "file": "checkVariable.js",
-      "data": {
-        "name": "Check Variable",
-        "variable": {
-          "type": "tempVar",
-          "value": "memberVc-loop"
-        },
-        "comparator": "Equals",
-        "compareValue": "undefined",
-        "true": {
-          "type": "anchorJump",
-          "value": "notInVc-loop"
-        },
-        "trueActions": [],
-        "false": {
-          "type": "continue",
-          "value": ""
-        },
-        "falseActions": []
-      },
-      "id": 1737807994415
+      "id": 1737814531426
     },
     {
       "name": "Check Variable",
@@ -124,88 +80,24 @@
         "trueActions": [],
         "false": {
           "type": "anchorJump",
-          "value": "musicBinding-channel-loop"
+          "value": "musicBinding-channel-queue"
         },
         "falseActions": []
       },
-      "id": 1737807994416
+      "id": 1737814557048
     },
     {
-      "name": "Better Multiple Comparisons",
-      "file": "betterMultiCompare_MOD.js",
+      "name": "Create Variable",
+      "file": "createVariable.js",
       "data": {
-        "name": "Better Multiple Comparisons",
-        "input": "${tempVars('behaviour-loop')}",
-        "matchConditions": [
-          {
-            "type": "conditions",
-            "data": {
-              "conditionType": "Equals To",
-              "compValue": "loopCurrent",
-              "ignore": true,
-              "true": {
-                "type": "anchorJump",
-                "value": "loopCurrent-loop"
-              },
-              "trueActions": []
-            }
-          },
-          {
-            "type": "conditions",
-            "data": {
-              "conditionType": "Equals To",
-              "compValue": "loopQueue",
-              "ignore": true,
-              "true": {
-                "type": "anchorJump",
-                "value": "loopQueue-loop"
-              },
-              "trueActions": []
-            }
-          },
-          {
-            "type": "conditions",
-            "data": {
-              "conditionType": "Equals To",
-              "compValue": "loopOff",
-              "ignore": true,
-              "true": {
-                "type": "anchorJump",
-                "value": "loopOff-loop"
-              },
-              "trueActions": []
-            }
-          }
-        ],
-        "else": {
-          "type": "anchorJump",
-          "value": "invalidBehaviour-loop"
+        "name": "Create Variable",
+        "variable": {
+          "type": "temporary",
+          "value": "pageNum-queue"
         },
-        "elseActions": [],
-        "falseBack": {
-          "type": "stop",
-          "value": ""
-        },
-        "falseBackActions": []
+        "value": "0"
       },
-      "id": 1737804511106
-    },
-    {
-      "name": "Stop Actions",
-      "file": "stopRunningActions.js",
-      "data": {
-        "name": "Stop Actions"
-      },
-      "id": 1737804622887
-    },
-    {
-      "name": "Create Anchor",
-      "file": "createAnchor.js",
-      "data": {
-        "name": "Create Anchor",
-        "id": "loopCurrent-loop"
-      },
-      "id": 1737804652274
+      "id": 1737832443714
     },
     {
       "name": "Store Queue Info",
@@ -213,15 +105,52 @@
       "data": {
         "name": "Store Queue Info",
         "queueInfo": {
-          "type": "currentTrack",
+          "type": "tracks",
           "value": ""
         },
         "store": {
           "type": "temporary",
-          "value": "currentTrack"
+          "value": "allTracks"
         }
       },
-      "id": 1737804883751
+      "id": 1737814574032
+    },
+    {
+      "name": "Store Queue Info",
+      "file": "storeQueueInfo_MOD.js",
+      "data": {
+        "name": "Store Queue Info",
+        "queueInfo": {
+          "type": "queueSize",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "allTracks-length"
+        }
+      },
+      "id": 1737832201719
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "cachePoint-queue"
+      },
+      "id": 1737832464767
+    },
+    {
+      "name": "Create List",
+      "file": "createList.js",
+      "data": {
+        "name": "Create List",
+        "list": {
+          "type": "temporary",
+          "value": "dispQueue-list"
+        }
+      },
+      "id": 1737833184157
     },
     {
       "name": "Check Variable",
@@ -230,13 +159,13 @@
         "name": "Check Variable",
         "variable": {
           "type": "tempVar",
-          "value": "currentTrack"
+          "value": "allTracks-length"
         },
         "comparator": "Equals",
-        "compareValue": "undefined",
+        "compareValue": "0",
         "true": {
           "type": "anchorJump",
-          "value": "noCurrentTrack-loop"
+          "value": "noQueue-queue"
         },
         "trueActions": [],
         "false": {
@@ -245,19 +174,210 @@
         },
         "falseActions": []
       },
-      "id": 1737804904248
+      "id": 1737836984353
     },
     {
-      "name": "Loop Music",
-      "file": "loopMusic_MOD.js",
+      "name": "Evaluate",
+      "file": "eval.js",
       "data": {
-        "name": "Loop Music",
-        "musicAction": {
-          "type": "track",
+        "name": "Evaluate",
+        "transfer": true,
+        "code": "let allTracks = bridge.variables['allTracks']\nlet multiplier = parseInt(bridge.variables['pageNum-queue'], 10)\nlet lower = multiplier*10\nlet upper = (multiplier*10) + 10\n\nfunction returnList(lower, upper){\nreturn allTracks.slice(lower, upper)\n}\n\nreturnList(lower, upper)",
+        "result": {
+          "type": "temporary",
+          "value": "splicedList-queue"
+        },
+        "type": {
+          "type": "temporary",
           "value": ""
         }
       },
-      "id": 1737804687091
+      "id": 1737832244511
+    },
+    {
+      "name": "Loop Through List",
+      "file": "loopThroughList.js",
+      "data": {
+        "name": "Loop Through List",
+        "await": true,
+        "list": {
+          "type": "tempVar",
+          "value": "splicedList-queue"
+        },
+        "storeIterationAs": {
+          "type": "temporary",
+          "value": "iterIndex"
+        },
+        "storeValueAs": {
+          "type": "temporary",
+          "value": "track"
+        },
+        "actions": [
+          {
+            "name": "Calculate",
+            "file": "calculate.js",
+            "data": {
+              "name": "Calculate",
+              "firstNumber": "${tempVars('pageNum-queue')}",
+              "operation": "Multiplication",
+              "secondNumber": "10",
+              "store": {
+                "type": "temporary",
+                "value": "pageCoreNum"
+              }
+            },
+            "id": 1737885990746
+          },
+          {
+            "name": "Calculate",
+            "file": "calculate.js",
+            "data": {
+              "name": "Calculate",
+              "firstNumber": "${tempVars('pageCoreNum')}",
+              "operation": "Addition",
+              "secondNumber": "${tempVars('iterIndex')}",
+              "store": {
+                "type": "temporary",
+                "value": "pageCoreNum-plusIter"
+              }
+            },
+            "id": 1737886030237
+          },
+          {
+            "name": "Calculate",
+            "file": "calculate.js",
+            "data": {
+              "name": "Calculate",
+              "firstNumber": "${tempVars('pageCoreNum-plusIter')}",
+              "operation": "Addition",
+              "secondNumber": "1",
+              "store": {
+                "type": "temporary",
+                "value": "itemIndex"
+              }
+            },
+            "id": 1737886063171
+          },
+          {
+            "name": "Create List Element",
+            "file": "createListElement.js",
+            "data": {
+              "name": "Create List Element",
+              "list": {
+                "type": "tempVar",
+                "value": "dispQueue-list"
+              },
+              "value": {
+                "type": "string",
+                "value": "${tempVars('itemIndex')}) ${tempVars('track').author} - [${tempVars('track').title}](${tempVars('track').url})"
+              }
+            },
+            "id": 1737837608385
+          }
+        ]
+      },
+      "id": 1737833153816
+    },
+    {
+      "name": "Calculate",
+      "file": "calculate.js",
+      "data": {
+        "name": "Calculate",
+        "firstNumber": "${tempVars('pageNum-queue')}",
+        "operation": "Multiplication",
+        "secondNumber": "10",
+        "store": {
+          "type": "temporary",
+          "value": "baseNum"
+        }
+      },
+      "id": 1737885848056
+    },
+    {
+      "name": "Calculate",
+      "file": "calculate.js",
+      "data": {
+        "name": "Calculate",
+        "firstNumber": "${tempVars('baseNum')}",
+        "operation": "Addition",
+        "secondNumber": "1",
+        "store": {
+          "type": "temporary",
+          "value": "startNum"
+        }
+      },
+      "id": 1737885924506
+    },
+    {
+      "name": "Calculate",
+      "file": "calculate.js",
+      "data": {
+        "name": "Calculate",
+        "firstNumber": "${tempVars('baseNum')}",
+        "operation": "Addition",
+        "secondNumber": "10",
+        "store": {
+          "type": "temporary",
+          "value": "endNum"
+        }
+      },
+      "id": 1737885950156
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "endNum"
+        },
+        "comparator": "Greater Than",
+        "compareValue": "${tempVars('allTracks-length')}",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Control Variable",
+            "file": "controlVariable.js",
+            "data": {
+              "name": "Control Variable",
+              "variable": {
+                "type": "tempVar",
+                "value": "endNum"
+              },
+              "control": "Set Value",
+              "value": "${tempVars('allTracks-length')}"
+            },
+            "id": 1737837589302
+          }
+        ],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1737837560220
+    },
+    {
+      "name": "Convert List To Text",
+      "file": "convertListToText.js",
+      "data": {
+        "name": "Convert List To Text",
+        "list": {
+          "type": "tempVar",
+          "value": "dispQueue-list"
+        },
+        "separator": "\\n\\n",
+        "store": {
+          "type": "temporary",
+          "value": "dispQueue-textified"
+        }
+      },
+      "id": 1737833545571
     },
     {
       "name": "Send Message",
@@ -265,38 +385,705 @@
       "data": {
         "name": "Send Message",
         "messageContent": "",
-        "actionRows": [],
-        "embeds": [
+        "actionRows": [
           {
-            "type": "embed",
+            "type": "buttons",
             "data": {
-              "title": "loop",
-              "embedColor": "#FFFFFF",
-              "footerContent": "",
-              "imageURL": "",
-              "footerIconURL": "",
-              "thumbnailURL": "${tempVars('currentTrack').thumbnail}",
-              "authorName": "",
-              "authorIcon": "",
-              "description": ":repeat_one: Looping current track:\n${tempVars('currentTrack').author} - [${tempVars('currentTrack').title}](${tempVars('currentTrack').url})",
-              "fields": [
+              "buttons": [
                 {
-                  "type": "field",
+                  "type": "normal",
                   "data": {
-                    "title": "Duration",
-                    "value": "${tempVars('currentTrack').duration}",
-                    "inline": true
+                    "label": "",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1737882416423
+                      },
+                      {
+                        "name": "Get Member Info",
+                        "file": "getMemberInfo.js",
+                        "data": {
+                          "name": "Get Member Info",
+                          "member": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClicker-id"
+                          }
+                        },
+                        "id": 1737837608386
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-id"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1737837608387
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-queue"
+                          },
+                          "control": "Set Value",
+                          "value": "0"
+                        },
+                        "id": 1737837608388
+                      },
+                      {
+                        "name": "Send Message",
+                        "file": "sendmessage.js",
+                        "data": {
+                          "name": "Send Message",
+                          "messageContent": "Updated",
+                          "actionRows": [],
+                          "embeds": [],
+                          "channel": {
+                            "type": "command",
+                            "value": ""
+                          },
+                          "storeAs": {
+                            "value": "",
+                            "type": "temporary"
+                          },
+                          "replyToInteraction": false,
+                          "options": [
+                            {
+                              "type": "options"
+                            }
+                          ],
+                          "attachments": [],
+                          "poll": [],
+                          "mentions": false,
+                          "dontSend": true,
+                          "ephemeral": false,
+                          "updateMessage": {
+                            "type": "none",
+                            "value": ""
+                          },
+                          "updateContent": false,
+                          "updateComponents": false,
+                          "updateEmbeds": false,
+                          "updateAttachments": false
+                        },
+                        "id": 1737837608389
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "cachePoint-queue"
+                        },
+                        "id": 1737837608390
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "⏪",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "90"
+                    },
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ]
                   }
                 },
                 {
-                  "type": "field",
+                  "type": "normal",
                   "data": {
-                    "title": "Requested by",
-                    "value": "<@${tempVars('currentTrack').requestedBy.id}>",
-                    "inline": true
+                    "label": "",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1737882422034
+                      },
+                      {
+                        "name": "Get Member Info",
+                        "file": "getMemberInfo.js",
+                        "data": {
+                          "name": "Get Member Info",
+                          "member": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClicker-id"
+                          }
+                        },
+                        "id": 1737837608392
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-id"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1737837608393
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-queue"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "0",
+                          "true": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1737837608394
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-queue"
+                          },
+                          "control": "Add To Value",
+                          "value": "-1"
+                        },
+                        "id": 1737837608395
+                      },
+                      {
+                        "name": "Send Message",
+                        "file": "sendmessage.js",
+                        "data": {
+                          "name": "Send Message",
+                          "messageContent": "Updated",
+                          "actionRows": [],
+                          "embeds": [],
+                          "channel": {
+                            "type": "command",
+                            "value": ""
+                          },
+                          "storeAs": {
+                            "value": "",
+                            "type": "temporary"
+                          },
+                          "replyToInteraction": false,
+                          "options": [
+                            {
+                              "type": "options"
+                            }
+                          ],
+                          "attachments": [],
+                          "poll": [],
+                          "mentions": false,
+                          "dontSend": true,
+                          "ephemeral": false,
+                          "updateMessage": {
+                            "type": "none",
+                            "value": ""
+                          },
+                          "updateContent": false,
+                          "updateComponents": false,
+                          "updateEmbeds": false,
+                          "updateAttachments": false
+                        },
+                        "id": 1737837608396
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "cachePoint-queue"
+                        },
+                        "id": 1737837608397
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "◀️",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "90"
+                    },
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1737882427479
+                      },
+                      {
+                        "name": "Get Member Info",
+                        "file": "getMemberInfo.js",
+                        "data": {
+                          "name": "Get Member Info",
+                          "member": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClicker-id"
+                          }
+                        },
+                        "id": 1737837608398
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-id"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1737837608399
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-queue"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${Math.floor(tempVars('allTracks-length')/10)}",
+                          "true": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1737837608400
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-queue"
+                          },
+                          "control": "Add To Value",
+                          "value": "1"
+                        },
+                        "id": 1737837608401
+                      },
+                      {
+                        "name": "Send Message",
+                        "file": "sendmessage.js",
+                        "data": {
+                          "name": "Send Message",
+                          "messageContent": "Updated",
+                          "actionRows": [],
+                          "embeds": [],
+                          "channel": {
+                            "type": "command",
+                            "value": ""
+                          },
+                          "storeAs": {
+                            "value": "",
+                            "type": "temporary"
+                          },
+                          "replyToInteraction": false,
+                          "options": [
+                            {
+                              "type": "options"
+                            }
+                          ],
+                          "attachments": [],
+                          "poll": [],
+                          "mentions": false,
+                          "dontSend": true,
+                          "ephemeral": false,
+                          "updateMessage": {
+                            "type": "none",
+                            "value": ""
+                          },
+                          "updateContent": false,
+                          "updateComponents": false,
+                          "updateEmbeds": false,
+                          "updateAttachments": false
+                        },
+                        "id": 1737837608402
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "cachePoint-queue"
+                        },
+                        "id": 1737837608403
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "▶️",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "90"
+                    },
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1737882432600
+                      },
+                      {
+                        "name": "Get Member Info",
+                        "file": "getMemberInfo.js",
+                        "data": {
+                          "name": "Get Member Info",
+                          "member": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClicker-id"
+                          }
+                        },
+                        "id": 1737837608404
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-id"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1737837608405
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-queue"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${Math.floor(tempVars('allTracks-length')/10)}",
+                          "true": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1737837608406
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-queue"
+                          },
+                          "control": "Set Value",
+                          "value": "${Math.floor(tempVars('allTracks-length')/10)}"
+                        },
+                        "id": 1737837608407
+                      },
+                      {
+                        "name": "Send Message",
+                        "file": "sendmessage.js",
+                        "data": {
+                          "name": "Send Message",
+                          "messageContent": "Updated",
+                          "actionRows": [],
+                          "embeds": [],
+                          "channel": {
+                            "type": "command",
+                            "value": ""
+                          },
+                          "storeAs": {
+                            "value": "",
+                            "type": "temporary"
+                          },
+                          "replyToInteraction": false,
+                          "options": [
+                            {
+                              "type": "options"
+                            }
+                          ],
+                          "attachments": [],
+                          "poll": [],
+                          "mentions": false,
+                          "dontSend": true,
+                          "ephemeral": false,
+                          "updateMessage": {
+                            "type": "none",
+                            "value": ""
+                          },
+                          "updateContent": false,
+                          "updateComponents": false,
+                          "updateEmbeds": false,
+                          "updateAttachments": false
+                        },
+                        "id": 1737837608408
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "cachePoint-queue"
+                        },
+                        "id": 1737837608409
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "⏩",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "90"
+                    },
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ]
                   }
                 }
               ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": ""
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "buttonClicker"
+              }
+            }
+          }
+        ],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "queue",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Showing ${tempVars('startNum')}-${tempVars('endNum')} of ${tempVars('allTracks-length')}",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":bookmark_tabs: Queue:\n${tempVars('dispQueue-textified')}",
+              "fields": [],
               "url": "",
               "timestamp": "Current",
               "customTimestamp": ""
@@ -309,7 +1096,7 @@
         },
         "replyToInteraction": false,
         "storeAs": {
-          "value": "msg-loop",
+          "value": "msg-queue",
           "type": "temporary"
         },
         "options": [
@@ -324,14 +1111,14 @@
         "ephemeral": false,
         "updateMessage": {
           "type": "tempVar",
-          "value": "msg-loop"
+          "value": "msg-queue"
         },
         "updateContent": false,
         "updateComponents": false,
         "updateEmbeds": false,
         "updateAttachments": false
       },
-      "id": 1737804970521
+      "id": 1737833417444
     },
     {
       "name": "Stop Actions",
@@ -339,324 +1126,16 @@
       "data": {
         "name": "Stop Actions"
       },
-      "id": 1737805056215
+      "id": 1737833610787
     },
     {
       "name": "Create Anchor",
       "file": "createAnchor.js",
       "data": {
         "name": "Create Anchor",
-        "id": "loopQueue-loop"
+        "id": "musicBinding-channel-queue"
       },
-      "id": 1737805073097
-    },
-    {
-      "name": "Store Queue Info",
-      "file": "storeQueueInfo_MOD.js",
-      "data": {
-        "name": "Store Queue Info",
-        "queueInfo": {
-          "type": "queueObject",
-          "value": ""
-        },
-        "store": {
-          "type": "temporary",
-          "value": "currentQueue"
-        }
-      },
-      "id": 1737807994417
-    },
-    {
-      "name": "Check Variable",
-      "file": "checkVariable.js",
-      "data": {
-        "name": "Check Variable",
-        "variable": {
-          "type": "tempVar",
-          "value": "currentQueue"
-        },
-        "comparator": "Equals",
-        "compareValue": "undefined",
-        "true": {
-          "type": "anchorJump",
-          "value": "noCurrentQueue-loop"
-        },
-        "trueActions": [],
-        "false": {
-          "type": "continue",
-          "value": ""
-        },
-        "falseActions": []
-      },
-      "id": 1737807994418
-    },
-    {
-      "name": "Loop Music",
-      "file": "loopMusic_MOD.js",
-      "data": {
-        "name": "Loop Music",
-        "musicAction": {
-          "type": "queue",
-          "value": ""
-        }
-      },
-      "id": 1737807994419
-    },
-    {
-      "name": "Send Message",
-      "file": "sendmessage.js",
-      "data": {
-        "name": "Send Message",
-        "messageContent": "",
-        "actionRows": [],
-        "embeds": [
-          {
-            "type": "embed",
-            "data": {
-              "title": "loop",
-              "embedColor": "#FFFFFF",
-              "footerContent": "",
-              "imageURL": "",
-              "footerIconURL": "",
-              "thumbnailURL": "",
-              "authorName": "",
-              "authorIcon": "",
-              "description": ":repeat: Looping queue:\nThe queue is now on loop.",
-              "fields": [],
-              "url": "",
-              "timestamp": "Current",
-              "customTimestamp": ""
-            }
-          }
-        ],
-        "channel": {
-          "type": "command",
-          "value": ""
-        },
-        "replyToInteraction": false,
-        "storeAs": {
-          "value": "msg-loop",
-          "type": "temporary"
-        },
-        "options": [
-          {
-            "type": "options"
-          }
-        ],
-        "attachments": [],
-        "poll": [],
-        "mentions": false,
-        "dontSend": false,
-        "ephemeral": false,
-        "updateMessage": {
-          "type": "tempVar",
-          "value": "msg-loop"
-        },
-        "updateContent": false,
-        "updateComponents": false,
-        "updateEmbeds": false,
-        "updateAttachments": false
-      },
-      "id": 1737807994420
-    },
-    {
-      "name": "Stop Actions",
-      "file": "stopRunningActions.js",
-      "data": {
-        "name": "Stop Actions"
-      },
-      "id": 1737807994421
-    },
-    {
-      "name": "Create Anchor",
-      "file": "createAnchor.js",
-      "data": {
-        "name": "Create Anchor",
-        "id": "loopOff-loop"
-      },
-      "id": 1737805228510
-    },
-    {
-      "name": "Loop Music",
-      "file": "loopMusic_MOD.js",
-      "data": {
-        "name": "Loop Music",
-        "musicAction": {
-          "type": "off",
-          "value": ""
-        }
-      },
-      "id": 1737807994422
-    },
-    {
-      "name": "Send Message",
-      "file": "sendmessage.js",
-      "data": {
-        "name": "Send Message",
-        "messageContent": "",
-        "actionRows": [],
-        "embeds": [
-          {
-            "type": "embed",
-            "data": {
-              "title": "loop",
-              "embedColor": "#FFFFFF",
-              "footerContent": "",
-              "imageURL": "",
-              "footerIconURL": "",
-              "thumbnailURL": "",
-              "authorName": "",
-              "authorIcon": "",
-              "description": ":arrow_forward: Looping queue:\nThe queue is now no longer on loop.",
-              "fields": [],
-              "url": "",
-              "timestamp": "Current",
-              "customTimestamp": ""
-            }
-          }
-        ],
-        "channel": {
-          "type": "command",
-          "value": ""
-        },
-        "replyToInteraction": false,
-        "storeAs": {
-          "value": "msg-loop",
-          "type": "temporary"
-        },
-        "options": [
-          {
-            "type": "options"
-          }
-        ],
-        "attachments": [],
-        "poll": [],
-        "mentions": false,
-        "dontSend": false,
-        "ephemeral": false,
-        "updateMessage": {
-          "type": "tempVar",
-          "value": "msg-loop"
-        },
-        "updateContent": false,
-        "updateComponents": false,
-        "updateEmbeds": false,
-        "updateAttachments": false
-      },
-      "id": 1737807994423
-    },
-    {
-      "name": "Stop Actions",
-      "file": "stopRunningActions.js",
-      "data": {
-        "name": "Stop Actions"
-      },
-      "id": 1737807994424
-    },
-    {
-      "name": "Create Anchor",
-      "file": "createAnchor.js",
-      "data": {
-        "name": "Create Anchor",
-        "id": "notInVc-loop"
-      },
-      "id": 1737805345206
-    },
-    {
-      "name": "Send Message",
-      "file": "sendmessage.js",
-      "data": {
-        "name": "Send Message",
-        "messageContent": "",
-        "channel": {
-          "type": "command",
-          "value": ""
-        },
-        "actionRows": [],
-        "embeds": [
-          {
-            "type": "embed",
-            "data": {
-              "title": "loop",
-              "embedColor": "#FFFFFF",
-              "footerContent": "",
-              "imageURL": "",
-              "footerIconURL": "",
-              "thumbnailURL": "",
-              "authorName": "",
-              "authorIcon": "",
-              "description": ":x: Error:\nYou're not in a voice channel, join one to use this command.",
-              "fields": [],
-              "url": "",
-              "timestamp": "Current",
-              "customTimestamp": ""
-            }
-          }
-        ],
-        "options": [
-          {
-            "type": "options"
-          }
-        ],
-        "storeAs": {
-          "type": "temporary",
-          "value": "msg-loop"
-        },
-        "attachments": [],
-        "poll": [],
-        "replyToInteraction": false,
-        "mentions": false,
-        "dontSend": false,
-        "ephemeral": false,
-        "updateMessage": {
-          "type": "tempVar",
-          "value": "msg-loop"
-        },
-        "updateContent": false,
-        "updateComponents": false,
-        "updateEmbeds": false,
-        "updateAttachments": false
-      },
-      "id": 1737807994425
-    },
-    {
-      "name": "Wait",
-      "file": "wait.js",
-      "data": {
-        "name": "Wait",
-        "timeUnit": "Seconds",
-        "time": "5"
-      },
-      "id": 1737807994426
-    },
-    {
-      "name": "Delete Message",
-      "file": "deleteMessage.js",
-      "data": {
-        "name": "Delete Message",
-        "message": {
-          "type": "tempVar",
-          "value": "msg-loop"
-        }
-      },
-      "id": 1737807994427
-    },
-    {
-      "name": "Stop Actions",
-      "file": "stopRunningActions.js",
-      "data": {
-        "name": "Stop Actions"
-      },
-      "id": 1737807994428
-    },
-    {
-      "name": "Create Anchor",
-      "file": "createAnchor.js",
-      "data": {
-        "name": "Create Anchor",
-        "id": "musicBinding-channel-loop"
-      },
-      "id": 1737805388203
+      "id": 1737837165704
     },
     {
       "name": "Check Variable",
@@ -689,7 +1168,7 @@
                 {
                   "type": "embed",
                   "data": {
-                    "title": "loop",
+                    "title": "queue",
                     "embedColor": "#FFFFFF",
                     "footerContent": "",
                     "imageURL": "",
@@ -712,7 +1191,7 @@
               ],
               "storeAs": {
                 "type": "temporary",
-                "value": "msg-loop"
+                "value": "msg-queue"
               },
               "attachments": [],
               "poll": [],
@@ -722,14 +1201,14 @@
               "ephemeral": false,
               "updateMessage": {
                 "type": "tempVar",
-                "value": "msg-loop"
+                "value": "msg-queue"
               },
               "updateContent": false,
               "updateComponents": false,
               "updateEmbeds": false,
               "updateAttachments": false
             },
-            "id": 1737842215206
+            "id": 1737837608410
           }
         ],
         "false": {
@@ -752,7 +1231,7 @@
                 {
                   "type": "embed",
                   "data": {
-                    "title": "loop",
+                    "title": "queue",
                     "embedColor": "#FFFFFF",
                     "footerContent": "",
                     "imageURL": "",
@@ -775,7 +1254,7 @@
               ],
               "storeAs": {
                 "type": "temporary",
-                "value": "msg-loop"
+                "value": "msg-queue"
               },
               "attachments": [],
               "poll": [],
@@ -785,18 +1264,18 @@
               "ephemeral": false,
               "updateMessage": {
                 "type": "tempVar",
-                "value": "msg-loop"
+                "value": "msg-queue"
               },
               "updateContent": false,
               "updateComponents": false,
               "updateEmbeds": false,
               "updateAttachments": false
             },
-            "id": 1737842215207
+            "id": 1737837608411
           }
         ]
       },
-      "id": 1737807994429
+      "id": 1737837309827
     },
     {
       "name": "Wait",
@@ -806,7 +1285,7 @@
         "timeUnit": "Seconds",
         "time": "5"
       },
-      "id": 1737807994430
+      "id": 1737837309828
     },
     {
       "name": "Delete Message",
@@ -815,10 +1294,10 @@
         "name": "Delete Message",
         "message": {
           "type": "tempVar",
-          "value": "msg-loop"
+          "value": "msg-queue"
         }
       },
-      "id": 1737807994431
+      "id": 1737837309829
     },
     {
       "name": "Stop Actions",
@@ -826,16 +1305,16 @@
       "data": {
         "name": "Stop Actions"
       },
-      "id": 1737807994432
+      "id": 1737837309830
     },
     {
       "name": "Create Anchor",
       "file": "createAnchor.js",
       "data": {
         "name": "Create Anchor",
-        "id": "noCurrentTrack-loop"
+        "id": "noQueue-queue"
       },
-      "id": 1737805462655
+      "id": 1737837235062
     },
     {
       "name": "Send Message",
@@ -852,7 +1331,7 @@
           {
             "type": "embed",
             "data": {
-              "title": "loop",
+              "title": "queue",
               "embedColor": "#FFFFFF",
               "footerContent": "",
               "imageURL": "",
@@ -860,7 +1339,7 @@
               "thumbnailURL": "",
               "authorName": "",
               "authorIcon": "",
-              "description": ":x: Error:\nThere is nothing playing right now.",
+              "description": ":x: Error:\nThe queue length is currently 0, add some songs to the queue first.",
               "fields": [],
               "url": "",
               "timestamp": "Current",
@@ -875,7 +1354,7 @@
         ],
         "storeAs": {
           "type": "temporary",
-          "value": "msg-repeatCurrent"
+          "value": "msg-queue"
         },
         "attachments": [],
         "poll": [],
@@ -885,14 +1364,14 @@
         "ephemeral": false,
         "updateMessage": {
           "type": "tempVar",
-          "value": "msg-repeatCurrent"
+          "value": "msg-queue"
         },
         "updateContent": false,
         "updateComponents": false,
         "updateEmbeds": false,
         "updateAttachments": false
       },
-      "id": 1737807994433
+      "id": 1737837258308
     },
     {
       "name": "Wait",
@@ -902,7 +1381,7 @@
         "timeUnit": "Seconds",
         "time": "5"
       },
-      "id": 1737807994434
+      "id": 1737837309831
     },
     {
       "name": "Delete Message",
@@ -911,10 +1390,10 @@
         "name": "Delete Message",
         "message": {
           "type": "tempVar",
-          "value": "msg-loop"
+          "value": "msg-queue"
         }
       },
-      "id": 1737807994435
+      "id": 1737837309832
     },
     {
       "name": "Stop Actions",
@@ -922,39 +1401,16 @@
       "data": {
         "name": "Stop Actions"
       },
-      "id": 1737807994436
+      "id": 1737837309833
     }
   ],
-  "customId": 1737804173480,
+  "customId": 1737814497202,
   "boundary": {
     "worksIn": "guild",
     "limits": []
   },
-  "parameters": [
-    {
-      "name": "behaviour",
-      "type": "string",
-      "description": "behaviour",
-      "required": true,
-      "choices": [
-        {
-          "name": "Current",
-          "value": "loopCurrent"
-        },
-        {
-          "name": "Queue",
-          "value": "loopQueue"
-        },
-        {
-          "name": "Off",
-          "value": "loopOff"
-        }
-      ],
-      "storeAs": "behaviour-loop",
-      "completion": true
-    }
-  ],
-  "description": "Control the looping behaviour",
+  "parameters": [],
+  "description": "Shows the current queue",
   "folder": []
 }
     

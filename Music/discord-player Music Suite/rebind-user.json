@@ -1,4 +1,4 @@
-    {
+{
   "name": "rebind-user",
   "type": "action",
   "trigger": "slashCommand",
@@ -111,6 +111,26 @@
       "id": 1737842562195
     },
     {
+      "name": "Get Member Info",
+      "file": "getMemberInfo.js",
+      "data": {
+        "name": "Get Member Info",
+        "member": {
+          "type": "tempVar",
+          "value": "rebindUser-user"
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "rebindUser-userId"
+        }
+      },
+      "id": 1737841622930
+    },
+    {
       "name": "Get User Info",
       "file": "getUserInfo.js",
       "data": {
@@ -155,24 +175,28 @@
       "id": 1737841673831
     },
     {
-      "name": "Get Member Info",
-      "file": "getMemberInfo.js",
+      "name": "Check Variable",
+      "file": "checkVariable.js",
       "data": {
-        "name": "Get Member Info",
-        "member": {
+        "name": "Check Variable",
+        "variable": {
           "type": "tempVar",
-          "value": "rebindUser-user"
-        },
-        "get": {
-          "type": "id",
-          "value": ""
-        },
-        "store": {
-          "type": "temporary",
           "value": "rebindUser-userId"
-        }
+        },
+        "comparator": "Equals",
+        "compareValue": "${serverVars('musicBinding-user')}",
+        "true": {
+          "type": "anchorJump",
+          "value": "cannotBeSame-rebindUser"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": "notTextChannel-rebindChannel"
+        },
+        "falseActions": []
       },
-      "id": 1737841622930
+      "id": 1738170528644
     },
     {
       "name": "Control Variable",
@@ -706,6 +730,104 @@
         "name": "Stop Actions"
       },
       "id": 1737842562210
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "cannotBeSame-rebindUser"
+      },
+      "id": 1738170558493
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "rebind user",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":x: Error:\n${tempVars('rebindUser-user')} is already the priviledged command user binding.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "storeAs": {
+          "type": "temporary",
+          "value": "msg-rebindUser"
+        },
+        "attachments": [],
+        "poll": [],
+        "replyToInteraction": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-rebindUser"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false,
+        "files": [],
+        "silent": false
+      },
+      "id": 1738170558493
+    },
+    {
+      "name": "Wait",
+      "file": "wait.js",
+      "data": {
+        "name": "Wait",
+        "timeUnit": "Seconds",
+        "time": "5"
+      },
+      "id": 1738170558493
+    },
+    {
+      "name": "Delete Message",
+      "file": "deleteMessage.js",
+      "data": {
+        "name": "Delete Message",
+        "message": {
+          "type": "tempVar",
+          "value": "msg-rebindUser"
+        }
+      },
+      "id": 1738170558493
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1738170558493
     }
   ],
   "customId": 1737839560603,
