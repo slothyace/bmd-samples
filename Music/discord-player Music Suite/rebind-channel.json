@@ -1,4 +1,4 @@
-{
+    {
   "name": "rebind-channel",
   "type": "action",
   "trigger": "slashCommand",
@@ -155,6 +155,26 @@
       "id": 1737841082971
     },
     {
+      "name": "Get Channel Info",
+      "file": "getChannelInfo.js",
+      "data": {
+        "name": "Get Channel Info",
+        "channel": {
+          "type": "tempVar",
+          "value": "rebindChannel-channel"
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "rebindChannel-channel-id"
+        }
+      },
+      "id": 1738170095066
+    },
+    {
       "name": "Control Variable",
       "file": "controlVariable.js",
       "data": {
@@ -164,7 +184,7 @@
           "value": "musicBinding-channel"
         },
         "control": "Set Value",
-        "value": "${tempVars('rebindChannel-channel').id}"
+        "value": "${tempVars('rebindChannel-channel-id')}"
       },
       "id": 1737840932541
     },
