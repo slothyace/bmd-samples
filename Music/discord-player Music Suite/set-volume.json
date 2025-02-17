@@ -171,52 +171,19 @@
       "id": 1737730870925
     },
     {
-      "name": "Check Variable",
-      "file": "checkVariable.js",
+      "name": "Number Clamp",
+      "file": "numberClamp_MOD.js",
       "data": {
-        "name": "Check Variable",
-        "variable": {
-          "type": "tempVar",
+        "name": "Number Clamp",
+        "number": "${tempVars('setVolume-volume')}",
+        "minimum": "0",
+        "maximum": "100",
+        "clampedNumber": {
+          "type": "temporary",
           "value": "setVolume-volume"
-        },
-        "comparator": "Greater Than",
-        "compareValue": "-1",
-        "true": {
-          "type": "continue",
-          "value": ""
-        },
-        "trueActions": [],
-        "false": {
-          "type": "anchorJump",
-          "value": "invalidVolume-setVolume"
-        },
-        "falseActions": []
+        }
       },
-      "id": 1737734364430
-    },
-    {
-      "name": "Check Variable",
-      "file": "checkVariable.js",
-      "data": {
-        "name": "Check Variable",
-        "variable": {
-          "type": "tempVar",
-          "value": "setVolume-volume"
-        },
-        "comparator": "Equal Or Less Than",
-        "compareValue": "100",
-        "true": {
-          "type": "continue",
-          "value": ""
-        },
-        "trueActions": [],
-        "false": {
-          "type": "anchorJump",
-          "value": "invalidVolume-setVolume"
-        },
-        "falseActions": []
-      },
-      "id": 1737792093937
+      "id": 1739786832505
     },
     {
       "name": "Control Music",
@@ -978,7 +945,7 @@
       "id": 1737739031815
     }
   ],
-  "customId": 1737725453545,
+  "customId": 1739786886797,
   "boundary": {
     "worksIn": "guild",
     "limits": []
