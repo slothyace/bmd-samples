@@ -124,6 +124,46 @@
       "id": 1737838697815
     },
     {
+      "name": "Store Queue Info",
+      "file": "storeQueueInfo_MOD.js",
+      "data": {
+        "name": "Store Queue Info",
+        "queueInfo": {
+          "type": "queueSize",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "allTracks-length-preCheck"
+        }
+      },
+      "id": 1740346256226
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "allTracks-length-preCheck"
+        },
+        "comparator": "Less Than",
+        "compareValue": "2",
+        "true": {
+          "type": "anchorJump",
+          "value": "noQueue-shuffle"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1740346271515
+    },
+    {
       "name": "Create Anchor",
       "file": "createAnchor.js",
       "data": {
@@ -177,15 +217,28 @@
       "id": 1737838697819
     },
     {
+      "name": "Create Variable",
+      "file": "createVariable.js",
+      "data": {
+        "name": "Create Variable",
+        "variable": {
+          "type": "temporary",
+          "value": "pageMax"
+        },
+        "value": "${Math.floor(tempVars('allTracks-length')/10)}"
+      },
+      "id": 1740347289541
+    },
+    {
       "name": "Evaluate",
       "file": "eval.js",
       "data": {
         "name": "Evaluate",
         "transfer": true,
-        "code": "let allTracks = bridge.variables['allTracks']\n\nfunction returnList(lower, upper){\nreturn allTracks.slice(lower,upper)\n}\n\nreturnList(0, 10)",
+        "code": "let allTracks = bridge.variables['allTracks']\nlet multiplier = parseInt(bridge.variables[\"pageNum-shuffle\"])\nlet lowerLim = multiplier * 10\nlet upperLim = (multiplier * 10) + 10\n\nfunction returnList(lower, upper){\nreturn allTracks.slice(lower,upper)\n}\n\nreturnList(lowerLim, upperLim)",
         "result": {
           "type": "temporary",
-          "value": "splicedList-shuffle"
+          "value": "slicedList-shuffle"
         },
         "type": {
           "type": "temporary",
@@ -202,7 +255,7 @@
         "await": true,
         "list": {
           "type": "tempVar",
-          "value": "splicedList-shuffle"
+          "value": "slicedList-shuffle"
         },
         "storeIterationAs": {
           "type": "temporary",
@@ -393,6 +446,269 @@
                 {
                   "type": "normal",
                   "data": {
+                    "label": "",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1740347098848
+                      },
+                      {
+                        "name": "Get Member Info",
+                        "file": "getMemberInfo.js",
+                        "data": {
+                          "name": "Get Member Info",
+                          "member": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClicker-id"
+                          }
+                        },
+                        "id": 1740347248272
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-id"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1740347248273
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-shuffle"
+                          },
+                          "control": "Set Value",
+                          "value": "0"
+                        },
+                        "id": 1740347101782
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "cachePoint-shuffle"
+                        },
+                        "id": 1740347126356
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "⏪",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "90"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "premium_button": [],
+                    "customID": "Auto Generated",
+                    "id": ""
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1740347248274
+                      },
+                      {
+                        "name": "Get Member Info",
+                        "file": "getMemberInfo.js",
+                        "data": {
+                          "name": "Get Member Info",
+                          "member": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClicker-id"
+                          }
+                        },
+                        "id": 1740347248275
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-id"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1740347248276
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-shuffle"
+                          },
+                          "control": "Add To Value",
+                          "value": "-1"
+                        },
+                        "id": 1740347248277
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-shuffle"
+                          },
+                          "comparator": "Less Than",
+                          "compareValue": "0",
+                          "true": {
+                            "type": "runActions",
+                            "value": ""
+                          },
+                          "trueActions": [
+                            {
+                              "name": "Control Variable",
+                              "file": "controlVariable.js",
+                              "data": {
+                                "name": "Control Variable",
+                                "variable": {
+                                  "type": "tempVar",
+                                  "value": "pageNum-shuffle"
+                                },
+                                "control": "Set Value",
+                                "value": "0"
+                              },
+                              "id": 1740347224386
+                            }
+                          ],
+                          "false": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1740347195169
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "cachePoint-shuffle"
+                        },
+                        "id": 1740347248278
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "◀️",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "90"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "premium_button": [],
+                    "customID": "Auto Generated",
+                    "id": ""
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
                     "label": "Shuffle",
                     "color": "Default",
                     "actions": [
@@ -506,6 +822,20 @@
                         "id": 1737839768002
                       },
                       {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-shuffle"
+                          },
+                          "control": "Set Value",
+                          "value": "0"
+                        },
+                        "id": 1740347496242
+                      },
+                      {
                         "name": "Jump To Anchor",
                         "file": "jumpToAnchor.js",
                         "data": {
@@ -535,6 +865,269 @@
                         "type": "usage"
                       }
                     ]
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1740347248279
+                      },
+                      {
+                        "name": "Get Member Info",
+                        "file": "getMemberInfo.js",
+                        "data": {
+                          "name": "Get Member Info",
+                          "member": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClicker-id"
+                          }
+                        },
+                        "id": 1740347248280
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-id"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1740347248281
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-shuffle"
+                          },
+                          "control": "Add To Value",
+                          "value": "1"
+                        },
+                        "id": 1740347248282
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-shuffle"
+                          },
+                          "comparator": "Greater Than",
+                          "compareValue": "${tempVars('pageMax')}",
+                          "true": {
+                            "type": "runActions",
+                            "value": ""
+                          },
+                          "trueActions": [
+                            {
+                              "name": "Control Variable",
+                              "file": "controlVariable.js",
+                              "data": {
+                                "name": "Control Variable",
+                                "variable": {
+                                  "type": "tempVar",
+                                  "value": "pageNum-shuffle"
+                                },
+                                "control": "Set Value",
+                                "value": "${tempVars('pageMax')}"
+                              },
+                              "id": 1740347248284
+                            }
+                          ],
+                          "false": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1740347248283
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "cachePoint-shuffle"
+                        },
+                        "id": 1740347248285
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "▶️",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "90"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "premium_button": [],
+                    "customID": "Auto Generated",
+                    "id": ""
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1740347401346
+                      },
+                      {
+                        "name": "Get Member Info",
+                        "file": "getMemberInfo.js",
+                        "data": {
+                          "name": "Get Member Info",
+                          "member": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClicker-id"
+                          }
+                        },
+                        "id": 1740347401347
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-id"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1740347401348
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-shuffle"
+                          },
+                          "control": "Set Value",
+                          "value": "${tempVars('pageMax')}"
+                        },
+                        "id": 1740347401349
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "cachePoint-shuffle"
+                        },
+                        "id": 1740347401350
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "⏩",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "90"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "premium_button": [],
+                    "customID": "Auto Generated",
+                    "id": ""
                   }
                 }
               ],
@@ -818,7 +1411,7 @@
               "thumbnailURL": "",
               "authorName": "",
               "authorIcon": "",
-              "description": ":x: Error:\nThe queue length is currently 0, add some songs to the queue first.",
+              "description": ":x: Error:\nThe queue length is currently less than 2, add more songs to the queue first to shuffle them.",
               "fields": [],
               "url": "",
               "timestamp": "Current",

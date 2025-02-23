@@ -1,3 +1,4 @@
+
 {
   "name": "queue",
   "type": "action",
@@ -185,7 +186,7 @@
         "code": "let allTracks = bridge.variables['allTracks']\nlet multiplier = parseInt(bridge.variables['pageNum-queue'], 10)\nlet lower = multiplier*10\nlet upper = (multiplier*10) + 10\n\nfunction returnList(lower, upper){\nreturn allTracks.slice(lower, upper)\n}\n\nreturnList(lower, upper)",
         "result": {
           "type": "temporary",
-          "value": "splicedList-queue"
+          "value": "slicedList-queue"
         },
         "type": {
           "type": "temporary",
@@ -202,7 +203,7 @@
         "await": true,
         "list": {
           "type": "tempVar",
-          "value": "splicedList-queue"
+          "value": "slicedList-queue"
         },
         "storeIterationAs": {
           "type": "temporary",
