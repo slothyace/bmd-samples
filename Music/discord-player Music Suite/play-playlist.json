@@ -1,3 +1,4 @@
+
 {
   "name": "play-playlist",
   "type": "action",
@@ -390,22 +391,57 @@
       "id": 1737837719932
     },
     {
+      "name": "Create Variable",
+      "file": "createVariable.js",
+      "data": {
+        "name": "Create Variable",
+        "variable": {
+          "type": "temporary",
+          "value": "pageNum-playPlaylist"
+        },
+        "value": "0"
+      },
+      "id": 1740339820212
+    },
+    {
+      "name": "Create Variable",
+      "file": "createVariable.js",
+      "data": {
+        "name": "Create Variable",
+        "variable": {
+          "type": "temporary",
+          "value": "trackListSize-playPlaylist"
+        },
+        "value": "${tempVars('searchResults-dispText').length}"
+      },
+      "id": 1740342236865
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "cachePoint-playPlaylist"
+      },
+      "id": 1740339982112
+    },
+    {
       "name": "Evaluate",
       "file": "eval.js",
       "data": {
         "name": "Evaluate",
         "transfer": true,
-        "code": "bridge.variables['searchResults-dispText'].slice(0,10)",
+        "code": "let multiplier = parseInt(bridge.variables[\"pageNum-playPlaylist\"])\nlet pageLower = multiplier * 10\nlet pageUpper = (multiplier * 10) + 10\nlet allTracks = bridge.variables[\"searchResults-dispText\"]\n\nallTracks.slice(pageLower, pageUpper)",
         "result": {
           "type": "temporary",
-          "value": "searchResults-dispText-top10"
+          "value": "searchResults-dispText-list10"
         },
         "type": {
           "type": "temporary",
           "value": ""
         }
       },
-      "id": 1737837719940
+      "id": 1740339962916
     },
     {
       "name": "Convert List To Text",
@@ -414,7 +450,7 @@
         "name": "Convert List To Text",
         "list": {
           "type": "tempVar",
-          "value": "searchResults-dispText-top10"
+          "value": "searchResults-dispText-list10"
         },
         "separator": "\\n\\n",
         "store": {
@@ -423,6 +459,90 @@
         }
       },
       "id": 1737837719941
+    },
+    {
+      "name": "Calculate",
+      "file": "calculate.js",
+      "data": {
+        "name": "Calculate",
+        "firstNumber": "${tempVars('pageNum-playPlaylist')}",
+        "operation": "Multiplication",
+        "secondNumber": "10",
+        "store": {
+          "type": "temporary",
+          "value": "numCore-playPlaylist"
+        }
+      },
+      "id": 1740341695401
+    },
+    {
+      "name": "Calculate",
+      "file": "calculate.js",
+      "data": {
+        "name": "Calculate",
+        "firstNumber": "${tempVars('numCore-playPlaylist')}",
+        "operation": "Addition",
+        "secondNumber": "1",
+        "store": {
+          "type": "temporary",
+          "value": "pageLower-playPlaylist"
+        }
+      },
+      "id": 1740341739062
+    },
+    {
+      "name": "Calculate",
+      "file": "calculate.js",
+      "data": {
+        "name": "Calculate",
+        "firstNumber": "${tempVars('numCore-playPlaylist')}",
+        "operation": "Addition",
+        "secondNumber": "10",
+        "store": {
+          "type": "temporary",
+          "value": "pageUpper-playPlaylist"
+        }
+      },
+      "id": 1740341760438
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "pageUpper-playPlaylist"
+        },
+        "comparator": "Greater Than",
+        "compareValue": "${tempVars('trackListSize-playPlaylist')}",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Control Variable",
+            "file": "controlVariable.js",
+            "data": {
+              "name": "Control Variable",
+              "variable": {
+                "type": "tempVar",
+                "value": "pageUpper-playPlaylist"
+              },
+              "control": "Set Value",
+              "value": "${tempVars('trackListSize-playPlaylist')}"
+            },
+            "id": 1740341810383
+          }
+        ],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1740341772214
     },
     {
       "name": "Send Message",
@@ -439,6 +559,269 @@
             "type": "buttons",
             "data": {
               "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1740340587717
+                      },
+                      {
+                        "name": "Get User Info",
+                        "file": "getUserInfo.js",
+                        "data": {
+                          "name": "Get User Info",
+                          "user": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-playPlaylist"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClicker-Id-player"
+                          }
+                        },
+                        "id": 1740340416245
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-Id-player"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1740340470516
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-playPlaylist"
+                          },
+                          "control": "Set Value",
+                          "value": "0"
+                        },
+                        "id": 1740340447768
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "cachePoint-playPlaylist"
+                        },
+                        "id": 1740340496898
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "⏪",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "90"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1740340737884
+                      },
+                      {
+                        "name": "Get User Info",
+                        "file": "getUserInfo.js",
+                        "data": {
+                          "name": "Get User Info",
+                          "user": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-playPlaylist"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClicker-Id-player"
+                          }
+                        },
+                        "id": 1740340737885
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-Id-player"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1740340737886
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-playPlaylist"
+                          },
+                          "control": "Add To Value",
+                          "value": "-1"
+                        },
+                        "id": 1740340737887
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-playPlaylist"
+                          },
+                          "comparator": "Less Than",
+                          "compareValue": "0",
+                          "true": {
+                            "type": "runActions",
+                            "value": ""
+                          },
+                          "trueActions": [
+                            {
+                              "name": "Control Variable",
+                              "file": "controlVariable.js",
+                              "data": {
+                                "name": "Control Variable",
+                                "variable": {
+                                  "type": "tempVar",
+                                  "value": "pageNum-playPlaylist"
+                                },
+                                "control": "Set Value",
+                                "value": "0"
+                              },
+                              "id": 1740340689910
+                            }
+                          ],
+                          "false": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1740340649528
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "cachePoint-playPlaylist"
+                        },
+                        "id": 1740340737888
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "◀️",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "90"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                },
                 {
                   "type": "normal",
                   "data": {
@@ -508,7 +891,281 @@
                       "value": "90"
                     },
                     "customID": "Auto Generated",
-                    "id": ""
+                    "id": "",
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "premium_button": []
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1740340947686
+                      },
+                      {
+                        "name": "Get User Info",
+                        "file": "getUserInfo.js",
+                        "data": {
+                          "name": "Get User Info",
+                          "user": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-playPlaylist"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClicker-Id-player"
+                          }
+                        },
+                        "id": 1740340947687
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-Id-player"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1740340947688
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-playPlaylist"
+                          },
+                          "control": "Add To Value",
+                          "value": "1"
+                        },
+                        "id": 1740340947689
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-playPlaylist"
+                          },
+                          "comparator": "Greater Than",
+                          "compareValue": "${Math.floor(tempVars('searchResults-dispText').length/10)}",
+                          "true": {
+                            "type": "runActions",
+                            "value": ""
+                          },
+                          "trueActions": [
+                            {
+                              "name": "Control Variable",
+                              "file": "controlVariable.js",
+                              "data": {
+                                "name": "Control Variable",
+                                "variable": {
+                                  "type": "tempVar",
+                                  "value": "pageNum-playPlaylist"
+                                },
+                                "control": "Set Value",
+                                "value": "${Math.floor(tempVars('searchResults-dispText').length/10)}"
+                              },
+                              "id": 1740340947691
+                            }
+                          ],
+                          "false": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1740340947690
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "cachePoint-playPlaylist"
+                        },
+                        "id": 1740340947692
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "▶️",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "90"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1740341075542
+                      },
+                      {
+                        "name": "Get User Info",
+                        "file": "getUserInfo.js",
+                        "data": {
+                          "name": "Get User Info",
+                          "user": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-playPlaylist"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClicker-Id-player"
+                          }
+                        },
+                        "id": 1740341075543
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClicker-Id-player"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1740341075544
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "pageNum-playPlaylist"
+                          },
+                          "control": "Set Value",
+                          "value": "${Math.floor(tempVars('searchResults-dispText').length/10)}"
+                        },
+                        "id": 1740341075545
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "cachePoint-playPlaylist"
+                        },
+                        "id": 1740341075546
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "⏩",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "90"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
                   }
                 }
               ],
@@ -529,7 +1186,7 @@
             "data": {
               "title": "play playlist",
               "embedColor": "#FFFFFF",
-              "footerContent": "",
+              "footerContent": "Showing ${tempVars('pageLower-playPlaylist')}-${tempVars('pageUpper-playPlaylist')} of ${tempVars('trackListSize-playPlaylist')}",
               "imageURL": "",
               "footerIconURL": "",
               "thumbnailURL": "",
@@ -1327,7 +1984,7 @@
             "data": {
               "name": "Evaluate",
               "transfer": true,
-              "code": "let list = bridge.variables[\"dscplayer-autoCompSearch-returnList\"]\ntop20 = list.slice(0,19)",
+              "code": "let list = bridge.variables[\"dscplayer-autoCompSearch-returnList\"]\ntop20 = list.slice(0,20)",
               "result": {
                 "type": "temporary",
                 "value": "dscplayer-autoCompSearch-returnList"
