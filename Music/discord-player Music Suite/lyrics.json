@@ -598,7 +598,7 @@
       "file": "getLyrics_MOD.js",
       "data": {
         "name": "Get Lyrics",
-        "query": "${tempVars('currentTrack').url}",
+        "query": "${tempVars('currentTrack').title}",
         "store": {
           "type": "temporary",
           "value": ""
@@ -642,6 +642,30 @@
         }
       },
       "id": 1738169189584
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "lyrics"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "noLyrics-lyrics"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1740490321541
     },
     {
       "name": "String Limiter",
@@ -1347,7 +1371,7 @@
           "value": "dscplayer-autoCompSearch-returnList"
         }
       },
-      "autocompletion": true
+      "autocompletion": false
     }
   ],
   "description": "Shows the lyrics",
