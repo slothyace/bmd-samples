@@ -147,6 +147,30 @@
       "id": 1737891057460
     },
     {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "skipTo-number"
+        },
+        "comparator": "Is Number",
+        "compareValue": "",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "songTitleSearch-skipTo"
+        },
+        "falseActions": []
+      },
+      "id": 1740548245950
+    },
+    {
       "name": "Store Queue Info",
       "file": "storeQueueInfo_MOD.js",
       "data": {
@@ -279,6 +303,232 @@
         "name": "Stop Actions"
       },
       "id": 1737891057464
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "songTitleSearch-skipTo"
+      },
+      "id": 1740548389220
+    },
+    {
+      "name": "Store Queue Info",
+      "file": "storeQueueInfo_MOD.js",
+      "data": {
+        "name": "Store Queue Info",
+        "queueInfo": {
+          "type": "tracks",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "queueTracks-skipTo"
+        }
+      },
+      "id": 1740548429211
+    },
+    {
+      "name": "Create List",
+      "file": "createList.js",
+      "data": {
+        "name": "Create List",
+        "list": {
+          "type": "temporary",
+          "value": "trackTitles-skipTo"
+        }
+      },
+      "id": 1740548616289
+    },
+    {
+      "name": "Loop Through List",
+      "file": "loopThroughList.js",
+      "data": {
+        "name": "Loop Through List",
+        "await": true,
+        "list": {
+          "type": "tempVar",
+          "value": "queueTracks-skipTo"
+        },
+        "storeIterationAs": {
+          "type": "temporary",
+          "value": ""
+        },
+        "storeValueAs": {
+          "type": "temporary",
+          "value": "iterTrack"
+        },
+        "actions": [
+          {
+            "name": "Create List Element",
+            "file": "createListElement.js",
+            "data": {
+              "name": "Create List Element",
+              "list": {
+                "type": "tempVar",
+                "value": "trackTitles-skipTo"
+              },
+              "value": {
+                "type": "string",
+                "value": "${tempVars('iterTrack').title.toLowerCase()}"
+              }
+            },
+            "id": 1740548653924
+          }
+        ]
+      },
+      "id": 1740548594107
+    },
+    {
+      "name": "Get List Element Position",
+      "file": "getListElementPosition_MOD.js",
+      "data": {
+        "name": "Get List Element Position",
+        "list": {
+          "type": "tempVar",
+          "value": "trackTitles-skipTo"
+        },
+        "elementname": "${tempVars('skipTo-number').toLowerCase()}",
+        "store": {
+          "type": "temporary",
+          "value": "songPos-skipTo"
+        }
+      },
+      "id": 1740548678192
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "songPos-skipTo"
+        },
+        "comparator": "Equals",
+        "compareValue": "-1",
+        "true": {
+          "type": "anchorJump",
+          "value": "songTitleNotFound-skipTo"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1740548800443
+    },
+    {
+      "name": "Calculate",
+      "file": "calculate.js",
+      "data": {
+        "name": "Calculate",
+        "firstNumber": "${tempVars('songPos-skipTo')}",
+        "operation": "Addition",
+        "secondNumber": "1",
+        "store": {
+          "type": "temporary",
+          "value": "songPosPlus1-skipTo"
+        }
+      },
+      "id": 1740548823222
+    },
+    {
+      "name": "Control Music",
+      "file": "controlMusic_MOD.js",
+      "data": {
+        "name": "Control Music",
+        "musicAction": {
+          "type": "skipTo",
+          "value": "${tempVars('songPosPlus1-skipTo')}"
+        }
+      },
+      "id": 1740548843134
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "skip to",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "${tempVars('currentTrack').thumbnail}",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":fast_forward: Skipping:\n${tempVars('currentTrack').author} - [${tempVars('currentTrack').title}](${tempVars('currentTrack').url})",
+              "fields": [
+                {
+                  "type": "field",
+                  "data": {
+                    "title": "Duration",
+                    "value": "${tempVars('currentTrack').duration}",
+                    "inline": true
+                  }
+                },
+                {
+                  "type": "field",
+                  "data": {
+                    "title": "Requested by",
+                    "value": "<@${tempVars('currentTrack').requestedBy.id}>",
+                    "inline": true
+                  }
+                }
+              ],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "msg-skipTo",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "msg-skipTo"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1740548900690
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1740548393618
     },
     {
       "name": "Create Anchor",
@@ -972,16 +1222,16 @@
   },
   "parameters": [
     {
-      "name": "number",
-      "type": "integer",
-      "description": "number",
+      "name": "query",
+      "type": "string",
+      "description": "Could be a number or a song title",
       "required": true,
       "choices": [],
       "storeAs": "skipTo-number",
       "completion": false
     }
   ],
-  "description": "Skips to the number in queue",
+  "description": "Skips to a song in queue",
   "folder": []
 }
     
