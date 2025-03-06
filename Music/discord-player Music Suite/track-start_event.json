@@ -1,3 +1,4 @@
+
 {
   "name": "trackStart",
   "type": "event",
@@ -105,7 +106,7 @@
             "data": {
               "title": "now playing",
               "embedColor": "#FFFFFF",
-              "footerContent": "discord-player Music suite by: ${tempVars('ace-username')}",
+              "footerContent": "discord-player Music suite by: SlothyAcedia",
               "imageURL": "",
               "footerIconURL": "${tempVars('ace-pfp')}",
               "thumbnailURL": "${tempVars('trackStart-track').thumbnail}",
