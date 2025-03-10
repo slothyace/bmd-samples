@@ -20,7 +20,7 @@ The suite has, but is not limited to these functions:
 ## How to install
 1) [Download](https://github.com/RatWasHere/bmods/archive/refs/heads/master.zip) and install the latest version of [bmods](https://github.com/RatWasHere/bmods) (or commit #354 [1b2b4f2])
 2) Import the commands as shown:
-![](https://github.com/slothyace/bcs-samples/blob/main/.documentation/importCmd.gif)
+![](https://github.com/slothyace/bmd-samples/blob/main/.documentation/importCmd.gif)
 3) Enjoy your music suite!
 
 ## Like it? Support Me!
