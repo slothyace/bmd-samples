@@ -4,7 +4,7 @@ Just a collection of commands I've built for [Bot Maker for Discord](https://sto
 Commands are grouped by their functionality class.
 
 ## Importing Commands
-![](https://github.com/slothyace/bcs-samples/blob/main/.documentation/importCmd.gif)
+![](https://github.com/slothyace/bmd-samples/blob/main/.documentation/importCmd.gif)
 
 ## Like the stuff I make? Support Me!
 <a href="https://ko-fi.com/slothyacedia"><img src="https://github.com/slothyace/slothyace/blob/main/icons/kofi.png" width=240 height=48></a>
