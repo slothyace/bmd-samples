@@ -107,7 +107,7 @@
     },
     {
       "name": "Multiple Regex Comparisons",
-      "file": "MultipleRegexComparisons_MOD.js",
+      "file": "multipleRegexComparisons_MOD.js",
       "data": {
         "name": "Multiple Regex Comparisons",
         "input": "${tempVars('timeoutduration')}",
@@ -115,7 +115,6 @@
           {
             "type": "comparison",
             "data": {
-              "comparator": "Matches Regex",
               "value": "[0-9]+ ?[Ss][Ee]?[Cc]?[Oo]?[Nn]?[Dd]?[Ss]?",
               "true": {
                 "type": "anchorJump",
@@ -132,7 +131,6 @@
           {
             "type": "comparison",
             "data": {
-              "comparator": "Matches Regex",
               "value": "[0-9]+ ?[Mm][Ii]?[Nn]?[Uu]?[Tt]?[Ee]?[Ss]?",
               "true": {
                 "type": "anchorJump",
@@ -149,7 +147,6 @@
           {
             "type": "comparison",
             "data": {
-              "comparator": "Matches Regex",
               "value": "[0-9]+ ?[Hh][Oo]?[Uu]?[Rr]?[Ss]?",
               "true": {
                 "type": "anchorJump",
@@ -166,7 +163,6 @@
           {
             "type": "comparison",
             "data": {
-              "comparator": "Matches Regex",
               "value": "[0-9]+ ?[Dd][Aa]?[Yy]?[Ss]?",
               "true": {
                 "type": "anchorJump",
@@ -174,7 +170,7 @@
               },
               "trueActions": [],
               "false": {
-                "type": "continue",
+                "type": "stop",
                 "value": ""
               },
               "falseActions": []
@@ -182,7 +178,7 @@
           }
         ]
       },
-      "id": 1723654167873
+      "id": 1747254201897
     },
     {
       "name": "Send Message",
