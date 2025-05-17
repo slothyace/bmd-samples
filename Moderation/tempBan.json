@@ -1,0 +1,770 @@
+    {
+  "name": "tempBan",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Check Member Permission",
+      "file": "checkMemberPermissions.js",
+      "data": {
+        "name": "Check Member Permission",
+        "member": {
+          "type": "author",
+          "value": ""
+        },
+        "permission": "Ban Members",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "noBanPermission"
+        },
+        "falseActions": []
+      },
+      "id": 1747449713911
+    },
+    {
+      "name": "Create Variable",
+      "file": "createVariable.js",
+      "data": {
+        "name": "Create Variable",
+        "variable": {
+          "type": "temporary",
+          "value": "loggingChannel"
+        },
+        "value": ""
+      },
+      "id": 1747449152062
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "loggingChannel"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "anchorJump",
+          "value": "noLoggingChannelDefined"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1747450302173
+    },
+    {
+      "name": "Ban Member",
+      "file": "banMember.js",
+      "data": {
+        "name": "Ban Member",
+        "member": {
+          "type": "tempVar",
+          "value": "tempBanMember"
+        },
+        "reason": "${tempVars('tempBanReason') || \"No Reason Provided\"}",
+        "deleteHistory": {
+          "type": "none",
+          "value": ""
+        }
+      },
+      "id": 1747448692117
+    },
+    {
+      "name": "Get Member Info",
+      "file": "getMemberInfo.js",
+      "data": {
+        "name": "Get Member Info",
+        "member": {
+          "type": "tempVar",
+          "value": "tempBanMember"
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "tempBanMemberId"
+        }
+      },
+      "id": 1747448824187
+    },
+    {
+      "name": "Get Server Info",
+      "file": "getGuildInfo.js",
+      "data": {
+        "name": "Get Server Info",
+        "guild": {
+          "type": "current",
+          "value": ""
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "tempBanServerId"
+        }
+      },
+      "id": 1747448842022
+    },
+    {
+      "name": "Get Date Info",
+      "file": "getDateInfo.js",
+      "data": {
+        "name": "Get Date Info",
+        "date": {
+          "type": "local",
+          "value": ""
+        },
+        "get": "Timestamp",
+        "store": {
+          "type": "temporary",
+          "value": "currentTimestamp"
+        }
+      },
+      "id": 1747448967768
+    },
+    {
+      "name": "Time Conversions",
+      "file": "timeConversions_MOD.js",
+      "data": {
+        "name": "Time Conversions",
+        "inputUnit": {
+          "type": "custom",
+          "value": ""
+        },
+        "timeInput": "${tempVars('tempBanDuration')}",
+        "outputUnit": {
+          "type": "ms",
+          "value": ""
+        },
+        "convertedTime": {
+          "type": "temporary",
+          "value": "tempBanDuration-ms"
+        }
+      },
+      "id": 1747448945310
+    },
+    {
+      "name": "Create Variable",
+      "file": "createVariable.js",
+      "data": {
+        "name": "Create Variable",
+        "variable": {
+          "type": "temporary",
+          "value": "associatedInfos"
+        },
+        "value": "{\n\"memberId\": \"${tempVars('tempBanMemberId')}\",\n\"serverId\": \"${tempVars('tempBanServerId')}\",\n\"banTime\": \"${tempVars('currentTimestamp')}\",\n\"duration\": \"${tempVars('tempBanDuration-ms')}\",\n\"loggingChannel\": \"${tempVars('loggingChannel')}\",\n\"reason\": \"${tempVars('tempBanReason')}\"\n}"
+      },
+      "id": 1747448858982
+    },
+    {
+      "name": "Object Conversions",
+      "file": "objectConversions_MOD.js",
+      "data": {
+        "name": "Object Conversions",
+        "originalObj": {
+          "type": "tempVar",
+          "value": "associatedInfos"
+        },
+        "convType": {
+          "type": "JSONparse",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "associatedInfos"
+        }
+      },
+      "id": 1747449112265
+    },
+    {
+      "name": "Create Scheduled Actions",
+      "file": "createScheduledActions.js",
+      "data": {
+        "name": "Create Scheduled Actions",
+        "time": {
+          "type": "timestamp",
+          "value": "${tempVars('currentTimestamp') + tempVars('tempBanDuration-ms')}"
+        },
+        "customID": [],
+        "associatedInfo": {
+          "type": "tempVar",
+          "value": "associatedInfos"
+        },
+        "scheduled": [
+          {
+            "type": "scheduleActions"
+          }
+        ],
+        "storeID": {
+          "type": "temporary",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "associatedInfos"
+        },
+        "actions": [
+          {
+            "name": "Change Server",
+            "file": "changeServer.js",
+            "data": {
+              "name": "Change Server",
+              "guild": {
+                "type": "id",
+                "value": "${tempVars('associatedInfos').serverId}"
+              }
+            },
+            "id": 1747449022822
+          },
+          {
+            "name": "Time Conversions",
+            "file": "timeConversions_MOD.js",
+            "data": {
+              "name": "Time Conversions",
+              "inputUnit": {
+                "type": "ms",
+                "value": ""
+              },
+              "timeInput": "${tempVars('associatedInfos').duration}",
+              "outputUnit": {
+                "type": "custom",
+                "value": "DDd:HHh:MMm:SSs"
+              },
+              "convertedTime": {
+                "type": "temporary",
+                "value": "banDurationFormatted"
+              }
+            },
+            "id": 1747449284317
+          },
+          {
+            "name": "Unban Member",
+            "file": "unbanMember.js",
+            "data": {
+              "name": "Unban Member",
+              "member": {
+                "type": "id",
+                "value": "${tempVars('associatedInfos').memberId}"
+              },
+              "reason": "Tempban Unban After ${tempVars('banDurationFormatted')}"
+            },
+            "id": 1747449142230
+          },
+          {
+            "name": "Timestamp Conversions",
+            "file": "timestampConversions_MOD.js",
+            "data": {
+              "name": "Timestamp Conversions",
+              "timestamp": "${tempVars('associatedInfos').banTime}",
+              "format": {
+                "type": "shortDateTime",
+                "value": ""
+              },
+              "store": {
+                "type": "temporary",
+                "value": "banTimeFormatted"
+              }
+            },
+            "id": 1747449551129
+          },
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "",
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "tempBan",
+                    "embedColor": "#FFFFFF",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": "<@${tempVars('associatedInfos').memberId}> has been unbanned after ${tempVars('banDurationFormatted')}.\nThey were banned on ${tempVars('banTimeFormatted')}.\nReason for ban: ${tempVars('associatedInfos').reason || \"No Reason Provided\"}",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "channel": {
+                "type": "id",
+                "value": "${tempVars('associatedInfos').loggingChannel}"
+              },
+              "storeAs": {
+                "value": "",
+                "type": "temporary"
+              },
+              "replyToInteraction": false,
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "attachments": [],
+              "files": [],
+              "poll": [],
+              "silent": false,
+              "mentions": false,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "none",
+                "value": ""
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1747449348498
+          }
+        ]
+      },
+      "id": 1747448919877
+    },
+    {
+      "name": "Time Conversions",
+      "file": "timeConversions_MOD.js",
+      "data": {
+        "name": "Time Conversions",
+        "inputUnit": {
+          "type": "custom",
+          "value": ""
+        },
+        "timeInput": "${tempVars('tempBanDuration')}",
+        "outputUnit": {
+          "type": "custom",
+          "value": "DDd:HHh:MMm:SSs"
+        },
+        "convertedTime": {
+          "type": "temporary",
+          "value": "tempBanDurationFormatted"
+        }
+      },
+      "id": 1747448945310
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('currentTimestamp')+tempVars('tempBanDuration-ms')}",
+        "format": {
+          "type": "shortDateTime",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "projectedUnbanTime"
+        }
+      },
+      "id": 1747449651437
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "tempBan",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "${tempVars('tempBanMember')} has been banned for ${tempVars('tempBanDurationFormatted')}.\nThey will be unbanned on ${tempVars('projectedUnbanTime')}.\nReason: ${tempVars('tempBanReason') || \"No Reason Provided\"}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": "${tempVars('loggingChannel')}"
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1747449426124
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "tempBan",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "${tempVars('tempBanMember')} has been banned for ${tempVars('tempBanDurationFormatted')}.\nThey will be unbanned on ${tempVars('projectedUnbanTime')}.\nReason: ${tempVars('tempBanReason') || \"No Reason Provided\"}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "id",
+          "value": "${tempVars('loggingChannel')}"
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ]
+      },
+      "id": 1747449426124
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1747449740272
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "noBanPermission"
+      },
+      "id": 1747450269547
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "tempBan",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "You do not have the permission: `Ban Member`.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": "${tempVars('loggingChannel')}"
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1747449426124
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1747450291079
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "noLoggingChannelDefined"
+      },
+      "id": 1747450269547
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "tempBan",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "Please define a logging channel at action #2.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": "${tempVars('loggingChannel')}"
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1747449426124
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1747450291079
+    }
+  ],
+  "customId": 1747448570407,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": [
+      "BAN_MEMBERS"
+    ]
+  },
+  "parameters": [
+    {
+      "name": "member",
+      "type": "user",
+      "description": "Member to ban temporarily",
+      "required": true,
+      "choices": [],
+      "storeAs": "tempBanMember",
+      "completion": false
+    },
+    {
+      "name": "duration",
+      "type": "string",
+      "description": "Unban user in",
+      "required": true,
+      "choices": [],
+      "storeAs": "tempBanDuration",
+      "completion": false
+    },
+    {
+      "name": "reason",
+      "type": "string",
+      "description": "Reason for ban",
+      "required": false,
+      "choices": [],
+      "storeAs": "tempBanReason",
+      "completion": false
+    }
+  ],
+  "description": "Ban a member, temporarily.",
+  "folder": [],
+  "goodies": {
+    "actionType": "slash",
+    "variables": {
+      "temporary": [
+        ""
+      ],
+      "global": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "server": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "commandVars": [
+        "tempBanMember",
+        "tempBanDuration",
+        "tempBanReason",
+        "loggingChannel",
+        "tempBanMemberId",
+        "tempBanServerId",
+        "currentTimestamp",
+        "tempBanDuration-ms",
+        "associatedInfos",
+        "associatedInfos",
+        "associatedInfos",
+        "banDurationFormatted",
+        "banTimeFormatted",
+        "",
+        "",
+        "tempBanDurationFormatted",
+        "projectedUnbanTime"
+      ],
+      "thisServer": [],
+      "thisGlobal": []
+    }
+  }
+}
+    
