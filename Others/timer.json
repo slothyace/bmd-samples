@@ -1,0 +1,734 @@
+    {
+  "name": "timer",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Get Member Data",
+      "file": "getMemberData.js",
+      "data": {
+        "name": "Get Member Data",
+        "user": {
+          "type": "author",
+          "value": ""
+        },
+        "dataName": "timer",
+        "defaultValue": "0",
+        "store": {
+          "type": "temporary",
+          "value": "commandAuthorTimerValue"
+        }
+      },
+      "id": 1747447109470
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "timerMode"
+        },
+        "comparator": "Equals",
+        "compareValue": "timerStart",
+        "true": {
+          "type": "anchorJump",
+          "value": "timerStart"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "timerStop"
+        },
+        "falseActions": []
+      },
+      "id": 1747447140438
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1747447164688
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "timerStart"
+      },
+      "id": 1747447170312
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "commandAuthorTimerValue"
+        },
+        "comparator": "Equals",
+        "compareValue": "0",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "alreadyRunningTimer"
+        },
+        "falseActions": []
+      },
+      "id": 1747447181391
+    },
+    {
+      "name": "Get Date Info",
+      "file": "getDateInfo.js",
+      "data": {
+        "name": "Get Date Info",
+        "date": {
+          "type": "local",
+          "value": ""
+        },
+        "get": "Timestamp",
+        "store": {
+          "type": "temporary",
+          "value": "timerStartTimestamp"
+        }
+      },
+      "id": 1747447216851
+    },
+    {
+      "name": "Control Member Data",
+      "file": "controlMemberData.js",
+      "data": {
+        "name": "Control Member Data",
+        "source": {
+          "type": "string",
+          "value": ""
+        },
+        "user": {
+          "type": "author",
+          "value": ""
+        },
+        "dataName": "timer",
+        "control": "Overwrite",
+        "controlValue": "${tempVars('timerStartTimestamp')}"
+      },
+      "id": 1747447268409
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('timerStartTimestamp')}",
+        "format": {
+          "type": "relative",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "relativeStartTimestamp"
+        },
+        "timezone": {
+          "type": "custom",
+          "value": ""
+        }
+      },
+      "id": 1747447318099
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "timer",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "You have started a timer.\n${tempVars('relativeStartTimestamp')}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ]
+      },
+      "id": 1747447284466
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1747447410879
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "timerStop"
+      },
+      "id": 1747447170312
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "commandAuthorTimerValue"
+        },
+        "comparator": "Equals",
+        "compareValue": "0",
+        "true": {
+          "type": "anchorJump",
+          "value": "noRunningTimer"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": "alreadyRunningTimer"
+        },
+        "falseActions": []
+      },
+      "id": 1747447181391
+    },
+    {
+      "name": "Get Date Info",
+      "file": "getDateInfo.js",
+      "data": {
+        "name": "Get Date Info",
+        "date": {
+          "type": "local",
+          "value": ""
+        },
+        "get": "Timestamp",
+        "store": {
+          "type": "temporary",
+          "value": "timerStopTimestamp"
+        }
+      },
+      "id": 1747447216851
+    },
+    {
+      "name": "Time Conversions",
+      "file": "timeConversions_MOD.js",
+      "data": {
+        "name": "Time Conversions",
+        "inputUnit": {
+          "type": "ms",
+          "value": ""
+        },
+        "timeInput": "${tempVars('timerStopTimestamp') - tempVars('commandAuthorTimerValue')}",
+        "outputUnit": {
+          "type": "custom",
+          "value": "HHh:MMm:SSs"
+        },
+        "convertedTime": {
+          "type": "temporary",
+          "value": "timeDifferenceFormatted"
+        }
+      },
+      "id": 1747447474878
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "timer",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "You have stopped the timer at ${tempVars('timeDifferenceFormatted')}.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ]
+      },
+      "id": 1747447284466
+    },
+    {
+      "name": "Control Member Data",
+      "file": "controlMemberData.js",
+      "data": {
+        "name": "Control Member Data",
+        "source": {
+          "type": "string",
+          "value": ""
+        },
+        "user": {
+          "type": "author",
+          "value": ""
+        },
+        "dataName": "timer",
+        "control": "Overwrite",
+        "controlValue": "0"
+      },
+      "id": 1747447268409
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1747447410879
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "alreadyRunningTimer"
+      },
+      "id": 1747447170312
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('commandAuthorTimerValue')}",
+        "format": {
+          "type": "longDateTime",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "alreadyRunningTimestamp"
+        }
+      },
+      "id": 1747447623941
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "Stop Timer",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "tempVar",
+                            "value": "buttonInteraction"
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1747447887507
+                      },
+                      {
+                        "name": "Get User Info",
+                        "file": "getUserInfo.js",
+                        "data": {
+                          "name": "Get User Info",
+                          "user": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClickerId"
+                          }
+                        },
+                        "id": 1747447830102
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClickerId"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1747447867028
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "timerStop"
+                        },
+                        "id": 1747447783895
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": ""
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "buttonInteraction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "buttonClicker"
+              }
+            }
+          }
+        ],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "timer",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "There is already a running timer started on ${tempVars('alreadyRunningTimestamp')}.\nClick on the button below to stop it.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ]
+      },
+      "id": 1747447284466
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1747447673877
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "noRunningTimer"
+      },
+      "id": 1747447170312
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "Start Timer",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "tempVar",
+                            "value": "buttonInteraction"
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1747447887507
+                      },
+                      {
+                        "name": "Get User Info",
+                        "file": "getUserInfo.js",
+                        "data": {
+                          "name": "Get User Info",
+                          "user": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClickerId"
+                          }
+                        },
+                        "id": 1747447830102
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClickerId"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1747447867028
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "timerStart"
+                        },
+                        "id": 1747447783895
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": ""
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "buttonInteraction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "buttonClicker"
+              }
+            }
+          }
+        ],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "timer",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "There is no running timer.\nClick on the button below to start one.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ]
+      },
+      "id": 1747447284466
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1747447673877
+    }
+  ],
+  "customId": 1747447052809,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [
+    {
+      "name": "mode",
+      "type": "string",
+      "description": "Timer mode",
+      "required": true,
+      "choices": [
+        {
+          "name": "Start",
+          "value": "timerStart"
+        },
+        {
+          "name": "Stop",
+          "value": "timerStop"
+        }
+      ],
+      "storeAs": "timerMode",
+      "completion": true
+    }
+  ],
+  "description": "Time it.",
+  "folder": []
+}
+    
