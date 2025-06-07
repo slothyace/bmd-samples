@@ -1,0 +1,921 @@
+    {
+  "name": "list-members",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Get Server Info",
+      "file": "getGuildInfo.js",
+      "data": {
+        "name": "Get Server Info",
+        "guild": {
+          "type": "current",
+          "value": ""
+        },
+        "get": {
+          "type": "name",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "serverName"
+        }
+      },
+      "id": 1749313910298
+    },
+    {
+      "name": "Get Server Info",
+      "file": "getGuildInfo.js",
+      "data": {
+        "name": "Get Server Info",
+        "guild": {
+          "type": "current",
+          "value": ""
+        },
+        "get": {
+          "type": "members",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "serverMembers"
+        }
+      },
+      "id": 1749313910298
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "Members Of ${tempVars('serverName')}",
+              "embedColor": "#FFFFFF",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "Loading Pages...",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "members-message",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ]
+      },
+      "id": 1749313872522
+    },
+    {
+      "name": "Create Variable",
+      "file": "createVariable.js",
+      "data": {
+        "name": "Create Variable",
+        "variable": {
+          "type": "temporary",
+          "value": "currentPage"
+        },
+        "value": "0"
+      },
+      "id": 1749313997779
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "members-perPageElements"
+        },
+        "comparator": "Equals",
+        "compareValue": "undefined",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Control Variable",
+            "file": "controlVariable.js",
+            "data": {
+              "name": "Control Variable",
+              "variable": {
+                "type": "tempVar",
+                "value": "members-perPageElements"
+              },
+              "control": "Set Value",
+              "value": "10"
+            },
+            "id": 1749315006446
+          }
+        ],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1749314990397
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "members-anchorPoint"
+      },
+      "id": 1749314054236
+    },
+    {
+      "name": "Calculate",
+      "file": "calculate.js",
+      "data": {
+        "name": "Calculate",
+        "firstNumber": "${tempVars('currentPage')}",
+        "operation": "Multiplication",
+        "secondNumber": "${tempVars('members-perPageElements')}",
+        "store": {
+          "type": "temporary",
+          "value": "page-baseNum"
+        }
+      },
+      "id": 1749314107859
+    },
+    {
+      "name": "Calculate",
+      "file": "calculate.js",
+      "data": {
+        "name": "Calculate",
+        "firstNumber": "${tempVars('page-baseNum')}",
+        "operation": "Addition",
+        "secondNumber": "1",
+        "store": {
+          "type": "temporary",
+          "value": "page-lowerNum"
+        }
+      },
+      "id": 1749314107859
+    },
+    {
+      "name": "Calculate",
+      "file": "calculate.js",
+      "data": {
+        "name": "Calculate",
+        "firstNumber": "${tempVars('page-baseNum')}",
+        "operation": "Addition",
+        "secondNumber": "${tempVars('members-perPageElements')}",
+        "store": {
+          "type": "temporary",
+          "value": "page-upperNum"
+        }
+      },
+      "id": 1749314107859
+    },
+    {
+      "name": "Evaluate",
+      "file": "eval.js",
+      "data": {
+        "name": "Evaluate",
+        "transfer": true,
+        "code": "let membersList = bridge.variables[\"serverMembers\"]\nlet pageBase = parseInt(bridge.variables[\"currentPage\"])\nlet elementsPerPage = parseInt(bridge.variables[\"members-perPageElements\"]) || 10\nlet pageLower = pageBase * elementsPerPage\nlet pageUpper = (pageBase * elementsPerPage) + elementsPerPage\n\nmembersList.slice(pageLower, pageUpper)",
+        "result": {
+          "type": "temporary",
+          "value": "slicedMembersList"
+        },
+        "type": {
+          "type": "temporary",
+          "value": ""
+        }
+      },
+      "id": 1749314345780
+    },
+    {
+      "name": "Create List",
+      "file": "createList.js",
+      "data": {
+        "name": "Create List",
+        "list": {
+          "type": "temporary",
+          "value": "formattedMembers"
+        }
+      },
+      "id": 1749314616943
+    },
+    {
+      "name": "Loop Through List",
+      "file": "loopThroughList.js",
+      "data": {
+        "name": "Loop Through List",
+        "await": true,
+        "list": {
+          "type": "tempVar",
+          "value": "slicedMembersList"
+        },
+        "storeIterationAs": {
+          "type": "temporary",
+          "value": "iterIndex"
+        },
+        "storeValueAs": {
+          "type": "temporary",
+          "value": "iterValue"
+        },
+        "actions": [
+          {
+            "name": "Calculate",
+            "file": "calculate.js",
+            "data": {
+              "name": "Calculate",
+              "firstNumber": "${tempVars('page-lowerNum')}",
+              "operation": "Addition",
+              "secondNumber": "${tempVars('iterIndex')}",
+              "store": {
+                "type": "temporary",
+                "value": "memberIndex"
+              }
+            },
+            "id": 1749314571678
+          },
+          {
+            "name": "Get Member Info",
+            "file": "getMemberInfo.js",
+            "data": {
+              "name": "Get Member Info",
+              "member": {
+                "type": "tempVar",
+                "value": "iterValue"
+              },
+              "get": {
+                "type": "id",
+                "value": ""
+              },
+              "store": {
+                "type": "temporary",
+                "value": "iterMemberId"
+              }
+            },
+            "id": 1749314632751
+          },
+          {
+            "name": "Create List Element",
+            "file": "createListElement.js",
+            "data": {
+              "name": "Create List Element",
+              "list": {
+                "type": "tempVar",
+                "value": "formattedMembers"
+              },
+              "value": {
+                "type": "string",
+                "value": "${tempVars('memberIndex')}) <@${tempVars('iterMemberId')}>"
+              }
+            },
+            "id": 1749314657947
+          }
+        ]
+      },
+      "id": 1749314538902
+    },
+    {
+      "name": "Convert List To Text",
+      "file": "convertListToText.js",
+      "data": {
+        "name": "Convert List To Text",
+        "list": {
+          "type": "tempVar",
+          "value": "formattedMembers"
+        },
+        "separator": "\\n",
+        "store": {
+          "type": "temporary",
+          "value": "textifiedMembers"
+        }
+      },
+      "id": 1749314693648
+    },
+    {
+      "name": "Limit Number",
+      "file": "limitNumber.js",
+      "data": {
+        "name": "Limit Number",
+        "number": "${tempVars('page-upperNum')}",
+        "min": "0",
+        "max": "${tempVars('serverMembers').length}",
+        "store": {
+          "type": "temporary",
+          "value": "page-upperCap"
+        }
+      },
+      "id": 1749315083792
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "<<",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "tempVar",
+                            "value": "buttonInteraction"
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1749314791284
+                      },
+                      {
+                        "name": "Get User Info",
+                        "file": "getUserInfo.js",
+                        "data": {
+                          "name": "Get User Info",
+                          "user": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClickerId"
+                          }
+                        },
+                        "id": 1749314818576
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClickerId"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1749314845193
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "currentPage"
+                          },
+                          "control": "Set Value",
+                          "value": "0"
+                        },
+                        "id": 1749314806132
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "members-anchorPoint"
+                        },
+                        "id": 1749314861170
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "120"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": ""
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "<",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "tempVar",
+                            "value": "buttonInteraction"
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1749314985347
+                      },
+                      {
+                        "name": "Get User Info",
+                        "file": "getUserInfo.js",
+                        "data": {
+                          "name": "Get User Info",
+                          "user": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClickerId"
+                          }
+                        },
+                        "id": 1749314985348
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClickerId"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1749314985349
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "currentPage"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "0",
+                          "true": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1749314903203
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "currentPage"
+                          },
+                          "control": "Add To Value",
+                          "value": "-1"
+                        },
+                        "id": 1749314985350
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "members-anchorPoint"
+                        },
+                        "id": 1749314985351
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "120"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": ""
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": ">",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "tempVar",
+                            "value": "buttonInteraction"
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1749314985352
+                      },
+                      {
+                        "name": "Get User Info",
+                        "file": "getUserInfo.js",
+                        "data": {
+                          "name": "Get User Info",
+                          "user": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClickerId"
+                          }
+                        },
+                        "id": 1749314985353
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClickerId"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1749314985354
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "currentPage"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${Math.floor(tempVars('serverMembers').length / tempVars('members-perPageElements'))}",
+                          "true": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1749314985355
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "currentPage"
+                          },
+                          "control": "Add To Value",
+                          "value": "1"
+                        },
+                        "id": 1749314985356
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "members-anchorPoint"
+                        },
+                        "id": 1749314985357
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "120"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": ""
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": ">>",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "tempVar",
+                            "value": "buttonInteraction"
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1749315081502
+                      },
+                      {
+                        "name": "Get User Info",
+                        "file": "getUserInfo.js",
+                        "data": {
+                          "name": "Get User Info",
+                          "user": {
+                            "type": "tempVar",
+                            "value": "buttonClicker"
+                          },
+                          "get": {
+                            "type": "id",
+                            "value": ""
+                          },
+                          "store": {
+                            "type": "temporary",
+                            "value": "buttonClickerId"
+                          }
+                        },
+                        "id": 1749315081503
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "buttonClickerId"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${command.author.id}",
+                          "true": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "trueActions": [],
+                          "false": {
+                            "type": "stop",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1749315081504
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "currentPage"
+                          },
+                          "control": "Set Value",
+                          "value": "${Math.floor(tempVars('serverMembers').length / tempVars('members-perPageElements'))}"
+                        },
+                        "id": 1749315081505
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "members-anchorPoint"
+                        },
+                        "id": 1749315081506
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "120"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": ""
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "buttonInteraction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "buttonClicker"
+              }
+            }
+          }
+        ],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "Members Of ${tempVars('serverName')}",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Showing ${tempVars('page-lowerNum')} - ${tempVars('page-upperCap')} Of ${tempVars('serverMembers').length}",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "${tempVars('textifiedMembers')}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "members-message",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "members-message"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1749313872522
+    }
+  ],
+  "customId": 1749313836792,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [
+    {
+      "name": "num",
+      "type": "integer",
+      "description": "Show how many members per page?",
+      "required": false,
+      "choices": [],
+      "storeAs": "members-perPageElements",
+      "completion": false,
+      "min_value": "1",
+      "max_value": "15"
+    }
+  ],
+  "description": "Show members of the server.",
+  "folder": []
+}
+    
