@@ -854,7 +854,7 @@
         "updateEmbeds": false,
         "updateAttachments": false
       },
-      "id": 1738170445148
+      "id": 1738432427128
     },
     {
       "name": "Wait",
@@ -864,7 +864,7 @@
         "timeUnit": "Seconds",
         "time": "5"
       },
-      "id": 1738170445148
+      "id": 1738432427129
     },
     {
       "name": "Delete Message",
@@ -876,7 +876,7 @@
           "value": "msg-rebindChannel"
         }
       },
-      "id": 1738170445148
+      "id": 1738432427130
     },
     {
       "name": "Stop Actions",
@@ -884,7 +884,7 @@
       "data": {
         "name": "Stop Actions"
       },
-      "id": 1738170445148
+      "id": 1738432427131
     }
   ],
   "customId": 1738170163197,
@@ -906,4 +906,3 @@
   "description": "Rebinds command channel to the given one",
   "folder": []
 }
-    

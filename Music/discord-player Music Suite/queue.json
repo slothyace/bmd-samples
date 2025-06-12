@@ -1,4 +1,3 @@
-
 {
   "name": "queue",
   "type": "action",
@@ -1414,4 +1413,3 @@
   "description": "Shows the current queue",
   "folder": []
 }
-    

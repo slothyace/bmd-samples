@@ -1,0 +1,179 @@
+{
+  "name": "trackStart",
+  "type": "event",
+  "trigger": "event",
+  "actions": [
+    {
+      "name": "Change Server",
+      "file": "changeServer.js",
+      "data": {
+        "name": "Change Server",
+        "guild": {
+          "type": "id",
+          "value": "${tempVars('trackStart-queue').guild.id}"
+        }
+      },
+      "id": 1737721009943
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "serverVar",
+          "value": "nowPlaying-msg"
+        },
+        "comparator": "Exists",
+        "compareValue": "",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Delete Message",
+            "file": "deleteMessage.js",
+            "data": {
+              "name": "Delete Message",
+              "message": {
+                "type": "serverVar",
+                "value": "nowPlaying-msg"
+              }
+            },
+            "id": 1737839295966
+          }
+        ],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1737839271752
+    },
+    {
+      "name": "Get User Info",
+      "file": "getUserInfo.js",
+      "data": {
+        "name": "Get User Info",
+        "user": {
+          "type": "id",
+          "value": "524550742888022047"
+        },
+        "get": {
+          "type": "username",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "ace-username"
+        }
+      },
+      "id": 1737891490091
+    },
+    {
+      "name": "Get User Info",
+      "file": "getUserInfo.js",
+      "data": {
+        "name": "Get User Info",
+        "user": {
+          "type": "id",
+          "value": "524550742888022047"
+        },
+        "get": {
+          "type": "avatarURL",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "ace-pfp"
+        }
+      },
+      "id": 1737891513183
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "now playing",
+              "embedColor": "#FFFFFF",
+              "footerContent": "discord-player Music suite by: SlothyAcedia",
+              "imageURL": "",
+              "footerIconURL": "${tempVars('ace-pfp')}",
+              "thumbnailURL": "${tempVars('trackStart-track').thumbnail}",
+              "authorName": "",
+              "authorIcon": "",
+              "description": ":musical_note: Now playing:\n${tempVars('trackStart-track').author} - [${tempVars('trackStart-track').title}](${tempVars('trackStart-track').url})",
+              "fields": [
+                {
+                  "type": "field",
+                  "data": {
+                    "title": "Duration",
+                    "value": "${tempVars('trackStart-track').duration}",
+                    "inline": true
+                  }
+                },
+                {
+                  "type": "field",
+                  "data": {
+                    "title": "Requested by",
+                    "value": "<@${tempVars('trackStart-track').requestedBy.id}>",
+                    "inline": true
+                  }
+                }
+              ],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "id",
+          "value": "${serverVars('musicBinding-channel')}"
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "nowPlaying-msg",
+          "type": "server"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "poll": [],
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false,
+        "files": [],
+        "silent": true
+      },
+      "id": 1737822108093
+    }
+  ],
+  "customId": 1737720963041,
+  "eventFile": "music_track_start.js",
+  "eventData": [
+    "trackStart-queue",
+    "trackStart-track"
+  ],
+  "folder": []
+}
