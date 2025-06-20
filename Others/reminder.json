@@ -1,0 +1,258 @@
+    {
+  "name": "remind",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Time Conversions",
+      "file": "timeConversions_MOD.js",
+      "data": {
+        "name": "Time Conversions",
+        "inputUnit": {
+          "type": "custom",
+          "value": ""
+        },
+        "timeInput": "${tempVars('remind-inDuration')}",
+        "outputUnit": {
+          "type": "ms",
+          "value": ""
+        },
+        "convertedTime": {
+          "type": "temporary",
+          "value": "remind-inDurationMs"
+        }
+      },
+      "id": 1750407232849
+    },
+    {
+      "name": "Create Variable",
+      "file": "createVariable.js",
+      "data": {
+        "name": "Create Variable",
+        "variable": {
+          "type": "temporary",
+          "value": "remindAtTimestamp"
+        },
+        "value": "${Date.now() + tempVars('remind-inDurationMs')}"
+      },
+      "id": 1750408439316
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('remindAtTimestamp')}",
+        "format": {
+          "type": "shortDateTime",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "remind-discordTimestamp"
+        },
+        "timezone": {
+          "type": "custom",
+          "value": ""
+        }
+      },
+      "id": 1750407976914
+    },
+    {
+      "name": "Create Variable",
+      "file": "createVariable.js",
+      "data": {
+        "name": "Create Variable",
+        "variable": {
+          "type": "temporary",
+          "value": "associatedInfo"
+        },
+        "value": "{\n\"channel\": \"${command.channel.id}\",\n\"reminder\": \"${tempVars('remind-reminder')}\",\n\"user\": \"${command.author.id}\"\n}"
+      },
+      "id": 1750407441627
+    },
+    {
+      "name": "Object Conversions",
+      "file": "objectConversions_MOD.js",
+      "data": {
+        "name": "Object Conversions",
+        "originalObj": {
+          "type": "tempVar",
+          "value": "associatedInfo"
+        },
+        "convType": {
+          "type": "JSONparse",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "associatedInfo"
+        }
+      },
+      "id": 1750407538566
+    },
+    {
+      "name": "Create Scheduled Actions",
+      "file": "createScheduledActions.js",
+      "data": {
+        "name": "Create Scheduled Actions",
+        "time": {
+          "type": "timestamp",
+          "value": "${tempVars('remindAtTimestamp')}"
+        },
+        "customID": [],
+        "associatedInfo": {
+          "type": "tempVar",
+          "value": "associatedInfo"
+        },
+        "scheduled": [
+          {
+            "type": "scheduleActions"
+          }
+        ],
+        "storeID": {
+          "type": "temporary",
+          "value": "scheduleId"
+        },
+        "store": {
+          "type": "temporary",
+          "value": "associatedInfo"
+        },
+        "actions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "<@${tempVars('associatedInfo').user}>",
+              "actionRows": [],
+              "embeds": [
+                {
+                  "type": "embed",
+                  "data": {
+                    "title": "reminder",
+                    "embedColor": "#00ffcc",
+                    "footerContent": "",
+                    "imageURL": "",
+                    "footerIconURL": "",
+                    "thumbnailURL": "",
+                    "authorName": "",
+                    "authorIcon": "",
+                    "description": "Reminder:\n```${tempVars('associatedInfo').reminder}```",
+                    "fields": [],
+                    "url": "",
+                    "timestamp": "Current",
+                    "customTimestamp": ""
+                  }
+                }
+              ],
+              "channel": {
+                "type": "id",
+                "value": "${tempVars('associatedInfo').channel}"
+              },
+              "storeAs": {
+                "value": "",
+                "type": "temporary"
+              },
+              "replyToInteraction": true,
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "attachments": [],
+              "files": [],
+              "poll": [],
+              "silent": false,
+              "mentions": true,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "none",
+                "value": ""
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1750407606710
+          }
+        ]
+      },
+      "id": 1750407557884
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "remind",
+              "embedColor": "#00ffcc",
+              "footerContent": "",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "Alright!\nI'll remind you on:\n${tempVars('remind-discordTimestamp')}\n\nReminder:\n```${tempVars('remind-reminder')}```",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ]
+      },
+      "id": 1750407383032
+    }
+  ],
+  "customId": 1750406617693,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [
+    {
+      "name": "in",
+      "type": "string",
+      "description": "Remind you in?",
+      "required": true,
+      "choices": [],
+      "storeAs": "remind-inDuration",
+      "completion": false
+    },
+    {
+      "name": "reminder",
+      "type": "string",
+      "description": "What to remind?",
+      "required": true,
+      "choices": [],
+      "storeAs": "remind-reminder",
+      "completion": false
+    }
+  ],
+  "description": "Remind me",
+  "folder": []
+}
+    
