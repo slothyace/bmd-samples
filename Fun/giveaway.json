@@ -2144,7 +2144,7 @@
               "thumbnailURL": "",
               "authorName": "",
               "authorIcon": "",
-              "description": "The number of winners must be more than 0!",
+              "description": "Setup Error:\nThe Number Of Winners Must Be More Than **0**!",
               "fields": [],
               "url": "",
               "timestamp": "Current",
@@ -2153,10 +2153,10 @@
           }
         ],
         "channel": {
-          "type": "command",
-          "value": ""
+          "type": "commandInteraction",
+          "value": "giveaway-channel"
         },
-        "replyToInteraction": false,
+        "replyToInteraction": true,
         "storeAs": {
           "value": "",
           "type": "temporary"
@@ -2172,17 +2172,17 @@
         "silent": false,
         "mentions": false,
         "dontSend": false,
-        "ephemeral": false,
+        "ephemeral": true,
         "updateMessage": {
-          "type": "tempVar",
-          "value": "giveaway-rollWinner-giveawayMessage"
+          "type": "none",
+          "value": ""
         },
         "updateContent": false,
         "updateComponents": false,
         "updateEmbeds": false,
         "updateAttachments": false
       },
-      "id": 1754224464293
+      "id": 1754210638284
     },
     {
       "name": "Stop Actions",
