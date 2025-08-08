@@ -1269,7 +1269,7 @@
           "value": "giveaway-viewEntries-pageUpper"
         }
       },
-      "id": 1754218886546
+      "id": 1754227120089
     },
     {
       "name": "Slice List",
@@ -1863,7 +1863,7 @@
           "value": "giveaway-rollWinner-formattedWinnersList"
         }
       },
-      "id": 1754218370711
+      "id": 1754227120090
     },
     {
       "name": "Convert List To Text",
@@ -1914,7 +1914,7 @@
           "value": "giveaway-rollWinner-endTimestamp-relative"
         }
       },
-      "id": 1754210230405
+      "id": 1754227120091
     },
     {
       "name": "Timestamp Conversions",
@@ -1931,7 +1931,7 @@
           "value": "giveaway-rollWinner-endTimestamp-SDT"
         }
       },
-      "id": 1754210230405
+      "id": 1754227120092
     },
     {
       "name": "Get List Length",
@@ -1974,12 +1974,116 @@
       "id": 1754225100093
     },
     {
+      "name": "Get Date Info",
+      "file": "getDateInfo.js",
+      "data": {
+        "name": "Get Date Info",
+        "date": {
+          "type": "local",
+          "value": ""
+        },
+        "get": "Timestamp",
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-rollWinner-currentTimestamp"
+        }
+      },
+      "id": 1754670265187
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('giveaway-rollWinner-currentTimestamp')}",
+        "format": {
+          "type": "shortDateTime",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-rollWinner-formattedCurrentTimestamp"
+        }
+      },
+      "id": 1754670288536
+    },
+    {
       "name": "Send Message",
       "file": "sendmessage.js",
       "data": {
         "name": "Send Message",
         "messageContent": "",
-        "actionRows": [],
+        "actionRows": [
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "Reroll",
+                    "color": "Neutral",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "tempVar",
+                            "value": "giveaway-rolledWinners-buttonInteraction"
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1754669884642
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-rerollWinner"
+                        },
+                        "id": 1754669884643
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "persistent",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "premium_button": [],
+                    "customID": "Auto Generated",
+                    "id": ""
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "giveaway-rolledWinners-buttonInteraction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "giveaway-rolledWinners-buttonClicker"
+              }
+            }
+          }
+        ],
         "embeds": [
           {
             "type": "embed",
@@ -1992,7 +2096,7 @@
               "thumbnailURL": "",
               "authorName": "",
               "authorIcon": "",
-              "description": "${tempVars('giveaway-rollWinner-dataJson').description}\n\nEnded: ${tempVars('giveaway-rollWinner-endTimestamp-relative')} (${tempVars('giveaway-rollWinner-endTimestamp-SDT')})\n${tempVars('giveaway-rollWinner-formattedWinnersList').length > 1 ? \"Winners:\\n\"+tempVars('giveaway-rollWinner-formattedWinners') : \"Winner: \"+tempVars('giveaway-rollWinner-formattedWinners')}",
+              "description": "${tempVars('giveaway-rollWinner-dataJson').description}\n\nEnded: ${tempVars('giveaway-rollWinner-endTimestamp-relative')} (${tempVars('giveaway-rollWinner-endTimestamp-SDT')})\n${tempVars('giveaway-rollWinner-formattedWinnersList').length > 1 ? \"Winners:\\n\"+tempVars('giveaway-rollWinner-formattedWinners') : \"Winner: \"+tempVars('giveaway-rollWinner-formattedWinners')}\n-# Rolled On: ${tempVars('giveaway-rollWinner-formattedCurrentTimestamp')}",
               "fields": [],
               "url": "",
               "timestamp": "Current",
@@ -2030,7 +2134,7 @@
         "updateEmbeds": false,
         "updateAttachments": false
       },
-      "id": 1754224464293
+      "id": 1754669884641
     },
     {
       "name": "Stop Actions",
@@ -2039,6 +2143,509 @@
         "name": "Stop Actions"
       },
       "id": 1754224862057
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-rerollWinner"
+      },
+      "id": 1754669884626
+    },
+    {
+      "name": "Check Member Permission",
+      "file": "checkMemberPermissions.js",
+      "data": {
+        "name": "Check Member Permission",
+        "member": {
+          "type": "tempVar",
+          "value": "giveaway-rolledWinners-buttonClicker"
+        },
+        "permission": "Moderate Members",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "giveaway-rerollError"
+        },
+        "falseActions": []
+      },
+      "id": 1754669659641
+    },
+    {
+      "name": "Get Interaction Info",
+      "file": "getInteractionInfo.js",
+      "data": {
+        "name": "Get Interaction Info",
+        "interaction": {
+          "type": "tempVar",
+          "value": "giveaway-rolledWinners-buttonInteraction"
+        },
+        "replyToInteraction": false,
+        "get": {
+          "type": "message",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-rolledWinners-buttonMessage"
+        }
+      },
+      "id": 1754669405006
+    },
+    {
+      "name": "Get Message Info",
+      "file": "getMessageInfo.js",
+      "data": {
+        "name": "Get Message Info",
+        "message": {
+          "type": "tempVar",
+          "value": "giveaway-rolledWinners-buttonMessage"
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-rolledWinners-buttonMessageId"
+        }
+      },
+      "id": 1754669431945
+    },
+    {
+      "name": "Read JSON File",
+      "file": "readJsonFile_MOD.js",
+      "data": {
+        "name": "Read JSON File",
+        "pathToJson": "giveaways.json",
+        "pathToElement": "${tempVars('giveaway-rolledWinners-buttonMessageId')}",
+        "jsonObject": {
+          "type": "temporary",
+          "value": "giveaway-rollWinner-dataJson"
+        }
+      },
+      "id": 1754669884627
+    },
+    {
+      "name": "Access JSON Object",
+      "file": "accessObject_MOD.js",
+      "data": {
+        "name": "Access JSON Object",
+        "original": {
+          "type": "tempVar",
+          "value": "giveaway-rollWinner-dataJson"
+        },
+        "paths": [
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "entries",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-rollWinner-entries"
+              }
+            }
+          },
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "count",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-rollWinner-winnerCount"
+              }
+            }
+          }
+        ]
+      },
+      "id": 1754669884628
+    },
+    {
+      "name": "Create List",
+      "file": "createList.js",
+      "data": {
+        "name": "Create List",
+        "list": {
+          "type": "temporary",
+          "value": "giveaway-rollWinner-winningIds"
+        }
+      },
+      "id": 1754669884629
+    },
+    {
+      "name": "Repeat",
+      "file": "repeat.js",
+      "data": {
+        "name": "Repeat",
+        "await": true,
+        "repeat": "${tempVars('giveaway-rollWinner-winnerCount')}",
+        "store": {
+          "type": "temporary",
+          "value": ""
+        },
+        "actions": [
+          {
+            "name": "Get Random List Element",
+            "file": "getRandomListElement.js",
+            "data": {
+              "name": "Get Random List Element",
+              "list": {
+                "type": "tempVar",
+                "value": "giveaway-rollWinner-entries"
+              },
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-rollWinner-randomId"
+              }
+            },
+            "id": 1754669884631
+          },
+          {
+            "name": "Create List Element",
+            "file": "createListElement.js",
+            "data": {
+              "name": "Create List Element",
+              "list": {
+                "type": "tempVar",
+                "value": "giveaway-rollWinner-winningIds"
+              },
+              "value": {
+                "type": "tempVar",
+                "value": "giveaway-rollWinner-randomId"
+              }
+            },
+            "id": 1754669884632
+          }
+        ]
+      },
+      "id": 1754669884630
+    },
+    {
+      "name": "Map List",
+      "file": "mapList.js",
+      "data": {
+        "name": "Map List",
+        "list": {
+          "type": "tempVar",
+          "value": "giveaway-rollWinner-winningIds"
+        },
+        "storeIterationAs": {
+          "type": "temporary",
+          "value": ""
+        },
+        "storeValueAs": {
+          "type": "temporary",
+          "value": "giveaway-rollWinner-iterValue"
+        },
+        "actions": [
+          {
+            "name": "Create Variable",
+            "file": "createVariable.js",
+            "data": {
+              "name": "Create Variable",
+              "variable": {
+                "type": "temporary",
+                "value": "giveaway-rollWinner-winnerMention"
+              },
+              "value": "<@${tempVars('giveaway-rollWinner-iterValue')}>"
+            },
+            "id": 1754669884634
+          }
+        ],
+        "mapValue": {
+          "type": "tempVar",
+          "value": "giveaway-rollWinner-winnerMention"
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-rollWinner-formattedWinnersList"
+        }
+      },
+      "id": 1754669884633
+    },
+    {
+      "name": "Convert List To Text",
+      "file": "convertListToText.js",
+      "data": {
+        "name": "Convert List To Text",
+        "list": {
+          "type": "tempVar",
+          "value": "giveaway-rollWinner-formattedWinnersList"
+        },
+        "separator": "\\n",
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-rollWinner-formattedWinners"
+        }
+      },
+      "id": 1754669884635
+    },
+    {
+      "name": "Get Message",
+      "file": "getMessage.js",
+      "data": {
+        "name": "Get Message",
+        "channel": {
+          "type": "id",
+          "value": "${tempVars('giveaway-rollWinner-dataJson').channelId}"
+        },
+        "messageID": "${tempVars('giveaway-rollWinner-dataJson').messageId}",
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-rollWinner-giveawayMessage"
+        }
+      },
+      "id": 1754669884636
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('giveaway-rollWinner-dataJson').endTimestamp}",
+        "format": {
+          "type": "relative",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-rollWinner-endTimestamp-relative"
+        }
+      },
+      "id": 1754669884637
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('giveaway-rollWinner-dataJson').endTimestamp}",
+        "format": {
+          "type": "shortDateTime",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-rollWinner-endTimestamp-SDT"
+        }
+      },
+      "id": 1754669884638
+    },
+    {
+      "name": "Get List Length",
+      "file": "getListLength.js",
+      "data": {
+        "name": "Get List Length",
+        "list": {
+          "type": "tempVar",
+          "value": "giveaway-rollWinner-entries"
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-rollWinner-entryLength"
+        }
+      },
+      "id": 1754669884639
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "giveaway-rollWinner-entryLength"
+        },
+        "comparator": "Equals",
+        "compareValue": "0",
+        "true": {
+          "type": "anchorJump",
+          "value": "giveaway-rollWinner-noEntries"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1754669884640
+    },
+    {
+      "name": "Get Date Info",
+      "file": "getDateInfo.js",
+      "data": {
+        "name": "Get Date Info",
+        "date": {
+          "type": "local",
+          "value": ""
+        },
+        "get": "Timestamp",
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-rollWinner-currentTimestamp"
+        }
+      },
+      "id": 1754670265187
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('giveaway-rollWinner-currentTimestamp')}",
+        "format": {
+          "type": "shortDateTime",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-rollWinner-formattedCurrentTimestamp"
+        }
+      },
+      "id": 1754670288536
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "Reroll",
+                    "color": "Neutral",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "tempVar",
+                            "value": "giveaway-rolledWinners-buttonInteraction"
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1754669884642
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-rerollWinner"
+                        },
+                        "id": 1754669884643
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "persistent",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "premium_button": [],
+                    "customID": "Auto Generated",
+                    "id": ""
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "giveaway-rolledWinners-buttonInteraction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "giveaway-rolledWinners-buttonClicker"
+              }
+            }
+          }
+        ],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "${tempVars('giveaway-rollWinner-dataJson').title}",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "${tempVars('giveaway-rollWinner-dataJson').description}\n\nEnded: ${tempVars('giveaway-rollWinner-endTimestamp-relative')} (${tempVars('giveaway-rollWinner-endTimestamp-SDT')})\n${tempVars('giveaway-rollWinner-formattedWinnersList').length > 1 ? \"Winners:\\n\"+tempVars('giveaway-rollWinner-formattedWinners') : \"Winner: \"+tempVars('giveaway-rollWinner-formattedWinners')}\n-# Rolled On: ${tempVars('giveaway-rollWinner-formattedCurrentTimestamp')}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "giveaway-rollWinner-giveawayMessage"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1754669884641
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1754669884644
     },
     {
       "name": "Create Anchor",
@@ -2106,7 +2713,7 @@
         "updateEmbeds": false,
         "updateAttachments": false
       },
-      "id": 1754224464293
+      "id": 1754227120093
     },
     {
       "name": "Stop Actions",
@@ -2123,7 +2730,7 @@
         "name": "Create Anchor",
         "id": "giveaway-setupError"
       },
-      "id": 1754225117106
+      "id": 1754227120094
     },
     {
       "name": "Send Message",
@@ -2182,7 +2789,7 @@
         "updateEmbeds": false,
         "updateAttachments": false
       },
-      "id": 1754210638284
+      "id": 1754227120095
     },
     {
       "name": "Stop Actions",
@@ -2190,7 +2797,83 @@
       "data": {
         "name": "Stop Actions"
       },
-      "id": 1754225190563
+      "id": 1754227120096
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-rerollError"
+      },
+      "id": 1754227120094
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "Giveaway",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "Reroll Error:\nInsufficient Permissions.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "commandInteraction",
+          "value": "giveaway-channel"
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1754227120095
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1754227120096
     }
   ],
   "customId": 1754209523474,
