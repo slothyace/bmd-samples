@@ -1,4 +1,4 @@
-    {
+{
   "name": "giveaway",
   "type": "action",
   "trigger": "slashCommand",
@@ -874,58 +874,29 @@
       "id": 1754216948890
     },
     {
-      "name": "Get List Element Position",
-      "file": "getListElementPosition_MOD.js",
+      "name": "Filter List",
+      "file": "filterList_MOD.js",
       "data": {
-        "name": "Get List Element Position",
+        "name": "Filter List",
         "list": {
           "type": "tempVar",
           "value": "giveawayPanel-entries"
         },
-        "elementname": "${tempVars('giveawayPanel-buttonClickerId')}",
-        "store": {
-          "type": "temporary",
-          "value": "giveaway-exitGiveaway-idPosition"
-        }
-      },
-      "id": 1754214385421
-    },
-    {
-      "name": "Check Variable",
-      "file": "checkVariable.js",
-      "data": {
-        "name": "Check Variable",
-        "variable": {
-          "type": "tempVar",
-          "value": "giveaway-exitGiveaway-idPosition"
-        },
-        "comparator": "Equals",
-        "compareValue": "-1",
-        "true": {
-          "type": "anchorJump",
-          "value": "giveaway-exitError"
-        },
-        "trueActions": [],
-        "false": {
-          "type": "continue",
+        "filterType": {
+          "type": "out",
           "value": ""
         },
-        "falseActions": []
-      },
-      "id": 1754215999043
-    },
-    {
-      "name": "Delete List Element",
-      "file": "deleteListElement.js",
-      "data": {
-        "name": "Delete List Element",
-        "list": {
-          "type": "tempVar",
-          "value": "giveawayPanel-entries"
+        "filter": {
+          "type": "equals",
+          "value": "${tempVars('giveawayPanel-buttonClickerId')}"
         },
-        "index": "${tempVars('giveaway-exitGiveaway-idPosition')}"
+        "caseSens": false,
+        "modifiedList": {
+          "type": "temporary",
+          "value": "giveawayPanel-filteredEntries"
+        }
       },
-      "id": 1754215970660
+      "id": 1756012367757
     },
     {
       "name": "Modify JSON File",
@@ -937,7 +908,7 @@
           "type": "create",
           "value": "${tempVars('giveawayPanel-buttonMessageId')}.entries"
         },
-        "content": "[\n  ${tempVars('giveawayPanel-entries')}\n]",
+        "content": "[\n  ${tempVars('giveawayPanel-filteredEntries')}\n]",
         "createIfMissing": true,
         "prettyPrint": true,
         "modifiedJson": {
@@ -966,7 +937,7 @@
               "thumbnailURL": "",
               "authorName": "",
               "authorIcon": "",
-              "description": "You've Exited The Giveaway Of ${tempVars('giveawayPanel-dataJson').count}x ${tempVars('giveawayPanel-dataJson').prize}.\n\nTotal Entrants: ${tempVars('giveawayPanel-entries').length}",
+              "description": "You've Exited The Giveaway Of ${tempVars('giveawayPanel-dataJson').count}x ${tempVars('giveawayPanel-dataJson').prize}.\n\nTotal Entrants: ${tempVars('giveawayPanel-filteredEntries').length}",
               "fields": [],
               "url": "",
               "timestamp": "Current",
@@ -996,7 +967,7 @@
         "dontSend": false,
         "ephemeral": true,
         "updateMessage": {
-          "type": "none",
+          "type": "tempVar",
           "value": "giveaway-alreadyEnteredMessage"
         },
         "updateContent": false,
@@ -2416,7 +2387,7 @@
         "name": "Create Anchor",
         "id": "giveaway-rerollError"
       },
-      "id": 1754227120094
+      "id": 1754718542806
     },
     {
       "name": "Send Message",
@@ -2475,7 +2446,7 @@
         "updateEmbeds": false,
         "updateAttachments": false
       },
-      "id": 1754227120095
+      "id": 1754718542807
     },
     {
       "name": "Stop Actions",
@@ -2483,7 +2454,7 @@
       "data": {
         "name": "Stop Actions"
       },
-      "id": 1754227120096
+      "id": 1754718542808
     }
   ],
   "customId": 1754209523474,
@@ -2559,4 +2530,3 @@
   "description": "Start a giveaway!",
   "folder": []
 }
-    
