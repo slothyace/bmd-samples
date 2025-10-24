@@ -3,8 +3,11 @@
 Just a collection of commands I've built for [Bot Maker for Discord](https://store.steampowered.com/app/2592170/Bot_Maker_For_Discord/) by [Rat](https://github.com/RatWasHere).<br>
 Commands are grouped by their functionality class.
 
-## Importing Commands
+## Importing Commands (VIA Command JSON)
 ![](https://github.com/slothyace/bmd-samples/blob/main/.documentation/importCmd.gif)
+
+## Importing Commands (VIA CommandExIm Automation)
+https://github.com/user-attachments/assets/d253b9fa-81eb-4928-88e9-d45fab26ac02
 
 ## Like the stuff I make? Support Me!
 <a href="https://ko-fi.com/slothyacedia"><img src="https://github.com/slothyace/slothyace/blob/main/icons/kofi.png" width=240 height=48></a>
