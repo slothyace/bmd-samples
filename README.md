@@ -7,7 +7,7 @@ Commands are grouped by their functionality class.
 ![](https://github.com/slothyace/bmd-samples/blob/main/.documentation/importCmd.gif)
 
 ## Importing Commands (VIA CommandExIm Automation)
-https://github.com/user-attachments/assets/d253b9fa-81eb-4928-88e9-d45fab26ac02
+https://github.com/user-attachments/assets/c285c5e2-16e3-41a3-bb13-922aff4bf42b
 
 ## Like the stuff I make? Support Me!
 <a href="https://ko-fi.com/slothyacedia"><img src="https://github.com/slothyace/slothyace/blob/main/icons/kofi.png" width=240 height=48></a>
