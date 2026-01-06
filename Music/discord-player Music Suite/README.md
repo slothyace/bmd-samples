@@ -1,5 +1,6 @@
 # Discord-Player Music Suite
 ~~This folder is the music suite developed in 2025, with the capability to search videos from YouTube and play their audio.~~
+
 This music suite is no longer working and has been deprecated, please check out the [lavalink music suite](https://ko-fi.com/s/213d4603f4)(paid).
 
 ## Contents
