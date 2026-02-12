@@ -877,7 +877,7 @@
           "type": "create",
           "value": "${tempVars('giveawayPanel-buttonMessage').id}.entries"
         },
-        "content": "[\n  ${tempVars('giveawayPanel-entries')}\n]",
+        "content": "[\n  ${tempVars('giveawayPanel-entries').map((entry)=>'\"' + entry + '\"')}\n]",
         "createIfMissing": true,
         "prettyPrint": true,
         "modifiedJson": {
@@ -1142,7 +1142,7 @@
           "type": "create",
           "value": "${tempVars('giveawayPanel-buttonMessage').id}.entries"
         },
-        "content": "[\n  ${tempVars('giveawayPanel-filteredEntries')}\n]",
+        "content": "[\n  ${tempVars('giveawayPanel-filteredEntries').map((entry)=>'\"' + entry + '\"')}\n]",
         "createIfMissing": true,
         "prettyPrint": true,
         "modifiedJson": {
