@@ -1,0 +1,4672 @@
+{
+  "name": "giveaway",
+  "type": "action",
+  "trigger": "slashCommand",
+  "actions": [
+    {
+      "name": "Defer Interaction",
+      "file": "deferInteraction.js",
+      "data": {
+        "name": "Defer Interaction",
+        "interaction": {
+          "type": "commandInteraction",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "ephemeral": true,
+        "silent": false
+      },
+      "id": 1771055176222
+    },
+    {
+      "name": "Check Member Permission",
+      "file": "checkMemberPermissions.js",
+      "data": {
+        "name": "Check Member Permission",
+        "member": {
+          "type": "author",
+          "value": ""
+        },
+        "permission": "Moderate Members",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "giveaway-insuffPerms"
+        },
+        "falseActions": []
+      },
+      "id": 1770988641319
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "Start >",
+                    "color": "Success",
+                    "actions": [
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-startSetup"
+                        },
+                        "id": 1770991679544
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "300"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "giveaway-interaction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "giveaway-interactionUser"
+              }
+            }
+          }
+        ],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "Giveaway",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "Click the \"Start\" button below to begin setup...",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "giveaway-coreMessage",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "giveaway-coreMessage"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1770989204258
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1770991628013
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-startSetup"
+      },
+      "id": 1770991640390
+    },
+    {
+      "name": "Show Modal",
+      "file": "showModal.js",
+      "data": {
+        "name": "Show Modal",
+        "interaction": {
+          "type": "commandInteraction",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "title": "Giveaway",
+        "modalComponents": [
+          {
+            "type": "input",
+            "data": {
+              "label": "Item",
+              "style": "Input",
+              "value": "",
+              "placeholder": "What are you giving away?",
+              "description": "",
+              "min": "",
+              "max": "",
+              "required": true,
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-item"
+              }
+            }
+          },
+          {
+            "type": "input",
+            "data": {
+              "label": "Winners",
+              "style": "Input",
+              "value": "1",
+              "placeholder": "How many winners?",
+              "description": "",
+              "min": "",
+              "max": "",
+              "required": true,
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-count"
+              }
+            }
+          },
+          {
+            "type": "input",
+            "data": {
+              "label": "Duration",
+              "style": "Input",
+              "value": "1d",
+              "placeholder": "How long do people have to join?",
+              "description": "",
+              "min": "",
+              "max": "",
+              "required": true,
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-duration"
+              }
+            }
+          },
+          {
+            "type": "channel_select_menu",
+            "data": {
+              "min": "1",
+              "max": "1",
+              "placeholder": "Which Channel To Send The Join Panel To",
+              "persistency": {
+                "type": "temporary",
+                "value": "60"
+              },
+              "label": "Channel",
+              "storage": [
+                {
+                  "type": "storage"
+                }
+              ],
+              "styling": [
+                {
+                  "type": "styling"
+                }
+              ],
+              "storeSelectionAs": {
+                "type": "temporary",
+                "value": "giveaway-channel"
+              },
+              "includeTextChannels": true,
+              "includeVoiceChannels": false,
+              "includeCategories": false,
+              "includeAnnouncementChannels": true,
+              "includeAnnouncementThreadChannels": false,
+              "includePublicThreadChannels": false,
+              "includePrivateThreadChannels": false,
+              "includeStageChannels": false,
+              "includeForumChannels": false
+            }
+          }
+        ],
+        "actions": [
+          {
+            "name": "Jump To Anchor",
+            "file": "jumpToAnchor.js",
+            "data": {
+              "name": "Jump To Anchor",
+              "id": "giveaway-additionalSetup"
+            },
+            "id": 1770989171651
+          }
+        ],
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-interaction"
+        },
+        "storeAuthorAs": {
+          "type": "temporary",
+          "value": "giveaway-interactionUser"
+        }
+      },
+      "id": 1770988806864
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1770989162200
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-additionalSetup"
+      },
+      "id": 1770989190394
+    },
+    {
+      "name": "Defer Interaction",
+      "file": "deferInteraction.js",
+      "data": {
+        "name": "Defer Interaction",
+        "interaction": {
+          "type": "tempVar",
+          "value": "giveaway-interaction"
+        },
+        "replyToInteraction": true,
+        "ephemeral": true,
+        "silent": true
+      },
+      "id": 1770989352856
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "giveaway-count"
+        },
+        "comparator": "Is Number",
+        "compareValue": "",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "runActions",
+          "value": "giveaway-setupError"
+        },
+        "falseActions": [
+          {
+            "name": "Control Variable",
+            "file": "controlVariable.js",
+            "data": {
+              "name": "Control Variable",
+              "variable": {
+                "type": "tempVar",
+                "value": "giveaway-count"
+              },
+              "control": "Set Value",
+              "value": "1"
+            },
+            "id": 1771242307473
+          }
+        ]
+      },
+      "id": 1770989338989
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "giveaway-count"
+        },
+        "comparator": "Less Than",
+        "compareValue": "1",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Control Variable",
+            "file": "controlVariable.js",
+            "data": {
+              "name": "Control Variable",
+              "variable": {
+                "type": "tempVar",
+                "value": "giveaway-count"
+              },
+              "control": "Set Value",
+              "value": "1"
+            },
+            "id": 1771250617766
+          }
+        ],
+        "false": {
+          "type": "continue",
+          "value": "giveaway-setupError"
+        },
+        "falseActions": [
+          {
+            "name": "Control Variable",
+            "file": "controlVariable.js",
+            "data": {
+              "name": "Control Variable",
+              "variable": {
+                "type": "tempVar",
+                "value": "giveaway-count"
+              },
+              "control": "Set Value",
+              "value": "1"
+            },
+            "id": 1771242307473
+          }
+        ]
+      },
+      "id": 1771250617765
+    },
+    {
+      "name": "Time Conversions",
+      "file": "timeConversions_MOD.js",
+      "data": {
+        "name": "Time Conversions",
+        "inputUnit": {
+          "type": "custom",
+          "value": ""
+        },
+        "timeInput": "${tempVars('giveaway-duration')}",
+        "outputUnit": {
+          "type": "ms",
+          "value": "{days}d {hours}h {minutes}m"
+        },
+        "convertedTime": {
+          "type": "temporary",
+          "value": "giveaway-durationMs"
+        }
+      },
+      "id": 1770989379898
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "giveaway-durationMs"
+        },
+        "comparator": "Equals",
+        "compareValue": "0",
+        "true": {
+          "type": "anchorJump",
+          "value": "giveaway-setupError"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1770991002352
+    },
+    {
+      "name": "Time Conversions",
+      "file": "timeConversions_MOD.js",
+      "data": {
+        "name": "Time Conversions",
+        "inputUnit": {
+          "type": "custom",
+          "value": ""
+        },
+        "timeInput": "${tempVars('giveaway-duration')}",
+        "outputUnit": {
+          "type": "custom",
+          "value": "{days}d {hours}h {minutes}m {seconds}s"
+        },
+        "convertedTime": {
+          "type": "temporary",
+          "value": "giveaway-durationFormatted"
+        }
+      },
+      "id": 1771044640321
+    },
+    {
+      "name": "Multiple Replacements",
+      "file": "multipleReplacements_MOD.js",
+      "data": {
+        "name": "Multiple Replacements",
+        "originalText": "${tempVars('giveaway-durationFormatted')}",
+        "replaceList": [
+          {
+            "type": "replacements",
+            "data": {
+              "findText": "00d",
+              "replaceText": ""
+            }
+          },
+          {
+            "type": "replacements",
+            "data": {
+              "findText": "00h",
+              "replaceText": ""
+            }
+          },
+          {
+            "type": "replacements",
+            "data": {
+              "findText": "00m",
+              "replaceText": ""
+            }
+          },
+          {
+            "type": "replacements",
+            "data": {
+              "findText": "00s",
+              "replaceText": ""
+            }
+          }
+        ],
+        "output": {
+          "type": "temporary",
+          "value": "giveaway-durationFormatted"
+        }
+      },
+      "id": 1770989413461
+    },
+    {
+      "name": "Get List Element",
+      "file": "getListElement.js",
+      "data": {
+        "name": "Get List Element",
+        "list": {
+          "type": "tempVar",
+          "value": "giveaway-channel"
+        },
+        "elementPosition": "First",
+        "index": "",
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-channelSelected"
+        }
+      },
+      "id": 1770989573258
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "giveaway-title"
+        },
+        "comparator": "Equals",
+        "compareValue": "",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Delete Variable",
+            "file": "deleteVariable.js",
+            "data": {
+              "name": "Delete Variable",
+              "variable": {
+                "type": "tempVar",
+                "value": "giveaway-title"
+              }
+            },
+            "id": 1770990750944
+          }
+        ],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Create Variable",
+            "file": "createVariable.js",
+            "data": {
+              "name": "Create Variable",
+              "variable": {
+                "type": "temporary",
+                "value": "giveaway-description"
+              },
+              "value": "${tempVars('giveaway-count')}x ${tempVars('giveaway-item')}"
+            },
+            "id": 1770990261909
+          }
+        ]
+      },
+      "id": 1770990245800
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "giveaway-description"
+        },
+        "comparator": "Equals",
+        "compareValue": "",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Delete Variable",
+            "file": "deleteVariable.js",
+            "data": {
+              "name": "Delete Variable",
+              "variable": {
+                "type": "tempVar",
+                "value": "giveaway-description"
+              }
+            },
+            "id": 1771044640323
+          }
+        ],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Create Variable",
+            "file": "createVariable.js",
+            "data": {
+              "name": "Create Variable",
+              "variable": {
+                "type": "temporary",
+                "value": "giveaway-description"
+              },
+              "value": "${tempVars('giveaway-count')}x ${tempVars('giveaway-item')}"
+            },
+            "id": 1770990261909
+          }
+        ]
+      },
+      "id": 1771044640322
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "giveaway-image"
+        },
+        "comparator": "Equals",
+        "compareValue": "",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Delete Variable",
+            "file": "deleteVariable.js",
+            "data": {
+              "name": "Delete Variable",
+              "variable": {
+                "type": "tempVar",
+                "value": "giveaway-image"
+              }
+            },
+            "id": 1771044640325
+          }
+        ],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Check Variable",
+            "file": "checkVariable.js",
+            "data": {
+              "name": "Check Variable",
+              "variable": {
+                "type": "tempVar",
+                "value": "giveaway-image"
+              },
+              "comparator": "Matches Regex",
+              "compareValue": "(https?:\\/\\/)?([\\da-z\\.-]+\\.[a-z\\.]{2,6}|[\\d\\.]+)([\\/:?=&#]{1}[\\da-z\\.-]+)*[\\/\\?]?",
+              "true": {
+                "type": "continue",
+                "value": ""
+              },
+              "trueActions": [],
+              "false": {
+                "type": "runActions",
+                "value": ""
+              },
+              "falseActions": [
+                {
+                  "name": "Delete Variable",
+                  "file": "deleteVariable.js",
+                  "data": {
+                    "name": "Delete Variable",
+                    "variable": {
+                      "type": "tempVar",
+                      "value": "giveaway-image"
+                    }
+                  },
+                  "id": 1770999308516
+                }
+              ]
+            },
+            "id": 1770999287923
+          }
+        ]
+      },
+      "id": 1771044640324
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "giveaway-channelSelected"
+        },
+        "comparator": "Exists",
+        "compareValue": "",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Get Channel",
+            "file": "getChannel.js",
+            "data": {
+              "name": "Get Channel",
+              "id": "${command.channel.id}",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-channelSelected"
+              }
+            },
+            "id": 1770990750944
+          }
+        ],
+        "false": {
+          "type": "runActions",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Get Channel",
+            "file": "getChannel.js",
+            "data": {
+              "name": "Get Channel",
+              "id": "${command.channel.id}",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-channelSelected"
+              }
+            },
+            "id": 1771044640327
+          }
+        ]
+      },
+      "id": 1771044640326
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "giveaway-roleRequirement"
+        },
+        "comparator": "Exists",
+        "compareValue": "",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Get Role Mentions In List",
+            "file": "getRoleMentions_MOD.js",
+            "data": {
+              "name": "Get Role Mentions In List",
+              "rolesList": {
+                "type": "tempVar",
+                "value": "giveaway-roleRequirement"
+              },
+              "style": {
+                "type": "text",
+                "value": ", "
+              },
+              "result": {
+                "type": "temporary",
+                "value": "giveaway-roleRequirementFormatted"
+              }
+            },
+            "id": 1771044640329
+          }
+        ],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Create Variable",
+            "file": "createVariable.js",
+            "data": {
+              "name": "Create Variable",
+              "variable": {
+                "type": "temporary",
+                "value": "giveaway-description"
+              },
+              "value": "${tempVars('giveaway-count')}x ${tempVars('giveaway-item')}"
+            },
+            "id": 1770990261909
+          }
+        ]
+      },
+      "id": 1771044640328
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "giveaway-sponsors"
+        },
+        "comparator": "Exists",
+        "compareValue": "",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Get User Mentions In List",
+            "file": "getMentions_MOD.js",
+            "data": {
+              "name": "Get User Mentions In List",
+              "membersList": {
+                "type": "tempVar",
+                "value": "giveaway-sponsors"
+              },
+              "style": {
+                "type": "text",
+                "value": ", "
+              },
+              "result": {
+                "type": "temporary",
+                "value": "giveaway-sponsorsFormatted"
+              }
+            },
+            "id": 1771044640331
+          }
+        ],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Create Variable",
+            "file": "createVariable.js",
+            "data": {
+              "name": "Create Variable",
+              "variable": {
+                "type": "temporary",
+                "value": "giveaway-description"
+              },
+              "value": "${tempVars('giveaway-count')}x ${tempVars('giveaway-item')}"
+            },
+            "id": 1770990261909
+          }
+        ]
+      },
+      "id": 1771044640330
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "Edit Basic",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-editBasic"
+                        },
+                        "id": 1770990542031
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "300"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "Edit Additional",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-editAdditional"
+                        },
+                        "id": 1770990583787
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "300"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "giveaway-interaction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "giveaway-interactionUser"
+              }
+            }
+          },
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "Build It >",
+                    "color": "Success",
+                    "actions": [
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-createPreview"
+                        },
+                        "id": 1770992933121
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "300"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "giveaway-interaction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "giveaway-interactionUser"
+              }
+            }
+          }
+        ],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "Giveaway",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "${tempVars('giveaway-image') ? tempVars('giveaway-image') : \"\"}",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "## Basic Settings\n**Item:** ${tempVars('giveaway-item')}\n**Winners:** ${tempVars('giveaway-count')}\n**Duration:** ${tempVars('giveaway-durationFormatted')}\n**Channel:** ${tempVars('giveaway-channelSelected')}\n\n## Additional Settings\n**Title:** ${tempVars('giveaway-title') || tempVars('giveaway-count')+\"x \"+tempVars('giveaway-item')}\n**Description:** ${tempVars('giveaway-description') || tempVars('giveaway-count')+\"x \"+tempVars('giveaway-item')}\n**Banner Link:** ${tempVars('giveaway-image') ? tempVars('giveaway-image') : \"*NIL*\"}\n**Sponsors:** ${tempVars('giveaway-sponsors')?.length > 0 ? tempVars('giveaway-sponsorsFormatted') : \"*NIL*\"}\n**Role Requirements:** ${tempVars('giveaway-roleRequirement')?.length > 0 ? tempVars('giveaway-roleRequirementFormatted') : \"*NIL*\"}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "giveaway-coreMessage",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "giveaway-coreMessage"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1771044640332
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1770989493716
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-editBasic"
+      },
+      "id": 1770991129946
+    },
+    {
+      "name": "Show Modal",
+      "file": "showModal.js",
+      "data": {
+        "name": "Show Modal",
+        "interaction": {
+          "type": "commandInteraction",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "title": "Giveaway",
+        "modalComponents": [
+          {
+            "type": "input",
+            "data": {
+              "label": "Item",
+              "style": "Input",
+              "value": "${tempVars('giveaway-item')}",
+              "placeholder": "What are you giving away?",
+              "description": "",
+              "min": "",
+              "max": "",
+              "required": true,
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-item"
+              }
+            }
+          },
+          {
+            "type": "input",
+            "data": {
+              "label": "Winners",
+              "style": "Input",
+              "value": "${tempVars('giveaway-count')}",
+              "placeholder": "How many winners?",
+              "description": "",
+              "min": "",
+              "max": "",
+              "required": true,
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-count"
+              }
+            }
+          },
+          {
+            "type": "input",
+            "data": {
+              "label": "Duration",
+              "style": "Input",
+              "value": "${tempVars('giveaway-duration')}",
+              "placeholder": "How long do people have to join?",
+              "description": "",
+              "min": "",
+              "max": "",
+              "required": true,
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-duration"
+              }
+            }
+          },
+          {
+            "type": "channel_select_menu",
+            "data": {
+              "min": "1",
+              "max": "1",
+              "placeholder": "Please Reselect",
+              "persistency": {
+                "type": "temporary",
+                "value": "60"
+              },
+              "label": "Channel",
+              "storage": [
+                {
+                  "type": "storage"
+                }
+              ],
+              "styling": [
+                {
+                  "type": "styling"
+                }
+              ],
+              "storeSelectionAs": {
+                "type": "temporary",
+                "value": "giveaway-channel"
+              },
+              "includeTextChannels": true,
+              "includeVoiceChannels": false,
+              "includeCategories": false,
+              "includeAnnouncementChannels": true,
+              "includeAnnouncementThreadChannels": false,
+              "includePublicThreadChannels": false,
+              "includePrivateThreadChannels": false,
+              "includeStageChannels": false,
+              "includeForumChannels": false
+            }
+          }
+        ],
+        "actions": [
+          {
+            "name": "Jump To Anchor",
+            "file": "jumpToAnchor.js",
+            "data": {
+              "name": "Jump To Anchor",
+              "id": "giveaway-additionalSetup"
+            },
+            "id": 1771044640334
+          }
+        ],
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-interaction"
+        },
+        "storeAuthorAs": {
+          "type": "temporary",
+          "value": "giveaway-interactionUser"
+        }
+      },
+      "id": 1771044640333
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1770991242315
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-editAdditional"
+      },
+      "id": 1771044640335
+    },
+    {
+      "name": "Show Modal",
+      "file": "showModal.js",
+      "data": {
+        "name": "Show Modal",
+        "interaction": {
+          "type": "commandInteraction",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "title": "Giveaway",
+        "modalComponents": [
+          {
+            "type": "input",
+            "data": {
+              "label": "Title",
+              "style": "Input",
+              "value": "${tempVars('giveaway-title') || \"\"}",
+              "placeholder": "",
+              "description": "Replaces The Base Giveaway Title",
+              "min": "",
+              "max": "",
+              "required": false,
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-title"
+              }
+            }
+          },
+          {
+            "type": "input",
+            "data": {
+              "label": "Description",
+              "style": "Paragraph",
+              "value": "${tempVars('giveaway-description') || \"\"}",
+              "placeholder": "",
+              "description": "Replaces The Base Giveaway Description",
+              "min": "",
+              "max": "",
+              "required": false,
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-description"
+              }
+            }
+          },
+          {
+            "type": "input",
+            "data": {
+              "label": "Banner Link",
+              "style": "Input",
+              "value": "${tempVars('giveaway-image')??\"\"}",
+              "placeholder": "Add An Image",
+              "description": "",
+              "min": "",
+              "max": "",
+              "required": false,
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-image"
+              }
+            }
+          },
+          {
+            "type": "member_select_menu",
+            "data": {
+              "min": "1",
+              "max": "25",
+              "placeholder": "If Any",
+              "persistency": {
+                "type": "temporary",
+                "value": "60"
+              },
+              "label": "Sponsor(s)",
+              "storage": [
+                {
+                  "type": "storage"
+                }
+              ],
+              "styling": [
+                {
+                  "type": "styling"
+                }
+              ],
+              "storeSelectionAs": {
+                "type": "temporary",
+                "value": "giveaway-sponsors"
+              }
+            }
+          },
+          {
+            "type": "role_select_menu",
+            "data": {
+              "min": "1",
+              "max": "25",
+              "placeholder": "Members With Any Of These Roles Can Join",
+              "persistency": {
+                "type": "temporary",
+                "value": "60"
+              },
+              "label": "Role Requirement",
+              "storage": [
+                {
+                  "type": "storage"
+                }
+              ],
+              "styling": [
+                {
+                  "type": "styling"
+                }
+              ],
+              "storeSelectionAs": {
+                "type": "temporary",
+                "value": "giveaway-roleRequirement"
+              }
+            }
+          }
+        ],
+        "actions": [
+          {
+            "name": "Jump To Anchor",
+            "file": "jumpToAnchor.js",
+            "data": {
+              "name": "Jump To Anchor",
+              "id": "giveaway-additionalSetup"
+            },
+            "id": 1771044640337
+          }
+        ],
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-interaction"
+        },
+        "storeAuthorAs": {
+          "type": "temporary",
+          "value": "giveaway-interactionUser"
+        }
+      },
+      "id": 1771044640336
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1771044640338
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-createPreview"
+      },
+      "id": 1771044640339
+    },
+    {
+      "name": "Defer Interaction",
+      "file": "deferInteraction.js",
+      "data": {
+        "name": "Defer Interaction",
+        "interaction": {
+          "type": "commandInteraction",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "ephemeral": true,
+        "silent": true
+      },
+      "id": 1770993712579
+    },
+    {
+      "name": "Create Variable",
+      "file": "createVariable.js",
+      "data": {
+        "name": "Create Variable",
+        "variable": {
+          "type": "temporary",
+          "value": "giveaway-endTime"
+        },
+        "value": "${Date.now() + tempVars('giveaway-durationMs')}"
+      },
+      "id": 1770993036662
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('giveaway-endTime')}",
+        "format": {
+          "type": "relative",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-endTimeRelative"
+        }
+      },
+      "id": 1770993074700
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('giveaway-endTime')}",
+        "format": {
+          "type": "shortDateTime",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-endTimeFullDisp"
+        }
+      },
+      "id": 1771044640340
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "< Go Back",
+                    "color": "Danger",
+                    "actions": [
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-additionalSetup"
+                        },
+                        "id": 1771044640342
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "300"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "Send It >",
+                    "color": "Success",
+                    "actions": [
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-createGiveaway"
+                        },
+                        "id": 1771044640343
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "300"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "giveaway-interaction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "giveaway-interactionUser"
+              }
+            }
+          }
+        ],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "${tempVars('giveaway-title') || tempVars('giveaway-count')+\"x \"+tempVars('giveaway-item')}",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "${tempVars('giveaway-image') ? tempVars('giveaway-image') : \"\"}",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "${tempVars('giveaway-description') || tempVars('giveaway-count')+\"x \"+tempVars('giveaway-item')}\n\n**Hosted By:** <@${command.author.id}>${tempVars('giveaway-sponsors')?.length > 0 ? \"\\n**Sponsors:** \" + tempVars('giveaway-sponsorsFormatted') : \"\"}\n**Ends:** ${tempVars('giveaway-endTimeRelative')} (${tempVars('giveaway-endTimeFullDisp')}) ${tempVars('giveaway-roleRequirement')?.length > 0 ? \"\\n\\n**Role Requirements:** \"+ tempVars('giveaway-roleRequirementFormatted') : \"\"}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "giveaway-coreMessage",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "giveaway-coreMessage"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1771044640341
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1771000143606
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-createGiveaway"
+      },
+      "id": 1771063905955
+    },
+    {
+      "name": "Create Variable",
+      "file": "createVariable.js",
+      "data": {
+        "name": "Create Variable",
+        "variable": {
+          "type": "temporary",
+          "value": "giveaway-endTime"
+        },
+        "value": "${Date.now() + tempVars('giveaway-durationMs')}"
+      },
+      "id": 1771063905956
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('giveaway-endTime')}",
+        "format": {
+          "type": "relative",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-endTimeRelative"
+        }
+      },
+      "id": 1771063905957
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('giveaway-endTime')}",
+        "format": {
+          "type": "shortDateTime",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-endTimeFullDisp"
+        }
+      },
+      "id": 1771063905958
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "giveaway-title"
+        },
+        "comparator": "Exists",
+        "compareValue": "",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "runActions",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Create Variable",
+            "file": "createVariable.js",
+            "data": {
+              "name": "Create Variable",
+              "variable": {
+                "type": "temporary",
+                "value": "giveaway-title"
+              },
+              "value": "${tempVars('giveaway-count')+\"x \"+tempVars('giveaway-item')}"
+            },
+            "id": 1771045652339
+          }
+        ]
+      },
+      "id": 1771045639886
+    },
+    {
+      "name": "Check Variable",
+      "file": "checkVariable.js",
+      "data": {
+        "name": "Check Variable",
+        "variable": {
+          "type": "tempVar",
+          "value": "giveaway-description"
+        },
+        "comparator": "Exists",
+        "compareValue": "",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "runActions",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Create Variable",
+            "file": "createVariable.js",
+            "data": {
+              "name": "Create Variable",
+              "variable": {
+                "type": "temporary",
+                "value": "giveaway-description"
+              },
+              "value": "${tempVars('giveaway-count')+\"x \"+tempVars('giveaway-item')}"
+            },
+            "id": 1771063905960
+          }
+        ]
+      },
+      "id": 1771063905959
+    },
+    {
+      "name": "Map List",
+      "file": "mapList.js",
+      "data": {
+        "name": "Map List",
+        "list": {
+          "type": "tempVar",
+          "value": "giveaway-roleRequirement"
+        },
+        "storeIterationAs": {
+          "type": "temporary",
+          "value": ""
+        },
+        "storeValueAs": {
+          "type": "temporary",
+          "value": "giveaway-roleRequirementRole"
+        },
+        "actions": [
+          {
+            "name": "Get Role Info",
+            "file": "getRoleInfo.js",
+            "data": {
+              "name": "Get Role Info",
+              "role": {
+                "type": "tempVar",
+                "value": "giveaway-roleRequirementRole"
+              },
+              "get": {
+                "type": "id",
+                "value": ""
+              },
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-roleRequirementRoleId"
+              }
+            },
+            "id": 1771045842572
+          }
+        ],
+        "mapValue": {
+          "type": "tempVar",
+          "value": "giveaway-roleRequirementRoleId"
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-roleRequirementIds"
+        }
+      },
+      "id": 1771045827891
+    },
+    {
+      "name": "Map List",
+      "file": "mapList.js",
+      "data": {
+        "name": "Map List",
+        "list": {
+          "type": "tempVar",
+          "value": "giveaway-sponsors"
+        },
+        "storeIterationAs": {
+          "type": "temporary",
+          "value": ""
+        },
+        "storeValueAs": {
+          "type": "temporary",
+          "value": "giveaway-sponsorUser"
+        },
+        "actions": [
+          {
+            "name": "Get User Info",
+            "file": "getUserInfo.js",
+            "data": {
+              "name": "Get User Info",
+              "user": {
+                "type": "tempVar",
+                "value": "giveaway-sponsorUser"
+              },
+              "get": {
+                "type": "id",
+                "value": ""
+              },
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-sponsorUserId"
+              }
+            },
+            "id": 1771238668174
+          }
+        ],
+        "mapValue": {
+          "type": "tempVar",
+          "value": "giveaway-sponsorUserId"
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-sponsorIds"
+        }
+      },
+      "id": 1771238668173
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "🎁Join",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-joinGiveaway"
+                        },
+                        "id": 1771054896541
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "persistent",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "📃View Participants",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-viewParticipants"
+                        },
+                        "id": 1771055035669
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "persistent",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "giveaway-interaction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "giveaway-interactionUser"
+              }
+            }
+          }
+        ],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "${tempVars('giveaway-title') || tempVars('giveaway-count')+\"x \"+tempVars('giveaway-item')}",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "${tempVars('giveaway-image') ? tempVars('giveaway-image') : \"\"}",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "${tempVars('giveaway-description') || tempVars('giveaway-count')+\"x \"+tempVars('giveaway-item')}\n\n**Hosted By:** <@${command.author.id}>${tempVars('giveaway-sponsors')?.length > 0 ? \"\\n**Sponsors:** \" + tempVars('giveaway-sponsorsFormatted') : \"\"}\n**Ends:** ${tempVars('giveaway-endTimeRelative')} (${tempVars('giveaway-endTimeFullDisp')}) ${tempVars('giveaway-roleRequirement')?.length > 0 ? \"\\n\\n**Role Requirements (Any):** \"+ tempVars('giveaway-roleRequirementFormatted') : \"\"}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "tempVar",
+          "value": "giveaway-channelSelected"
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "giveaway-giveawayPanel",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "none",
+          "value": "giveaway-coreMessage"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1771063905961
+    },
+    {
+      "name": "Get Message Info",
+      "file": "getMessageInfo.js",
+      "data": {
+        "name": "Get Message Info",
+        "message": {
+          "type": "tempVar",
+          "value": "giveaway-giveawayPanel"
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-giveawayId"
+        }
+      },
+      "id": 1771044841057
+    },
+    {
+      "name": "Get Channel Info",
+      "file": "getChannelInfo.js",
+      "data": {
+        "name": "Get Channel Info",
+        "channel": {
+          "type": "tempVar",
+          "value": "giveaway-channelSelected"
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-channelSelectedId"
+        }
+      },
+      "id": 1771045720301
+    },
+    {
+      "name": "Get Server Info",
+      "file": "getGuildInfo.js",
+      "data": {
+        "name": "Get Server Info",
+        "guild": {
+          "type": "current",
+          "value": ""
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-serverId"
+        }
+      },
+      "id": 1771056221294
+    },
+    {
+      "name": "Modify JSON File",
+      "file": "modifyJsonFile_MOD.js",
+      "data": {
+        "name": "Modify JSON File",
+        "pathToJson": "giveawayDatas/${tempVars('giveaway-giveawayId')}.json",
+        "jsonAction": {
+          "type": "create",
+          "value": "data"
+        },
+        "content": "{\n  \"id\": \"${tempVars('giveaway-giveawayId')}\",\n  \"item\": \"${tempVars('giveaway-item')}\",\n  \"count\": \"${tempVars('giveaway-count')}\",\n  \"title\": \"${tempVars('giveaway-title')}\",\n  \"description\": \"${tempVars('giveaway-description')}\",\n  \"channel\": \"${tempVars('giveaway-channelSelectedId')}\",\n  \"server\": \"${tempVars('giveaway-serverId')}\",\n  \"image\": \"${tempVars('giveaway-image')||''}\",\n  \"host\": \"${command.author.id}\",\n  \"end\": \"${tempVars('giveaway-endTime')}\",\n  \"entries\": [],\n  \"roleRequirements\": [\n    ${tempVars('giveaway-roleRequirementIds').map((role)=>'\"'+role+'\"')}\n  ],\n  \"sponsors\": [\n    ${tempVars('giveaway-sponsorIds').map((user)=>'\"'+user+'\"')}\n  ]\n}",
+        "createIfMissing": true,
+        "prettyPrint": true,
+        "modifiedJson": {
+          "type": "temporary",
+          "value": ""
+        }
+      },
+      "id": 1771055775067
+    },
+    {
+      "name": "Create Scheduled Actions",
+      "file": "createScheduledActions.js",
+      "data": {
+        "name": "Create Scheduled Actions",
+        "time": {
+          "type": "timestamp",
+          "value": "${tempVars('giveaway-endTime')}"
+        },
+        "customID": [
+          {
+            "type": "customID",
+            "data": {
+              "customID": "${tempVars('giveaway-giveawayId')}"
+            }
+          }
+        ],
+        "associatedInfo": {
+          "type": "text",
+          "value": "${tempVars('giveaway-giveawayId')}"
+        },
+        "scheduled": [
+          {
+            "type": "scheduleActions"
+          }
+        ],
+        "storeID": {
+          "type": "temporary",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-giveawayId"
+        },
+        "actions": [
+          {
+            "name": "Jump To Anchor",
+            "file": "jumpToAnchor.js",
+            "data": {
+              "name": "Jump To Anchor",
+              "id": "giveaway-drawWinner"
+            },
+            "id": 1771045267766
+          }
+        ]
+      },
+      "id": 1771045113043
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "Giveaway created!\nID: ${tempVars('giveaway-giveawayId')}",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "${tempVars('giveaway-title') || tempVars('giveaway-count')+\"x \"+tempVars('giveaway-item')}",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "${tempVars('giveaway-image') ? tempVars('giveaway-image') : \"\"}",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "${tempVars('giveaway-description') || tempVars('giveaway-count')+\"x \"+tempVars('giveaway-item')}\n\n**Hosted By:** <@${command.author.id}>${tempVars('giveaway-sponsors')?.length > 0 ? \"\\n**Sponsors:** \" + tempVars('giveaway-sponsorsFormatted') : \"\"}\n**Ends:** ${tempVars('giveaway-endTimeRelative')} (${tempVars('giveaway-endTimeFullDisp')}) ${tempVars('giveaway-roleRequirement')?.length > 0 ? \"\\n\\n**Role Requirements (Any):** \"+ tempVars('giveaway-roleRequirementFormatted') : \"\"}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "giveaway-coreMessage",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "giveaway-coreMessage"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1771063905962
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1771045237315
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-joinGiveaway"
+      },
+      "id": 1771055651766
+    },
+    {
+      "name": "Get Interaction Info",
+      "file": "getInteractionInfo.js",
+      "data": {
+        "name": "Get Interaction Info",
+        "interaction": {
+          "type": "tempVar",
+          "value": "giveaway-interaction"
+        },
+        "replyToInteraction": false,
+        "get": {
+          "type": "message",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-interactionMessage"
+        }
+      },
+      "id": 1771055666200
+    },
+    {
+      "name": "Get Message Info",
+      "file": "getMessageInfo.js",
+      "data": {
+        "name": "Get Message Info",
+        "message": {
+          "type": "tempVar",
+          "value": "giveaway-interactionMessage"
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-giveawayId"
+        }
+      },
+      "id": 1771055694626
+    },
+    {
+      "name": "Read JSON File",
+      "file": "readJsonFile_MOD.js",
+      "data": {
+        "name": "Read JSON File",
+        "pathToJson": "giveawayDatas/${tempVars('giveaway-giveawayId')}.json",
+        "pathToElement": "",
+        "jsonObject": {
+          "type": "temporary",
+          "value": "giveaway-giveawayData"
+        }
+      },
+      "id": 1771055722926
+    },
+    {
+      "name": "Access JSON Object",
+      "file": "accessObject_MOD.js",
+      "data": {
+        "name": "Access JSON Object",
+        "original": {
+          "type": "tempVar",
+          "value": "giveaway-giveawayData"
+        },
+        "paths": [
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.entries",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-giveawayEntries"
+              }
+            }
+          },
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.roleRequirements",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-giveawayRoleRequirements"
+              }
+            }
+          }
+        ]
+      },
+      "id": 1771056540197
+    },
+    {
+      "name": "Get User Info",
+      "file": "getUserInfo.js",
+      "data": {
+        "name": "Get User Info",
+        "user": {
+          "type": "tempVar",
+          "value": "giveaway-interactionUser"
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-interactionUserId"
+        }
+      },
+      "id": 1771056645172
+    },
+    {
+      "name": "Check If List Includes",
+      "file": "checkIfListIncludes.js",
+      "data": {
+        "name": "Check If List Includes",
+        "list": {
+          "type": "tempVar",
+          "value": "giveaway-giveawayEntries"
+        },
+        "includes": "${tempVars('giveaway-interactionUserId')}",
+        "true": {
+          "type": "anchorJump",
+          "value": "giveaway-alreadyEntered"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1771056690441
+    },
+    {
+      "name": "Check If Text",
+      "file": "checkIfText_MOD.js",
+      "data": {
+        "name": "Check If Text",
+        "sourceText": "${tempVars('giveaway-giveawayRoleRequirements').length}",
+        "criteria": {
+          "type": "equals",
+          "value": ""
+        },
+        "lookup": "0",
+        "true": {
+          "type": "anchorJump",
+          "value": "giveaway-joinGiveaway-formalizeEntry"
+        },
+        "trueActions": [],
+        "false": {
+          "type": "continue",
+          "value": ""
+        },
+        "falseActions": []
+      },
+      "id": 1771056794204
+    },
+    {
+      "name": "Get Member Info",
+      "file": "getMemberInfo.js",
+      "data": {
+        "name": "Get Member Info",
+        "member": {
+          "type": "tempVar",
+          "value": "giveaway-interactionUser"
+        },
+        "get": {
+          "type": "roles",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-interactionUserRoles"
+        }
+      },
+      "id": 1771056717251
+    },
+    {
+      "name": "Map List",
+      "file": "mapList.js",
+      "data": {
+        "name": "Map List",
+        "list": {
+          "type": "tempVar",
+          "value": "giveaway-interactionUserRoles"
+        },
+        "storeIterationAs": {
+          "type": "temporary",
+          "value": ""
+        },
+        "storeValueAs": {
+          "type": "temporary",
+          "value": "giveaway-interactionUserRole"
+        },
+        "actions": [
+          {
+            "name": "Get Role Info",
+            "file": "getRoleInfo.js",
+            "data": {
+              "name": "Get Role Info",
+              "role": {
+                "type": "tempVar",
+                "value": "giveaway-interactionUserRole"
+              },
+              "get": {
+                "type": "id",
+                "value": ""
+              },
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-interactionUserRoleId"
+              }
+            },
+            "id": 1771056763689
+          }
+        ],
+        "mapValue": {
+          "type": "tempVar",
+          "value": "giveaway-interactionUserRoleId"
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-interactionUserRoleIds"
+        }
+      },
+      "id": 1771056748079
+    },
+    {
+      "name": "Cross-check List",
+      "file": "crosscheckList_MOD.js",
+      "data": {
+        "name": "Cross-check List",
+        "list1": {
+          "type": "tempVar",
+          "value": "giveaway-interactionUserRoleIds"
+        },
+        "list2": {
+          "type": "tempVar",
+          "value": "giveaway-giveawayRoleRequirements"
+        },
+        "matches": {
+          "type": "temporary",
+          "value": ""
+        },
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "giveaway-noRole"
+        },
+        "falseActions": []
+      },
+      "id": 1771057130442
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-joinGiveaway-formalizeEntry"
+      },
+      "id": 1771057246529
+    },
+    {
+      "name": "Create List Element",
+      "file": "createListElement.js",
+      "data": {
+        "name": "Create List Element",
+        "list": {
+          "type": "tempVar",
+          "value": "giveaway-giveawayEntries"
+        },
+        "value": {
+          "type": "tempVar",
+          "value": "giveaway-interactionUserId"
+        }
+      },
+      "id": 1771057279512
+    },
+    {
+      "name": "Modify JSON File",
+      "file": "modifyJsonFile_MOD.js",
+      "data": {
+        "name": "Modify JSON File",
+        "pathToJson": "giveawayDatas/${tempVars('giveaway-giveawayId')}.json",
+        "jsonAction": {
+          "type": "create",
+          "value": "data.entries"
+        },
+        "content": "[${tempVars('giveaway-giveawayEntries').map((user)=>'\"'+user+'\"')}]",
+        "createIfMissing": false,
+        "prettyPrint": true,
+        "modifiedJson": {
+          "type": "temporary",
+          "value": "giveaway-giveawayData"
+        }
+      },
+      "id": 1771057304072
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "${tempVars('giveaway-giveawayData').data.title}",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "You've entered the giveaway of ${tempVars('giveaway-giveawayData').data.count}x ${tempVars('giveaway-giveawayData').data.item}\n\n-# Good luck!",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "giveaway-entryMessage",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "giveaway-entryMessage"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1771057480459
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1771057604747
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-noRole"
+      },
+      "id": 1771057637515
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "${tempVars('giveaway-giveawayData').data.title}",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "You do not have any of the roles required to join this giveaway",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "giveaway-entryMessage",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "giveaway-entryMessage"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1771063905963
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1771063905964
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-alreadyEntered"
+      },
+      "id": 1771063905965
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "Exit",
+                    "color": "Danger",
+                    "actions": [
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-exitGiveaway"
+                        },
+                        "id": 1771058390268
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "giveaway-interaction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "giveaway-interactionUser"
+              }
+            }
+          }
+        ],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "${tempVars('giveaway-giveawayData').data.title}",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "You've already entered the giveaway of ${tempVars('giveaway-giveawayData').data.count}x ${tempVars('giveaway-giveawayData').data.item}\n\nYou can leave by clicking the \"Exit\" button",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "giveaway-entryMessage",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "giveaway-entryMessage"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1771063905966
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1771063905967
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-exitGiveaway"
+      },
+      "id": 1771063905968
+    },
+    {
+      "name": "Filter List",
+      "file": "filterList_MOD.js",
+      "data": {
+        "name": "Filter List",
+        "list": {
+          "type": "tempVar",
+          "value": "giveaway-giveawayEntries"
+        },
+        "filterType": {
+          "type": "out",
+          "value": ""
+        },
+        "filter": {
+          "type": "equals",
+          "value": "${tempVars('giveaway-interactionUserId')}"
+        },
+        "caseSens": false,
+        "modifiedList": {
+          "type": "temporary",
+          "value": "giveaway-giveawayEntries"
+        }
+      },
+      "id": 1771058407460
+    },
+    {
+      "name": "Modify JSON File",
+      "file": "modifyJsonFile_MOD.js",
+      "data": {
+        "name": "Modify JSON File",
+        "pathToJson": "giveawayDatas/${tempVars('giveaway-giveawayId')}.json",
+        "jsonAction": {
+          "type": "create",
+          "value": "data.entries"
+        },
+        "content": "[${tempVars('giveaway-giveawayEntries').map((user)=>'\"'+user+'\"')}]",
+        "createIfMissing": false,
+        "prettyPrint": true,
+        "modifiedJson": {
+          "type": "temporary",
+          "value": "giveaway-giveawayData"
+        }
+      },
+      "id": 1771063905969
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "${tempVars('giveaway-giveawayData').data.title}",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "You've exited the giveaway of ${tempVars('giveaway-giveawayData').data.count}x ${tempVars('giveaway-giveawayData').data.item}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "giveaway-entryMessage",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "giveaway-entryMessage"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1771063905970
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1771058476737
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-viewParticipants"
+      },
+      "id": 1771063942028
+    },
+    {
+      "name": "Get Interaction Info",
+      "file": "getInteractionInfo.js",
+      "data": {
+        "name": "Get Interaction Info",
+        "interaction": {
+          "type": "tempVar",
+          "value": "giveaway-interaction"
+        },
+        "replyToInteraction": false,
+        "get": {
+          "type": "message",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-interactionMessage"
+        }
+      },
+      "id": 1771065138577
+    },
+    {
+      "name": "Get Message Info",
+      "file": "getMessageInfo.js",
+      "data": {
+        "name": "Get Message Info",
+        "message": {
+          "type": "tempVar",
+          "value": "giveaway-interactionMessage"
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-giveawayId"
+        }
+      },
+      "id": 1771065138578
+    },
+    {
+      "name": "Read JSON File",
+      "file": "readJsonFile_MOD.js",
+      "data": {
+        "name": "Read JSON File",
+        "pathToJson": "giveawayDatas/${tempVars('giveaway-giveawayId')}.json",
+        "pathToElement": "",
+        "jsonObject": {
+          "type": "temporary",
+          "value": "giveaway-giveawayData"
+        }
+      },
+      "id": 1771065138579
+    },
+    {
+      "name": "Access JSON Object",
+      "file": "accessObject_MOD.js",
+      "data": {
+        "name": "Access JSON Object",
+        "original": {
+          "type": "tempVar",
+          "value": "giveaway-giveawayData"
+        },
+        "paths": [
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.entries",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-giveawayEntries"
+              }
+            }
+          },
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.roleRequirements",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-giveawayRoleRequirements"
+              }
+            }
+          }
+        ]
+      },
+      "id": 1771065138580
+    },
+    {
+      "name": "Map List",
+      "file": "mapList.js",
+      "data": {
+        "name": "Map List",
+        "list": {
+          "type": "tempVar",
+          "value": "giveaway-giveawayEntries"
+        },
+        "storeIterationAs": {
+          "type": "temporary",
+          "value": "giveaway-entryIterIndex"
+        },
+        "storeValueAs": {
+          "type": "temporary",
+          "value": "giveaway-entryIterValue"
+        },
+        "actions": [
+          {
+            "name": "Create Variable",
+            "file": "createVariable.js",
+            "data": {
+              "name": "Create Variable",
+              "variable": {
+                "type": "temporary",
+                "value": "giveaway-entryIterOutput"
+              },
+              "value": "`${String(Number(tempVars('giveaway-entryIterIndex')) + 1).padStart(2, \"0\")})` <@${tempVars('giveaway-entryIterValue')}>"
+            },
+            "id": 1771178919394
+          }
+        ],
+        "mapValue": {
+          "type": "tempVar",
+          "value": "giveaway-entryIterOutput"
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-giveawayEntriesFormatted"
+        }
+      },
+      "id": 1771178883915
+    },
+    {
+      "name": "Split List Into Chunks",
+      "file": "splitListIntoChunks_MOD.js",
+      "data": {
+        "name": "Split List Into Chunks",
+        "inputList": {
+          "type": "tempVar",
+          "value": "giveaway-giveawayEntriesFormatted"
+        },
+        "chunkSize": "10",
+        "chunks": {
+          "type": "temporary",
+          "value": "giveaway-giveawayEntriesPages"
+        }
+      },
+      "id": 1771178980285
+    },
+    {
+      "name": "Create Variable",
+      "file": "createVariable.js",
+      "data": {
+        "name": "Create Variable",
+        "variable": {
+          "type": "temporary",
+          "value": "giveaway-viewParticipants-currentPage"
+        },
+        "value": "0"
+      },
+      "id": 1771064630956
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-viewParticipants-msgAnchor"
+      },
+      "id": 1771172938586
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "<<",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1771178800849
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "giveaway-viewParticipants-currentPage"
+                          },
+                          "control": "Set Value",
+                          "value": "0"
+                        },
+                        "id": 1771172895969
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-viewParticipants-msgAnchor"
+                        },
+                        "id": 1771172914062
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "premium_button": []
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "<",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1771178840380
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "giveaway-viewParticipants-currentPage"
+                          },
+                          "control": "Add To Value",
+                          "value": "-1"
+                        },
+                        "id": 1771173123371
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "giveaway-viewParticipants-currentPage"
+                          },
+                          "comparator": "Less Than",
+                          "compareValue": "0",
+                          "true": {
+                            "type": "runActions",
+                            "value": ""
+                          },
+                          "trueActions": [
+                            {
+                              "name": "Control Variable",
+                              "file": "controlVariable.js",
+                              "data": {
+                                "name": "Control Variable",
+                                "variable": {
+                                  "type": "tempVar",
+                                  "value": "giveaway-viewParticipants-currentPage"
+                                },
+                                "control": "Set Value",
+                                "value": "0"
+                              },
+                              "id": 1771173123372
+                            }
+                          ],
+                          "false": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1771172987533
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-viewParticipants-msgAnchor"
+                        },
+                        "id": 1771173123373
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "premium_button": []
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": ">",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1771178840381
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "giveaway-viewParticipants-currentPage"
+                          },
+                          "control": "Add To Value",
+                          "value": "1"
+                        },
+                        "id": 1771173123374
+                      },
+                      {
+                        "name": "Check Variable",
+                        "file": "checkVariable.js",
+                        "data": {
+                          "name": "Check Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "giveaway-viewParticipants-currentPage"
+                          },
+                          "comparator": "Equals",
+                          "compareValue": "${tempVars('giveaway-giveawayEntriesPages').length}",
+                          "true": {
+                            "type": "runActions",
+                            "value": ""
+                          },
+                          "trueActions": [
+                            {
+                              "name": "Control Variable",
+                              "file": "controlVariable.js",
+                              "data": {
+                                "name": "Control Variable",
+                                "variable": {
+                                  "type": "tempVar",
+                                  "value": "giveaway-viewParticipants-currentPage"
+                                },
+                                "control": "Set Value",
+                                "value": "${tempVars('giveaway-giveawayEntriesPages').length - 1}"
+                              },
+                              "id": 1771173123376
+                            }
+                          ],
+                          "false": {
+                            "type": "continue",
+                            "value": ""
+                          },
+                          "falseActions": []
+                        },
+                        "id": 1771173123375
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-viewParticipants-msgAnchor"
+                        },
+                        "id": 1771173123377
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "premium_button": []
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": ">>",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Defer Interaction",
+                        "file": "deferInteraction.js",
+                        "data": {
+                          "name": "Defer Interaction",
+                          "interaction": {
+                            "type": "commandInteraction",
+                            "value": ""
+                          },
+                          "replyToInteraction": true,
+                          "ephemeral": false,
+                          "silent": true
+                        },
+                        "id": 1771178840382
+                      },
+                      {
+                        "name": "Control Variable",
+                        "file": "controlVariable.js",
+                        "data": {
+                          "name": "Control Variable",
+                          "variable": {
+                            "type": "tempVar",
+                            "value": "giveaway-viewParticipants-currentPage"
+                          },
+                          "control": "Set Value",
+                          "value": "${tempVars('giveaway-giveawayEntriesPages').length - 1}"
+                        },
+                        "id": 1771173123378
+                      },
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-viewParticipants-msgAnchor"
+                        },
+                        "id": 1771173123379
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "temporary",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "premium_button": []
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "giveaway-interaction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "giveaway-interactionUser"
+              }
+            }
+          }
+        ],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "${tempVars('giveaway-giveawayData').data.title}",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "## Participants\n${tempVars('giveaway-giveawayEntries').length == 0 ? \"Nobody has joined this giveaway yet :sob:\" : tempVars('giveaway-giveawayEntriesPages')[Number(tempVars('giveaway-viewParticipants-currentPage'))].join(\"\\n\")}\n\n-# Viewing page ${Number(tempVars('giveaway-viewParticipants-currentPage')) + 1} of ${tempVars('giveaway-giveawayEntriesPages').length || 1}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "giveaway-participantsMessage",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "giveaway-participantsMessage"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1771065138581
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1771064834874
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-drawWinner"
+      },
+      "id": 1771224238992
+    },
+    {
+      "name": "Read JSON File",
+      "file": "readJsonFile_MOD.js",
+      "data": {
+        "name": "Read JSON File",
+        "pathToJson": "giveawayDatas/${tempVars('giveaway-giveawayId')}.json",
+        "pathToElement": "",
+        "jsonObject": {
+          "type": "temporary",
+          "value": "giveaway-giveawayData"
+        }
+      },
+      "id": 1771224473611
+    },
+    {
+      "name": "Access JSON Object",
+      "file": "accessObject_MOD.js",
+      "data": {
+        "name": "Access JSON Object",
+        "original": {
+          "type": "tempVar",
+          "value": "giveaway-giveawayData"
+        },
+        "paths": [
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.entries",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-giveawayEntries"
+              }
+            }
+          },
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.count",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-count"
+              }
+            }
+          },
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.end",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-endTime"
+              }
+            }
+          },
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.sponsors",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-sponsors"
+              }
+            }
+          },
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.roleRequirements",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-giveawayRoleRequirements"
+              }
+            }
+          }
+        ]
+      },
+      "id": 1771238668175
+    },
+    {
+      "name": "Get Message",
+      "file": "getMessage.js",
+      "data": {
+        "name": "Get Message",
+        "channel": {
+          "type": "id",
+          "value": "${tempVars('giveaway-giveawayData').data.channel}"
+        },
+        "messageID": "${tempVars('giveaway-giveawayData').data.id}",
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-giveawayPanel"
+        }
+      },
+      "id": 1771237558496
+    },
+    {
+      "name": "Create List",
+      "file": "createList.js",
+      "data": {
+        "name": "Create List",
+        "list": {
+          "type": "temporary",
+          "value": "giveaway-winners"
+        }
+      },
+      "id": 1771236295262
+    },
+    {
+      "name": "Repeat",
+      "file": "repeat.js",
+      "data": {
+        "name": "Repeat",
+        "await": true,
+        "repeat": "${tempVars('giveaway-count')}",
+        "store": {
+          "type": "temporary",
+          "value": ""
+        },
+        "actions": [
+          {
+            "name": "Get List Element",
+            "file": "getListElement.js",
+            "data": {
+              "name": "Get List Element",
+              "list": {
+                "type": "tempVar",
+                "value": "giveaway-giveawayEntries"
+              },
+              "elementPosition": "Random",
+              "index": "",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-winnerId"
+              }
+            },
+            "id": 1771236353676
+          },
+          {
+            "name": "Check Variable",
+            "file": "checkVariable.js",
+            "data": {
+              "name": "Check Variable",
+              "variable": {
+                "type": "tempVar",
+                "value": "giveaway-winnerId"
+              },
+              "comparator": "Exists",
+              "compareValue": "",
+              "true": {
+                "type": "continue",
+                "value": ""
+              },
+              "trueActions": [],
+              "false": {
+                "type": "stop",
+                "value": ""
+              },
+              "falseActions": []
+            },
+            "id": 1771237163568
+          },
+          {
+            "name": "Create List Element",
+            "file": "createListElement.js",
+            "data": {
+              "name": "Create List Element",
+              "list": {
+                "type": "tempVar",
+                "value": "giveaway-winners"
+              },
+              "value": {
+                "type": "tempVar",
+                "value": "giveaway-winnerId"
+              }
+            },
+            "id": 1771236381865
+          },
+          {
+            "name": "Filter List",
+            "file": "filterList_MOD.js",
+            "data": {
+              "name": "Filter List",
+              "list": {
+                "type": "tempVar",
+                "value": "giveaway-giveawayEntries"
+              },
+              "filterType": {
+                "type": "out",
+                "value": ""
+              },
+              "filter": {
+                "type": "equals",
+                "value": "${tempVars('giveaway-winnerId')}"
+              },
+              "caseSens": false,
+              "modifiedList": {
+                "type": "temporary",
+                "value": "giveaway-giveawayEntries"
+              }
+            },
+            "id": 1771236402132
+          }
+        ]
+      },
+      "id": 1771236308644
+    },
+    {
+      "name": "Get User Mentions In List",
+      "file": "getMentions_MOD.js",
+      "data": {
+        "name": "Get User Mentions In List",
+        "membersList": {
+          "type": "tempVar",
+          "value": "giveaway-winners"
+        },
+        "style": {
+          "type": "text",
+          "value": ", "
+        },
+        "result": {
+          "type": "temporary",
+          "value": "giveaway-winnersFormatted"
+        }
+      },
+      "id": 1771238291398
+    },
+    {
+      "name": "Get User Mentions In List",
+      "file": "getMentions_MOD.js",
+      "data": {
+        "name": "Get User Mentions In List",
+        "membersList": {
+          "type": "tempVar",
+          "value": "giveaway-sponsors"
+        },
+        "style": {
+          "type": "text",
+          "value": ", "
+        },
+        "result": {
+          "type": "temporary",
+          "value": "giveaway-sponsorsFormatted"
+        }
+      },
+      "id": 1771238668176
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('giveaway-endTime')}",
+        "format": {
+          "type": "relative",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-endTimeRelative"
+        }
+      },
+      "id": 1771250617767
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('giveaway-endTime')}",
+        "format": {
+          "type": "shortDateTime",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-endTimeFullDisp"
+        }
+      },
+      "id": 1771250617768
+    },
+    {
+      "name": "Get Date Info",
+      "file": "getDateInfo.js",
+      "data": {
+        "name": "Get Date Info",
+        "date": {
+          "type": "local",
+          "value": ""
+        },
+        "get": "Timestamp",
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-drawTime"
+        }
+      },
+      "id": 1771240830887
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('giveaway-drawTime')}",
+        "format": {
+          "type": "shortDateTime",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-drawTimeFullDisp"
+        }
+      },
+      "id": 1771250617769
+    },
+    {
+      "name": "Modify JSON File",
+      "file": "modifyJsonFile_MOD.js",
+      "data": {
+        "name": "Modify JSON File",
+        "pathToJson": "giveawayDatas/${tempVars('giveaway-giveawayId')}.json",
+        "jsonAction": {
+          "type": "create",
+          "value": "data.winners"
+        },
+        "content": "[\n${tempVars('giveaway-winners').map((winner)=>'\"'+winner+'\"')}\n]",
+        "createIfMissing": true,
+        "prettyPrint": true,
+        "modifiedJson": {
+          "type": "temporary",
+          "value": ""
+        }
+      },
+      "id": 1771246144915
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "Reroll",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-redrawWinner"
+                        },
+                        "id": 1771243801369
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "persistent",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                },
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "📃View Participants",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-viewParticipants"
+                        },
+                        "id": 1771250617770
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "persistent",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "giveaway-interaction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "giveaway-interactionUser"
+              }
+            }
+          },
+          {
+            "type": "buttons",
+            "data": {
+              "buttons": [
+                {
+                  "type": "normal",
+                  "data": {
+                    "label": "📃View Details",
+                    "color": "Default",
+                    "actions": [
+                      {
+                        "name": "Jump To Anchor",
+                        "file": "jumpToAnchor.js",
+                        "data": {
+                          "name": "Jump To Anchor",
+                          "id": "giveaway-viewDetails"
+                        },
+                        "id": 1771245673223
+                      }
+                    ],
+                    "disabled": false,
+                    "emojiName": "",
+                    "emojiID": "",
+                    "isEmojiAnimated": false,
+                    "type": {
+                      "type": "persistent",
+                      "value": "60"
+                    },
+                    "styles_emoji": [
+                      {
+                        "type": "styles_emoji"
+                      }
+                    ],
+                    "usage": [
+                      {
+                        "type": "usage"
+                      }
+                    ],
+                    "customID": "Auto Generated",
+                    "id": "",
+                    "premium_button": []
+                  }
+                }
+              ],
+              "storeInteractionAs": {
+                "type": "temporary",
+                "value": "giveaway-interaction"
+              },
+              "storeInteractionAuthorAs": {
+                "type": "temporary",
+                "value": "giveaway-interactionUser"
+              }
+            }
+          }
+        ],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "${tempVars('giveaway-giveawayData').data.title}",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "${tempVars('giveaway-giveawayData').data.image}",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "${tempVars('giveaway-giveawayData').data.description}\n\n**Hosted By:** <@${tempVars('giveaway-giveawayData').data.host}>${tempVars('giveaway-sponsors')?.length > 0 ? \"\\n**Sponsors:** \" + tempVars('giveaway-sponsorsFormatted') : \"\"}\n**Ended:** ${tempVars('giveaway-endTimeRelative')} (${tempVars('giveaway-endTimeFullDisp')})\n\n**Winner${tempVars('giveaway-winners').length > 1 ? \"s\" : \"\"}:** ${tempVars('giveaway-winners').length > 0 ? tempVars('giveaway-winnersFormatted') : \"Nobody won :sob:\"}\n\n-# Winner${tempVars('giveaway-winners').length > 1 ? \"s\" : \"\"} drawn on ${tempVars('giveaway-drawTimeFullDisp')}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "id",
+          "value": "${tempVars('giveaway-giveawayData').data.channel}"
+        },
+        "replyToInteraction": false,
+        "storeAs": {
+          "value": "giveaway-giveawayPanel",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": false,
+        "updateMessage": {
+          "type": "tempVar",
+          "value": "giveaway-giveawayPanel"
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1771237663154
+    },
+    {
+      "name": "Check If Text",
+      "file": "checkIfText_MOD.js",
+      "data": {
+        "name": "Check If Text",
+        "sourceText": "${tempVars('giveaway-winners').length}",
+        "criteria": {
+          "type": "equals",
+          "value": ""
+        },
+        "lookup": "0",
+        "true": {
+          "type": "runActions",
+          "value": ""
+        },
+        "trueActions": [
+          {
+            "name": "Disable/Re-Enable Component(s)",
+            "file": "disableReenableComponents.js",
+            "data": {
+              "name": "Disable/Re-Enable Component(s)",
+              "message": {
+                "type": "tempVar",
+                "value": "giveaway-giveawayPanel"
+              },
+              "replyToInteraction": false,
+              "target": {
+                "type": "specific_button",
+                "value": "1"
+              },
+              "state": false,
+              "button_index": "1"
+            },
+            "id": 1771244703389
+          }
+        ],
+        "false": {
+          "type": "runActions",
+          "value": ""
+        },
+        "falseActions": [
+          {
+            "name": "Send Message",
+            "file": "sendmessage.js",
+            "data": {
+              "name": "Send Message",
+              "messageContent": "${tempVars('giveaway-winnersFormatted')}",
+              "actionRows": [],
+              "embeds": [],
+              "channel": {
+                "type": "tempVar",
+                "value": "giveaway-giveawayPanel"
+              },
+              "replyToInteraction": false,
+              "storeAs": {
+                "value": "giveaway-giveawayMentionMsg",
+                "type": "temporary"
+              },
+              "options": [
+                {
+                  "type": "options"
+                }
+              ],
+              "attachments": [],
+              "files": [],
+              "poll": [],
+              "silent": false,
+              "mentions": true,
+              "dontSend": false,
+              "ephemeral": false,
+              "updateMessage": {
+                "type": "none",
+                "value": ""
+              },
+              "updateContent": false,
+              "updateComponents": false,
+              "updateEmbeds": false,
+              "updateAttachments": false
+            },
+            "id": 1771242108210
+          },
+          {
+            "name": "Delete Message",
+            "file": "deleteMessage.js",
+            "data": {
+              "name": "Delete Message",
+              "message": {
+                "type": "tempVar",
+                "value": "giveaway-giveawayMentionMsg"
+              },
+              "reason": ""
+            },
+            "id": 1771242161241
+          }
+        ]
+      },
+      "id": 1771242185817
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1771243632966
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-redrawWinner"
+      },
+      "id": 1771250617771
+    },
+    {
+      "name": "Defer Interaction",
+      "file": "deferInteraction.js",
+      "data": {
+        "name": "Defer Interaction",
+        "interaction": {
+          "type": "commandInteraction",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "ephemeral": false,
+        "silent": true
+      },
+      "id": 1771245262342
+    },
+    {
+      "name": "Check Member Permission",
+      "file": "checkMemberPermissions.js",
+      "data": {
+        "name": "Check Member Permission",
+        "member": {
+          "type": "tempVar",
+          "value": "giveaway-interactionUser"
+        },
+        "permission": "Moderate Members",
+        "true": {
+          "type": "continue",
+          "value": ""
+        },
+        "trueActions": [],
+        "false": {
+          "type": "anchorJump",
+          "value": "giveaway-rerollError"
+        },
+        "falseActions": []
+      },
+      "id": 1771245087987
+    },
+    {
+      "name": "Get Interaction Info",
+      "file": "getInteractionInfo.js",
+      "data": {
+        "name": "Get Interaction Info",
+        "interaction": {
+          "type": "tempVar",
+          "value": "giveaway-interaction"
+        },
+        "replyToInteraction": false,
+        "get": {
+          "type": "message",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-interactionMessage"
+        }
+      },
+      "id": 1771250617772
+    },
+    {
+      "name": "Get Message Info",
+      "file": "getMessageInfo.js",
+      "data": {
+        "name": "Get Message Info",
+        "message": {
+          "type": "tempVar",
+          "value": "giveaway-interactionMessage"
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-giveawayId"
+        }
+      },
+      "id": 1771250617773
+    },
+    {
+      "name": "Jump To Anchor",
+      "file": "jumpToAnchor.js",
+      "data": {
+        "name": "Jump To Anchor",
+        "id": "giveaway-drawWinner"
+      },
+      "id": 1771244784960
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1771244795886
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-viewDetails"
+      },
+      "id": 1771250617774
+    },
+    {
+      "name": "Defer Interaction",
+      "file": "deferInteraction.js",
+      "data": {
+        "name": "Defer Interaction",
+        "interaction": {
+          "type": "commandInteraction",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "ephemeral": false,
+        "silent": true
+      },
+      "id": 1771250617775
+    },
+    {
+      "name": "Get Interaction Info",
+      "file": "getInteractionInfo.js",
+      "data": {
+        "name": "Get Interaction Info",
+        "interaction": {
+          "type": "tempVar",
+          "value": "giveaway-interaction"
+        },
+        "replyToInteraction": false,
+        "get": {
+          "type": "message",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-interactionMessage"
+        }
+      },
+      "id": 1771250617776
+    },
+    {
+      "name": "Get Message Info",
+      "file": "getMessageInfo.js",
+      "data": {
+        "name": "Get Message Info",
+        "message": {
+          "type": "tempVar",
+          "value": "giveaway-interactionMessage"
+        },
+        "get": {
+          "type": "id",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-giveawayId"
+        }
+      },
+      "id": 1771250617777
+    },
+    {
+      "name": "Read JSON File",
+      "file": "readJsonFile_MOD.js",
+      "data": {
+        "name": "Read JSON File",
+        "pathToJson": "giveawayDatas/${tempVars('giveaway-giveawayId')}.json",
+        "pathToElement": "",
+        "jsonObject": {
+          "type": "temporary",
+          "value": "giveaway-giveawayData"
+        }
+      },
+      "id": 1771250617778
+    },
+    {
+      "name": "Access JSON Object",
+      "file": "accessObject_MOD.js",
+      "data": {
+        "name": "Access JSON Object",
+        "original": {
+          "type": "tempVar",
+          "value": "giveaway-giveawayData"
+        },
+        "paths": [
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.entries",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-giveawayEntries"
+              }
+            }
+          },
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.count",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-count"
+              }
+            }
+          },
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.end",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-endTime"
+              }
+            }
+          },
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.sponsors",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-sponsors"
+              }
+            }
+          },
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.roleRequirements",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-giveawayRoleRequirements"
+              }
+            }
+          },
+          {
+            "type": "paths",
+            "data": {
+              "elementPath": "data.winners",
+              "store": {
+                "type": "temporary",
+                "value": "giveaway-winners"
+              }
+            }
+          }
+        ]
+      },
+      "id": 1771250617779
+    },
+    {
+      "name": "Get Role Mentions In List",
+      "file": "getRoleMentions_MOD.js",
+      "data": {
+        "name": "Get Role Mentions In List",
+        "rolesList": {
+          "type": "tempVar",
+          "value": "giveaway-giveawayRoleRequirements"
+        },
+        "style": {
+          "type": "text",
+          "value": ", "
+        },
+        "result": {
+          "type": "temporary",
+          "value": "giveaway-viewDetails-roleRequirements"
+        }
+      },
+      "id": 1771246076709
+    },
+    {
+      "name": "Get User Mentions In List",
+      "file": "getMentions_MOD.js",
+      "data": {
+        "name": "Get User Mentions In List",
+        "membersList": {
+          "type": "tempVar",
+          "value": "giveaway-sponsors"
+        },
+        "style": {
+          "type": "text",
+          "value": ", "
+        },
+        "result": {
+          "type": "temporary",
+          "value": "giveaway-sponsorsFormatted"
+        }
+      },
+      "id": 1771246254965
+    },
+    {
+      "name": "Get User Mentions In List",
+      "file": "getMentions_MOD.js",
+      "data": {
+        "name": "Get User Mentions In List",
+        "membersList": {
+          "type": "tempVar",
+          "value": "giveaway-winners"
+        },
+        "style": {
+          "type": "text",
+          "value": ", "
+        },
+        "result": {
+          "type": "temporary",
+          "value": "giveaway-winnersFormatted"
+        }
+      },
+      "id": 1771250617780
+    },
+    {
+      "name": "Timestamp Conversions",
+      "file": "timestampConversions_MOD.js",
+      "data": {
+        "name": "Timestamp Conversions",
+        "timestamp": "${tempVars('giveaway-endTime')}",
+        "format": {
+          "type": "longDateTime",
+          "value": ""
+        },
+        "store": {
+          "type": "temporary",
+          "value": "giveaway-viewDetails-endTimeFormatted"
+        }
+      },
+      "id": 1771246315488
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "${tempVars('giveaway-giveawayData').data.title}",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "**Item:** ${tempVars('giveaway-giveawayData').data.item}\n**No. Of Items Available:** ${tempVars('giveaway-giveawayData').data.count}\n**Host:** <@${tempVars('giveaway-giveawayData').data.host}>\n\n**Role Requirement (Any):** [${tempVars('giveaway-giveawayRoleRequirements').length}] ${tempVars('giveaway-viewDetails-roleRequirements')}\n**Sponsors:** [${tempVars('giveaway-sponsors').length}] ${tempVars('giveaway-sponsorsFormatted')}\n**Winners:** [${tempVars('giveaway-winners').length}] ${tempVars('giveaway-winnersFormatted')}\n\n**Participants:** ${tempVars('giveaway-giveawayData').data.entries.length}\n**Ended:** ${tempVars('giveaway-viewDetails-endTimeFormatted')}",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "command",
+          "value": ""
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "giveaway-detailsMessage",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1771245769711
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1771246605621
+    },
+    {
+      "name": "Create Anchor",
+      "file": "createAnchor.js",
+      "data": {
+        "name": "Create Anchor",
+        "id": "giveaway-rerollError"
+      },
+      "id": 1771250617781
+    },
+    {
+      "name": "Send Message",
+      "file": "sendmessage.js",
+      "data": {
+        "name": "Send Message",
+        "messageContent": "",
+        "actionRows": [],
+        "embeds": [
+          {
+            "type": "embed",
+            "data": {
+              "title": "Giveaway",
+              "embedColor": "#FFFFFF",
+              "footerContent": "Powered By: Acedia's Toolbox",
+              "imageURL": "",
+              "footerIconURL": "",
+              "thumbnailURL": "",
+              "authorName": "",
+              "authorIcon": "",
+              "description": "Reroll Error:\nInsufficient permissions.",
+              "fields": [],
+              "url": "",
+              "timestamp": "Current",
+              "customTimestamp": ""
+            }
+          }
+        ],
+        "channel": {
+          "type": "commandInteraction",
+          "value": "giveaway-channel"
+        },
+        "replyToInteraction": true,
+        "storeAs": {
+          "value": "",
+          "type": "temporary"
+        },
+        "options": [
+          {
+            "type": "options"
+          }
+        ],
+        "attachments": [],
+        "files": [],
+        "poll": [],
+        "silent": false,
+        "mentions": false,
+        "dontSend": false,
+        "ephemeral": true,
+        "updateMessage": {
+          "type": "none",
+          "value": ""
+        },
+        "updateContent": false,
+        "updateComponents": false,
+        "updateEmbeds": false,
+        "updateAttachments": false
+      },
+      "id": 1771250617782
+    },
+    {
+      "name": "Stop Actions",
+      "file": "stopRunningActions.js",
+      "data": {
+        "name": "Stop Actions"
+      },
+      "id": 1771250617783
+    }
+  ],
+  "customId": 1770903049970,
+  "boundary": {
+    "worksIn": "guild",
+    "limits": []
+  },
+  "parameters": [],
+  "description": "Start a giveaway!",
+  "folder": []
+}
